@@ -1,0 +1,24 @@
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.2.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "semantic-kernel-console", "semantic-kernel-console\semantic-kernel-console.csproj", "{5597914D-A799-BB83-761E-D6B8C4464BED}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{5597914D-A799-BB83-761E-D6B8C4464BED}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5597914D-A799-BB83-761E-D6B8C4464BED}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5597914D-A799-BB83-761E-D6B8C4464BED}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5597914D-A799-BB83-761E-D6B8C4464BED}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {7C5A673B-37BB-4F5C-8B76-A14C18C3000C}
+	EndGlobalSection
+EndGlobal
