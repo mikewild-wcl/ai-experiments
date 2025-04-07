@@ -4,6 +4,15 @@ VisualStudioVersion = 17.5.2.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "semantic-kernel-console", "semantic-kernel-console\semantic-kernel-console.csproj", "{5597914D-A799-BB83-761E-D6B8C4464BED}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{8EC462FD-D22E-90A8-E5CE-7E832BA40C5D}"
+	ProjectSection(SolutionItems) = preProject
+		.gitignore = .gitignore
+		.github\copilot-instructions.md = .github\copilot-instructions.md
+		README.md = README.md
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "semantic-kernel-template-chat", "semantic-kernel-template-chat\semantic-kernel-template-chat.csproj", "{1EE437B8-F733-3F7F-324C-A38FA6CABCA0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -14,6 +23,10 @@ Global
 		{5597914D-A799-BB83-761E-D6B8C4464BED}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5597914D-A799-BB83-761E-D6B8C4464BED}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5597914D-A799-BB83-761E-D6B8C4464BED}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1EE437B8-F733-3F7F-324C-A38FA6CABCA0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1EE437B8-F733-3F7F-324C-A38FA6CABCA0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1EE437B8-F733-3F7F-324C-A38FA6CABCA0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1EE437B8-F733-3F7F-324C-A38FA6CABCA0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
