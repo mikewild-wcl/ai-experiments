@@ -11,7 +11,10 @@ The endpoint for Github Models is https://models.inference.ai.azure.com
 
 
 ## semantic-kernel-console
- A basic example of a semantic kernel app, based on https://learn.microsoft.com/en-us/semantic-kernel/get-started/quick-start-guide?pivots=programming-language-csharp#writing-your-first-console-app
+
+A basic example of a semantic kernel app, based on https://learn.microsoft.com/en-us/semantic-kernel/get-started/quick-start-guide?pivots=programming-language-csharp#writing-your-first-console-app
+
+The sample has been modified to use Gemini models.
 
 
 ## Links
@@ -22,5 +25,8 @@ The endpoint for Github Models is https://models.inference.ai.azure.com
 
 
 ## MCP
+
 https://nikiforovall.github.io/dotnet/2025/04/04/mcp-template-and-aspire.html
+
+https://laurentkempe.com/2025/04/05/sse-powered-mcp-server-with-csharp-and-dotnet-in-157mb-executable/
 

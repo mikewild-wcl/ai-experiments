@@ -2,15 +2,17 @@
 using System.Text.Json.Serialization;
 using Microsoft.SemanticKernel;
 
+namespace semantic_kernel_console;
+
 public class LightsPlugin
 {
     // Mock data for the lights
     private readonly List<LightModel> lights = new()
-   {
-      new LightModel { Id = 1, Name = "Table Lamp", IsOn = false },
-      new LightModel { Id = 2, Name = "Porch light", IsOn = false },
-      new LightModel { Id = 3, Name = "Chandelier", IsOn = true }
-   };
+{
+  new LightModel { Id = 1, Name = "Table Lamp", IsOn = false },
+  new LightModel { Id = 2, Name = "Porch light", IsOn = false },
+  new LightModel { Id = 3, Name = "Chandelier", IsOn = true }
+};
 
     [KernelFunction("get_lights")]
     [Description("Gets a list of lights and their current state")]

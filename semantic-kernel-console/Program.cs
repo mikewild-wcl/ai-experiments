@@ -5,12 +5,12 @@ using Microsoft.SemanticKernel;
 using Microsoft.SemanticKernel.ChatCompletion;
 using Microsoft.SemanticKernel.Connectors.Google;
 using Microsoft.SemanticKernel.Connectors.OpenAI;
+using semantic_kernel_console;
 using System.ClientModel.Primitives;
 using System.Linq;
 using System.Net;
 
 const string ApiKeyName = "GEMINI_API_KEY";
-Console.WriteLine("Hello, World!");
 
 var envVar = Environment.GetEnvironmentVariable(ApiKeyName);
 var configuration = new ConfigurationBuilder()
@@ -18,8 +18,12 @@ var configuration = new ConfigurationBuilder()
     .Build();
 
 var apiKey = configuration.GetValue<string>(ApiKeyName);
-var apiEndpoint = "";
+InvalidOperationThrowHelper.ThrowIfNullOrEmpty(apiKey, "ApiKey must be provided.");
+
 var modelId = "gemini-2.5-pro-exp-03-25";
+InvalidOperationThrowHelper.ThrowIfNullOrEmpty(modelId, "Model id must be provided.");
+
+var apiEndpoint = "";
 
 #pragma warning disable SKEXP0070 // Type is for evaluation purposes only and is subject to change or removal in future updates. Suppress this diagnostic to proceed.
 var builder = Kernel.CreateBuilder().AddGoogleAIGeminiChatCompletion(modelId, apiKey);
