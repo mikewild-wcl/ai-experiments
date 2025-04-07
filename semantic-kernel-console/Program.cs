@@ -6,9 +6,6 @@ using Microsoft.SemanticKernel.ChatCompletion;
 using Microsoft.SemanticKernel.Connectors.Google;
 using Microsoft.SemanticKernel.Connectors.OpenAI;
 using semantic_kernel_console;
-using System.ClientModel.Primitives;
-using System.Linq;
-using System.Net;
 
 const string ApiKeyName = "GEMINI_API_KEY";
 
