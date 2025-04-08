@@ -365,3 +365,7 @@ FodyWeavers.xsd
 # AppSettings Development and Azure Functions localsettings files
 **/appSettings.Development*.json
 local.settings.json
+
+# Private data files
+PrivateData/
+
