@@ -59,6 +59,11 @@ app.MapRazorComponents<App>()
 // to users or could be a source of prompt injection risk.
 await DataIngester.IngestDataAsync(
     app.Services,
-    new PDFDirectorySource(Path.Combine(builder.Environment.WebRootPath, "Data")));
+    [
+        new PDFDirectorySource(Path.Combine(builder.Environment.WebRootPath, "Data")),
+        // Add documents from private data source
+        new PDFDirectorySource(Path.Combine(builder.Environment.WebRootPath, "PrivateData"))
+    ]);
+
 
 app.Run();

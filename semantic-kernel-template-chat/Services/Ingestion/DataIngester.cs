@@ -10,11 +10,14 @@ public class DataIngester(
     IVectorStore vectorStore,
     IngestionCacheDbContext ingestionCacheDb)
 {
-    public static async Task IngestDataAsync(IServiceProvider services, IIngestionSource source)
+    public static async Task IngestDataAsync(IServiceProvider services, IEnumerable<IIngestionSource> sources)
     {
         using var scope = services.CreateScope();
         var ingester = scope.ServiceProvider.GetRequiredService<DataIngester>();
-        await ingester.IngestDataAsync(source);
+        foreach (var source in sources)
+        {
+            await ingester.IngestDataAsync(source);
+        }
     }
 
     public async Task IngestDataAsync(IIngestionSource source)
