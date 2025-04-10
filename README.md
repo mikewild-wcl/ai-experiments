@@ -48,7 +48,7 @@ dotnet new install Microsoft.Extensions.AI.Templates
 
 ### MCP
 
-https://nikiforovall.github.io/dotnet/2025/04/04/mcp-template-and-aspire.html
-
-https://laurentkempe.com/2025/04/05/sse-powered-mcp-server-with-csharp-and-dotnet-in-157mb-executable/
+- [Simplifying MCP Server Development with Aspire](https://nikiforovall.github.io/dotnet/2025/04/04/mcp-template-and-aspire.html)
+- [SSE-Powered MCP Server with C#](https://laurentkempe.com/2025/04/05/sse-powered-mcp-server-with-csharp-and-dotnet-in-157mb-executable/)
+- [Layered System - MCPs with auth](https://www.layered.dev/openai-embraces-mcp-the-protocol-era-of-ai-has-arrived)
 
