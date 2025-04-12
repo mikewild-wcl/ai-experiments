@@ -45,7 +45,7 @@ public record LightModel
     public int Id { get; set; }
 
     [JsonPropertyName("name")]
-    public string Name { get; set; }
+    public required string Name { get; set; }
 
     [JsonPropertyName("is_on")]
     public bool? IsOn { get; set; }

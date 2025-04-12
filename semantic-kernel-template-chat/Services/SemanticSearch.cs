@@ -11,15 +11,18 @@ public class SemanticSearch(
     {
         var queryEmbedding = await embeddingGenerator.GenerateEmbeddingVectorAsync(text);
         var vectorCollection = vectorStore.GetCollection<string, SemanticSearchRecord>("data-semantic-kernel-template-chat-ingested");
-        var filter = filenameFilter is { Length: > 0 }
+
+        /*
+        var oldFilter = filenameFilter is { Length: > 0 }
             ? new VectorSearchFilter().EqualTo(nameof(SemanticSearchRecord.FileName), filenameFilter)
             : null;
-
-        var nearest = await vectorCollection.VectorizedSearchAsync(queryEmbedding, new VectorSearchOptions
+        */
+        var nearest = await vectorCollection.VectorizedSearchAsync(queryEmbedding, new VectorSearchOptions<SemanticSearchRecord>
         {
             Top = maxResults,
-            Filter = filter,
+            Filter = x => string.IsNullOrEmpty(filenameFilter) || string.Equals(x.FileName, filenameFilter)
         });
+
         var results = new List<SemanticSearchRecord>();
         await foreach (var item in nearest.Results)
         {

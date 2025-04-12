@@ -4,17 +4,20 @@ using Microsoft.Extensions.VectorData;
 
 namespace semantic_kernel_template_chat.Services.Ingestion;
 
-public class DataIngestor(
-    ILogger<DataIngestor> logger,
+public class DataIngester(
+    ILogger<DataIngester> logger,
     IEmbeddingGenerator<string, Embedding<float>> embeddingGenerator,
     IVectorStore vectorStore,
     IngestionCacheDbContext ingestionCacheDb)
 {
-    public static async Task IngestDataAsync(IServiceProvider services, IIngestionSource source)
+    public static async Task IngestDataAsync(IServiceProvider services, IEnumerable<IIngestionSource> sources)
     {
         using var scope = services.CreateScope();
-        var ingestor = scope.ServiceProvider.GetRequiredService<DataIngestor>();
-        await ingestor.IngestDataAsync(source);
+        var ingester = scope.ServiceProvider.GetRequiredService<DataIngester>();
+        foreach (var source in sources)
+        {
+            await ingester.IngestDataAsync(source);
+        }
     }
 
     public async Task IngestDataAsync(IIngestionSource source)

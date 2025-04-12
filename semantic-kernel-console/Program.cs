@@ -20,8 +20,6 @@ InvalidOperationThrowHelper.ThrowIfNullOrEmpty(apiKey, "ApiKey must be provided.
 var modelId = "gemini-2.5-pro-exp-03-25";
 InvalidOperationThrowHelper.ThrowIfNullOrEmpty(modelId, "Model id must be provided.");
 
-var apiEndpoint = "";
-
 #pragma warning disable SKEXP0070 // Type is for evaluation purposes only and is subject to change or removal in future updates. Suppress this diagnostic to proceed.
 var builder = Kernel.CreateBuilder().AddGoogleAIGeminiChatCompletion(modelId, apiKey);
 #pragma warning restore SKEXP0070 // Type is for evaluation purposes only and is subject to change or removal in future updates. Suppress this diagnostic to proceed.

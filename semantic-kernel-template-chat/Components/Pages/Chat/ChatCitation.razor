@@ -17,6 +17,9 @@
     public required string File { get; set; }
 
     [Parameter]
+    public required string Directory { get; set; } = "Data";
+
+    [Parameter]
     public int? PageNumber { get; set; }
 
     [Parameter]
@@ -32,7 +35,7 @@
         if (File.EndsWith(".pdf"))
         {
             var search = Quote?.Trim('.', ',', ' ', '\n', '\r', '\t', '"', '\'');
-            viewerUrl = $"lib/pdf_viewer/viewer.html?file=/Data/{HttpUtility.UrlEncode(File)}#page={PageNumber}&search={HttpUtility.UrlEncode(search)}&phrase=true";
+            viewerUrl = $"lib/pdf_viewer/viewer.html?file=/{HttpUtility.UrlEncode(Directory)}/{HttpUtility.UrlEncode(File)}#page={PageNumber}&search={HttpUtility.UrlEncode(search)}&phrase=true";
         }
     }
 }

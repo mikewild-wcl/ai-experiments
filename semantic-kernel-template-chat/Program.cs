@@ -27,7 +27,7 @@ var embeddingGenerator = ghModelsClient.AsEmbeddingGenerator("text-embedding-3-s
 var vectorStore = new JsonVectorStore(Path.Combine(AppContext.BaseDirectory, "vector-store"));
 
 builder.Services.AddSingleton<IVectorStore>(vectorStore);
-builder.Services.AddScoped<DataIngestor>();
+builder.Services.AddScoped<DataIngester>();
 builder.Services.AddSingleton<SemanticSearch>();
 builder.Services.AddChatClient(chatClient).UseFunctionInvocation().UseLogging();
 builder.Services.AddEmbeddingGenerator(embeddingGenerator);
@@ -57,8 +57,13 @@ app.MapRazorComponents<App>()
 // other sources by implementing IIngestionSource.
 // Important: ensure that any content you ingest is trusted, as it may be reflected back
 // to users or could be a source of prompt injection risk.
-await DataIngestor.IngestDataAsync(
+await DataIngester.IngestDataAsync(
     app.Services,
-    new PDFDirectorySource(Path.Combine(builder.Environment.WebRootPath, "Data")));
+    [
+        new PDFDirectorySource(Path.Combine(builder.Environment.WebRootPath, "Data")),
+        // Add documents from private data source
+        new PDFDirectorySource(Path.Combine(builder.Environment.WebRootPath, "PrivateData"))
+    ]);
+
 
 app.Run();
