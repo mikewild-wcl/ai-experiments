@@ -1,4 +1,4 @@
-namespace semantic_kernel_console;
+namespace semantic_kernel_console_gemini;
 
 public static class ThrowHelper
 {

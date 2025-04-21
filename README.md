@@ -3,8 +3,8 @@
 ## Environment variables
 
 Tokens have been saved to environment variables:
-- Gemini `GITHUB_TOKEN`
-- GitHub Models `GEMINI_API_KEY`
+- Gemini `GEMINI_API_KEY`
+- GitHub Models `GITHUB_TOKEN`
 
 The endpoint for GitHub Models is https://models.inference.ai.azure.com
 
@@ -12,6 +12,13 @@ The endpoint for GitHub Models is https://models.inference.ai.azure.com
 ## Projects
 
 ### semantic-kernel-console
+
+A basic example of a semantic kernel app, based on https://learn.microsoft.com/en-us/semantic-kernel/get-started/quick-start-guide?pivots=programming-language-csharp#writing-your-first-console-app
+
+The sample uses GitHub Models
+
+
+### semantic-kernel-console-gemini
 
 A basic example of a semantic kernel app, based on https://learn.microsoft.com/en-us/semantic-kernel/get-started/quick-start-guide?pivots=programming-language-csharp#writing-your-first-console-app
 
