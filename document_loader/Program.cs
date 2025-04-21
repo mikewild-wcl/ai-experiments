@@ -13,6 +13,11 @@ var builder = Kernel.CreateBuilder();
 builder.Services.AddLogging(services => services.AddConsole().SetMinimumLevel(LogLevel.Trace));
 
 builder.Services.AddScoped<IDocumentProcessor, DocumentProcessor>();
+builder.Services.AddScoped<IDocumentChunkerFactory, DocumentChunkerFactory>();
+builder.Services.AddTransient<IDocumentChunker, DocxDocumentChunker>();
+builder.Services.AddTransient<IDocumentChunker, PdfDocumentChunker>();
+builder.Services.AddTransient<IDocumentChunker, WebsiteChunker>();
+//builder.Services.AddTransient<IDocumentChunker>();
 
 var processor = builder
     .Services
