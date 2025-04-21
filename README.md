@@ -11,6 +11,13 @@ The endpoint for GitHub Models is https://models.inference.ai.azure.com
 
 ## Projects
 
+### document_loader
+
+A console app for loading documents and splitting into chunks. 
+This project will take a document path and try to split them, handling
+pdf, Word docx, and web pages.
+
+
 ### semantic-kernel-console
 
 A basic example of a semantic kernel app, based on https://learn.microsoft.com/en-us/semantic-kernel/get-started/quick-start-guide?pivots=programming-language-csharp#writing-your-first-console-app
@@ -23,6 +30,7 @@ The sample uses GitHub Models
 A basic example of a semantic kernel app, based on https://learn.microsoft.com/en-us/semantic-kernel/get-started/quick-start-guide?pivots=programming-language-csharp#writing-your-first-console-app
 
 The sample has been modified to use Gemini models.
+
 
 ### semantic-kernel-template-chat
 
@@ -38,6 +46,7 @@ The project was upgraded to .NET 10.0 (preview 2). There was one breaking change
 	<PackageReference Include="System.Linq.Async" Version="6.0.1" />
 	```
 
+	- 
 ## Visual Studio templates
 
 Install the AI templates for Visual Studio 2022:

@@ -2,8 +2,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.5.2.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "semantic-kernel-console", "semantic-kernel-console\semantic-kernel-console.csproj", "{5597914D-A799-BB83-761E-D6B8C4464BED}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{8EC462FD-D22E-90A8-E5CE-7E832BA40C5D}"
 	ProjectSection(SolutionItems) = preProject
 		.gitignore = .gitignore
@@ -12,6 +10,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "semantic-kernel-template-chat", "semantic-kernel-template-chat\semantic-kernel-template-chat.csproj", "{1EE437B8-F733-3F7F-324C-A38FA6CABCA0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "document_loader", "document_loader\document_loader.csproj", "{E7079860-5A87-4DE2-8D3F-BB2E6E97053C}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "semantic-kernel-console", "semantic-kernel-console\semantic-kernel-console.csproj", "{93341FB8-C3CF-41B8-B7F5-2A95F3564F69}"
 EndProject
@@ -23,14 +23,22 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{5597914D-A799-BB83-761E-D6B8C4464BED}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{5597914D-A799-BB83-761E-D6B8C4464BED}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{5597914D-A799-BB83-761E-D6B8C4464BED}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{5597914D-A799-BB83-761E-D6B8C4464BED}.Release|Any CPU.Build.0 = Release|Any CPU
 		{1EE437B8-F733-3F7F-324C-A38FA6CABCA0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{1EE437B8-F733-3F7F-324C-A38FA6CABCA0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1EE437B8-F733-3F7F-324C-A38FA6CABCA0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1EE437B8-F733-3F7F-324C-A38FA6CABCA0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E7079860-5A87-4DE2-8D3F-BB2E6E97053C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E7079860-5A87-4DE2-8D3F-BB2E6E97053C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E7079860-5A87-4DE2-8D3F-BB2E6E97053C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E7079860-5A87-4DE2-8D3F-BB2E6E97053C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{93341FB8-C3CF-41B8-B7F5-2A95F3564F69}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{93341FB8-C3CF-41B8-B7F5-2A95F3564F69}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{93341FB8-C3CF-41B8-B7F5-2A95F3564F69}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{93341FB8-C3CF-41B8-B7F5-2A95F3564F69}.Release|Any CPU.Build.0 = Release|Any CPU
+		{104BE3EE-E3AA-843B-6A00-BCA2700111F3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{104BE3EE-E3AA-843B-6A00-BCA2700111F3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{104BE3EE-E3AA-843B-6A00-BCA2700111F3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{104BE3EE-E3AA-843B-6A00-BCA2700111F3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
