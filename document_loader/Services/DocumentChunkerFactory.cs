@@ -13,7 +13,7 @@ public class DocumentChunkerFactory(IServiceProvider serviceProvider) : IDocumen
         {
             DocumentType.Pdf => _serviceProvider.GetRequiredService<PdfDocumentChunker>(),
             DocumentType.Docx => _serviceProvider.GetRequiredService<DocxDocumentChunker>(),
-            DocumentType.Html => _serviceProvider.GetRequiredService<WebsiteChunker>(),
+            DocumentType.WebPage => _serviceProvider.GetRequiredService<WebsiteChunker>(),
             _ => throw new ArgumentException("Invalid document type", nameof(documentType))
         };
 }

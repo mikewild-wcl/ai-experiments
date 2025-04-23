@@ -4,6 +4,6 @@ public enum DocumentType
 {
     Pdf,
     Docx,
-    Html,
+    WebPage,
     Unknown
 }
