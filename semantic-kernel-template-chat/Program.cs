@@ -20,9 +20,9 @@ var openAIOptions = new OpenAIClientOptions()
     Endpoint = new Uri("https://models.inference.ai.azure.com")
 };
 
-var ghModelsClient = new OpenAIClient(credential, openAIOptions);
-var chatClient = ghModelsClient.AsChatClient("gpt-4o-mini");
-var embeddingGenerator = ghModelsClient.AsEmbeddingGenerator("text-embedding-3-small");
+var modelClient = new OpenAIClient(credential, openAIOptions);
+var chatClient = modelClient.AsChatClient("gpt-4o-mini");
+var embeddingGenerator = modelClient.AsEmbeddingGenerator("text-embedding-3-small");
 
 var vectorStore = new JsonVectorStore(Path.Combine(AppContext.BaseDirectory, "vector-store"));
 
