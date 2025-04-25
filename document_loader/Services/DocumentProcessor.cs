@@ -27,7 +27,7 @@ public class DocumentProcessor(
             yield break;
         }
 
-        if (!File.Exists(filePath))
+        if (documentType != DocumentType.WebPage && !File.Exists(filePath))
         {
             _logger.LogWarning("File was not found: {Path}", filePath);
             yield break;

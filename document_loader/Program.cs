@@ -1,6 +1,5 @@
 ﻿using document_loader.Services;
 using document_loader.Services.Interfaces;
-using DocumentFormat.OpenXml.Office2016.Drawing.ChartDrawing;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -38,7 +37,7 @@ do
     }
 
     var filePath = userInput.Replace("\"", ""); // Normalize - remove quotes
-    filePath = Path.GetFullPath(filePath);
+    //filePath = Path.GetFullPath(filePath);
 
     Console.WriteLine("Results > ");
 

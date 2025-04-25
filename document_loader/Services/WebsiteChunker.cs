@@ -1,11 +1,15 @@
 using document_loader.Services.Interfaces;
+using HtmlAgilityPack;
+using Microsoft.Extensions.Logging;
 
 namespace document_loader.Services;
 
 public class WebsiteChunker(
-    IHtmlWebProvider htmlWebProvider) : IDocumentChunker
+    IHtmlWebProvider htmlWebProvider,
+    ILogger<WebsiteChunker> logger) : IDocumentChunker
 {
-    public readonly IHtmlWebProvider _htmlWebProvider = htmlWebProvider;
+    public readonly IHtmlWebProvider _htmlWeb = htmlWebProvider;
+    public readonly ILogger<WebsiteChunker> _logger = logger;
 
     public async IAsyncEnumerable<string> StreamChunks(string filePath)
     {
@@ -14,13 +18,34 @@ public class WebsiteChunker(
             yield break;
         }
 
-        //Use a regex to extract url of there isn't a file extension and it starts http
-        //Then can use HtmlAgilityPack to get data
+        var textNodes = await GetTextNodes(filePath);
 
-        for (int i = 0; i < 10; i++)
+
+        if (textNodes is null)
         {
-            await Task.Delay(100);
-            yield return $"website line {i}";
+            yield break;
         }
+
+        foreach (var item in textNodes.Where(t => !string.IsNullOrWhiteSpace(t.InnerText)))
+        {
+            yield return $"website line {item.InnerText}";
+        }
+    }
+
+    private async Task<HtmlNodeCollection?> GetTextNodes(string uri)
+    {
+
+        try
+        {
+            var htmlDocument = await _htmlWeb.LoadFromWebAsync(uri);
+            var textNodes = htmlDocument.DocumentNode.SelectNodes("//text()");
+            return textNodes;
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Failed to access download page at {Uri}", uri);
+        }
+
+        return default;
     }
 }
