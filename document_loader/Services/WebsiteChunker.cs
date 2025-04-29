@@ -26,19 +26,32 @@ public class WebsiteChunker(
             yield break;
         }
 
-        foreach (var item in textNodes.Where(t => !string.IsNullOrWhiteSpace(t.InnerText)))
+        foreach (var item in textNodes
+            .Where(n => n.ParentNode?.Name != "script" &&
+                         n.ParentNode?.Name != "style" &&
+                         !string.IsNullOrWhiteSpace(n.InnerText)))
         {
-            yield return $"website line {item.InnerText}";
+            yield return $"website at {item.StreamPosition} - {item.InnerText}";
         }
     }
 
     private async Task<HtmlNodeCollection?> GetTextNodes(string uri)
     {
-
         try
         {
+            // https://stackoverflow.com/questions/4182594/grab-all-text-from-html-with-html-agility-pack
+
             var htmlDocument = await _htmlWeb.LoadFromWebAsync(uri);
-            var textNodes = htmlDocument.DocumentNode.SelectNodes("//text()");
+
+            var textNodes = htmlDocument
+                .DocumentNode
+                .SelectNodes("//text()");
+
+            //IEnumerable < HtmlNode> nodes = doc.DocumentNode.Descendants().Where(n =>
+            //    n.NodeType == HtmlNodeType.Text &&
+            //    n.ParentNode.Name != "script" &&
+            //    n.ParentNode.Name != "style");
+
             return textNodes;
         }
         catch (Exception ex)
