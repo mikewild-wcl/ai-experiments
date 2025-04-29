@@ -46,7 +46,13 @@ The project was upgraded to .NET 10.0 (preview 2). There was one breaking change
 	<PackageReference Include="System.Linq.Async" Version="6.0.1" />
 	```
 
-	- 
+
+### test-data
+
+A simple web site project where test files and pages can be served. 
+Add files or save html pages into the wwwroot/Data folder - they will not be checked in to source control.
+
+	 
 ## Visual Studio templates
 
 Install the AI templates for Visual Studio 2022:

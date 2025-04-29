@@ -1,0 +1,1 @@
+!function(){if("undefined"==typeof LUX)return;const e=performance.getEntriesByType("navigation")[0];if(!e)return;LUX.addData("http-protocol",e.nextHopProtocol);const n=e.serverTiming;if(n){const e=n.find((e=>["cacheHit","cacheMiss"].includes(e.name)));e&&LUX.addData("cache",e.name)}}();

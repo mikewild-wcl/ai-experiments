@@ -17,6 +17,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "semantic-kernel-console", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "semantic-kernel-console-gemini", "semantic-kernel-console-gemini\semantic-kernel-console-gemini.csproj", "{104BE3EE-E3AA-843B-6A00-BCA2700111F3}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "test-data", "test-data\test-data.csproj", "{96AA64A4-F5A2-40E4-8CBF-ABCFF3DA6625}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{104BE3EE-E3AA-843B-6A00-BCA2700111F3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{104BE3EE-E3AA-843B-6A00-BCA2700111F3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{104BE3EE-E3AA-843B-6A00-BCA2700111F3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{96AA64A4-F5A2-40E4-8CBF-ABCFF3DA6625}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{96AA64A4-F5A2-40E4-8CBF-ABCFF3DA6625}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{96AA64A4-F5A2-40E4-8CBF-ABCFF3DA6625}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{96AA64A4-F5A2-40E4-8CBF-ABCFF3DA6625}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
