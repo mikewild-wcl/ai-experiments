@@ -7,6 +7,6 @@ if (app.Environment.IsDevelopment())
 }
 app.UseStaticFiles();
 
-app.MapGet("/", () => "Test data!");
+app.MapGet("/", () => "Test data provider.");
 
 app.Run();

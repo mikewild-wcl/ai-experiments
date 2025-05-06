@@ -1,0 +1,2 @@
+# Hiding files in wwwroot so we can keep them local and private for developers.
+wwwroot/Data/**
