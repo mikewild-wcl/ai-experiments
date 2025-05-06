@@ -4,6 +4,7 @@ VisualStudioVersion = 17.5.2.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{8EC462FD-D22E-90A8-E5CE-7E832BA40C5D}"
 	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
 		.gitignore = .gitignore
 		.github\copilot-instructions.md = .github\copilot-instructions.md
 		README.md = README.md
@@ -18,6 +19,10 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "semantic-kernel-console-gemini", "semantic-kernel-console-gemini\semantic-kernel-console-gemini.csproj", "{104BE3EE-E3AA-843B-6A00-BCA2700111F3}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "test-data", "test-data\test-data.csproj", "{96AA64A4-F5A2-40E4-8CBF-ABCFF3DA6625}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "semantic-kernel-text-search", "semantic-kernel-text-search\semantic-kernel-text-search.csproj", "{44D2E225-01F7-44DC-BE5F-DE3D8FC4B247}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "unit-test-playground", "unit-test-playground\unit-test-playground.csproj", "{4212E82D-3E18-4E6C-84A2-2B34A0154BAD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,6 +50,14 @@ Global
 		{96AA64A4-F5A2-40E4-8CBF-ABCFF3DA6625}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{96AA64A4-F5A2-40E4-8CBF-ABCFF3DA6625}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{96AA64A4-F5A2-40E4-8CBF-ABCFF3DA6625}.Release|Any CPU.Build.0 = Release|Any CPU
+		{44D2E225-01F7-44DC-BE5F-DE3D8FC4B247}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{44D2E225-01F7-44DC-BE5F-DE3D8FC4B247}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{44D2E225-01F7-44DC-BE5F-DE3D8FC4B247}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{44D2E225-01F7-44DC-BE5F-DE3D8FC4B247}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4212E82D-3E18-4E6C-84A2-2B34A0154BAD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4212E82D-3E18-4E6C-84A2-2B34A0154BAD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4212E82D-3E18-4E6C-84A2-2B34A0154BAD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4212E82D-3E18-4E6C-84A2-2B34A0154BAD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

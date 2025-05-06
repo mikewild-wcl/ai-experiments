@@ -46,11 +46,20 @@ The project was upgraded to .NET 10.0 (preview 2). There was one breaking change
 	<PackageReference Include="System.Linq.Async" Version="6.0.1" />
 	```
 
+### semantic-kernel-text-search
+
+A console that loads documents and performs searches using SK text search.
+
 
 ### test-data
 
 A simple web site project where test files and pages can be served. 
 Add files or save html pages into the wwwroot/Data folder - they will not be checked in to source control.
+
+
+### unit-test-playground
+
+A place to write simple unit tests for things like extensions, without needing to reference another project.
 
 	 
 ## Visual Studio templates
@@ -64,7 +73,7 @@ dotnet new install Microsoft.Extensions.AI.Templates
 ## Links
 
 - [Breaking change in IAsyncEmumerable](https://eur06.safelinks.protection.outlook.com/?url=https%3A%2F%2Flearn.microsoft.com%2Fen-us%2Fdotnet%2Fcore%2Fcompatibility%2Fcore-libraries%2F10.0%2Fasyncenumerable&data=05%7C02%7Cmichael.wild.external%40eviden.com%7C758fe62bc81f4ab84fe808dd6efdec6d%7C7d1c77852d8a437db8421ed5d8fbe00a%7C0%7C0%7C638788759054321521%7CUnknown%7CTWFpbGZsb3d8eyJFbXB0eU1hcGkiOnRydWUsIlYiOiIwLjAuMDAwMCIsIlAiOiJXaW4zMiIsIkFOIjoiTWFpbCIsIldUIjoyfQ%3D%3D%7C0%7C%7C%7C&sdata=tFOuNNp0qSNRcyecb%2F3RiaC1WOrFoZgFAMYH6Z5knXw%3D&reserved=0)
-- [Semantic Kernel Quick start](https://eur06.safelinks.protection.outlook.com/?url=https%3A%2F%2Flearn.microsoft.com%2Fen-us%2Fsemantic-kernel%2Fget-started%2Fquick-start-guide%3Fpivots%3Dprogramming-language-csharp%23understanding-the-code&data=05%7C02%7Cmichael.wild.external%40eviden.com%7C5b8b6bbd559a4f05110708dd6eff96e9%7C7d1c77852d8a437db8421ed5d8fbe00a%7C0%7C0%7C638788766230012636%7CUnknown%7CTWFpbGZsb3d8eyJFbXB0eU1hcGkiOnRydWUsIlYiOiIwLjAuMDAwMCIsIlAiOiJXaW4zMiIsIkFOIjoiTWFpbCIsIldUIjoyfQ%3D%3D%7C0%7C%7C%7C&sdata=oynJGWZ8PVV4v0uoJEvG5bmCZA9Cra%2BYjGcbqjiT53o%3D&reserved=0)
+- [Semantic Kernel Quick start](https://learn.microsoft.com/en-us/semantic-kernel/get-started/quick-start-guide?pivots=programming-language-csharp#understanding-the-code)
 - [AI Samples](https://github.com/dotnet/ai-samples)
 
 
