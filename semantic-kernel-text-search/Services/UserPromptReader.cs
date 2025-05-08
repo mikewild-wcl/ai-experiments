@@ -4,6 +4,10 @@ namespace semantic_kernel_text_search.Services;
 
 public class UserPromptReader : IUserPromptReader
 {
+    public UserPromptReader()
+    {
+    }
+
     public async IAsyncEnumerable<string> ProcessDocument(string? prompt)
     {
         if (string.IsNullOrWhiteSpace(prompt))

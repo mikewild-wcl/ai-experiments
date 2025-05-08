@@ -1,0 +1,11 @@
+{
+  "profiles": {
+    "semantic-kernel-text-search": {
+      "commandName": "Project",
+      "commandLineArgs": "file:\"C:\\dev_mike\\ai-experiments\\test-data\\wwwroot\\Data\\my cv.docx\"",
+      "environmentVariables": {
+        "DOTNET_ENVIRONMENT": "Development"
+      }
+    }
+  }
+}

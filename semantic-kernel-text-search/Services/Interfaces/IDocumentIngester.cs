@@ -2,5 +2,11 @@
 
 public interface IDocumentIngester
 {
+    Task IngestDocumentsFromParameterList(string[] parameters);
+
     Task<string?> IngestDocumentsFromPrompt(string? prompt);
+
+    Task IngestDocumentFromFilePath(string? path);
+
+    Task IngestDocumentFromUri(Uri uri);
 }
