@@ -1,10 +1,14 @@
-﻿
-namespace unit_test_playground.Extensions;
+﻿namespace unit_test_playground.Extensions;
 
 public static class FileRegexExtensions
 {
-    public static string? ExtractFilePath(this string text)
+    public static IEnumerable<string> ExtractFilePath(this string? text)
     {
-        return null;
+        if (string.IsNullOrEmpty(text))
+        {
+            return Enumerable.Empty<string>();
+        }
+
+        return Enumerable.Empty<string>();
     }
 }
