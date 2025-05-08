@@ -37,7 +37,6 @@ do
     }
 
     var filePath = userInput.Replace("\"", ""); // Normalize - remove quotes
-    //filePath = Path.GetFullPath(filePath);
 
     Console.WriteLine("Results > ");
 

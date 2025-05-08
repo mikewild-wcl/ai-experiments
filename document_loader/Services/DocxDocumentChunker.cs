@@ -15,7 +15,6 @@ public class DocxDocumentChunker : IDocumentChunker
             yield break;
         }
 
-
         if (!File.Exists(filePath))
         {
             yield break;
