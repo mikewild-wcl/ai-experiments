@@ -11,7 +11,7 @@ public class DocumentIngester(
     IDocumentLoaderFactory documentLoaderFactory,
 #pragma warning disable SKEXP0001  // Type is for evaluation purposes only
     //IEmbeddingGenerationService<string, float> embeddingGenerator,
-    ITextEmbeddingGenerationService textEmbeddingGenerationService,
+    IEmbeddingGenerator<string, Embedding<float>> embeddingGenerator,
 #pragma warning restore SKEXP0001
     IVectorStore vectorStore,
     ILogger<DocumentIngester> logger
@@ -23,7 +23,7 @@ public class DocumentIngester(
     private readonly IDocumentLoaderFactory _documentLoaderFactory = documentLoaderFactory;
 #pragma warning disable SKEXP0001  // Type is for evaluation purposes only
     //private readonly IEmbeddingGenerationService<string, float> _embeddingGenerator = embeddingGenerator;
-    private readonly ITextEmbeddingGenerationService _textEmbeddingGenerationService = textEmbeddingGenerationService;
+    private readonly IEmbeddingGenerator<string, Embedding<float>> _embeddingGenerator = embeddingGenerator;
 #pragma warning restore SKEXP0001
     private readonly IVectorStore _vectorStore = vectorStore;
     private readonly ILogger<DocumentIngester> _logger = logger;
@@ -91,11 +91,12 @@ public class DocumentIngester(
             _logger.LogInformation("Ingesting chunk {Key} - {ParagraphId}: {Chunk}", chunk.Key, chunk.ParagraphId, chunk.Text);
         }
 
-        var embedding = await _textEmbeddingGenerationService
-                .GenerateEmbeddingAsync(await chunkedData.Select(c => c.Text).FirstAsync());
+        //var embedding = await _embeddingGenerator
+        //    .GenerateAsync(await chunkedData.Select(c => c.Text).FirstOrDefaultAsync());
+            //.GenerateEmbeddingAsync(await chunkedData.Select(c => c.Text).FirstAsync());
 
-        var embeddings = await _textEmbeddingGenerationService
-            .GenerateEmbeddingsAsync(await chunkedData.Select(c => c.Text).ToListAsync());
+        var embeddings = await _embeddingGenerator
+            .GenerateAsync(await chunkedData.Select(c => c.Text).ToListAsync());
     }
 
     public async Task IngestDocumentFromUri(Uri uri)

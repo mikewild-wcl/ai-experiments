@@ -1,14 +1,15 @@
 ﻿// See https://aka.ms/new-console-template for more information
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Hosting;
 using Microsoft.SemanticKernel;
 using OpenAI;
 using semantic_kernel_text_search.Services;
 using semantic_kernel_text_search.Services.Interfaces;
 using semantic_kernel_console_gemini;
-using System;
 using System.ClientModel;
+using semantic_kernel_text_search.Data;
 
 /*
   https://github.com/microsoft/semantic-kernel/discussions/7090
@@ -17,6 +18,9 @@ using System.ClientModel;
 Vector loading - https://github.com/MicrosoftDocs/semantic-kernel-docs/blob/main/semantic-kernel/concepts/vector-store-connectors/how-to/vector-store-data-ingestion.md
 
 Text search - https://github.com/MicrosoftDocs/semantic-kernel-docs/blob/main/semantic-kernel/concepts/text-search/index.md
+
+Azure SQL vector DB - https://github.com/marcominerva/SqlDatabaseVectorSearch
+
 
  * */
 
@@ -46,7 +50,7 @@ InvalidOperationThrowHelper.ThrowIfNullOrEmpty(endpoint, "Endpoint must be provi
 //TODO: 
 //configuration.GetSection("OpenApiSettings").Bind(openApiSettings);
 
-Console.WriteLine($"Uaing model {modelId} and embedding model {embeddingModelId}");
+Console.WriteLine($"Using model {modelId} and embedding model {embeddingModelId}");
 
 var builder = Host.CreateApplicationBuilder(args);
 
@@ -62,7 +66,7 @@ var openAiClient = new OpenAIClient(
     });
 
 #pragma warning disable SKEXP0010  // Type is for evaluation purposes only
-builder.Services.AddOpenAITextEmbeddingGeneration(
+builder.Services.AddOpenAIEmbeddingGenerator(
     modelId: embeddingModelId!,
     openAiClient, // ? openAIClient = null, /endpoint!,
                   //apiKey: apiKey!,
@@ -74,6 +78,14 @@ builder.Services.AddOpenAITextEmbeddingGeneration(
 ///https://learn.microsoft.com/en-us/semantic-kernel/concepts/vector-store-connectors/out-of-the-box-connectors/inmemory-connector?pivots=programming-language-csharp
 builder.Services.AddInMemoryVectorStore();
 //builder.Services.AddInMemoryVectorStoreRecordCollection<string, TextParagraph>("documentData");
+
+builder.Services.AddAzureSql<DocumentDbContext>(builder.Configuration.GetConnectionString("SqlConnection"), options =>
+{
+    options.UseVectorSearch();
+}, options =>
+{
+    options.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
+});
 
 builder.Services.AddTransient<IUserPromptReader, UserPromptReader>();
 builder.Services.AddTransient<IDocumentIngester, DocumentIngester>();
