@@ -1,22 +1,19 @@
-﻿using Azure;
-using Azure.AI.OpenAI;
-using DocumentFormat.OpenXml.Office2016.Drawing.ChartDrawing;
-using DocumentFormat.OpenXml.Wordprocessing;
+﻿using Azure.AI.OpenAI;
 using Microsoft.Extensions.AI;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.SemanticKernel;
+using Polly;
+using Polly.Retry;
 using semantic_kernel_azure_sql_vectors.Models;
+using semantic_kernel_azure_sql_vectors.Services;
 using semantic_kernel_azure_sql_vectors.Services.Interfaces;
 using System.ClientModel;
 using System.Text;
 
-//const string ApiKeyName = "AzureOpenAiSettings:ApiKey";
-//const string ModelIdName = "AzureOpenAiSettings:ModelId";
-//const string EmbeddingModelIdName = "AzureOpenAiSettings:EmbeddingModelId";
-//const string EndpointName = "AzureOpenAiSettings:Endpoint";
+const string FilePrefix = "file:";
 
 var environmentName = Environment.GetEnvironmentVariable("DOTNET_ENVIRONMENT");
 
@@ -25,11 +22,6 @@ var configuration = new ConfigurationBuilder()
     .AddJsonFile($"appsettings.{environmentName}.json", optional: true)
     .AddEnvironmentVariables()
     .Build();
-
-//var apiKey = configuration.GetValue<string>(ApiKeyName);
-//var endpoint = configuration.GetValue<string>(EndpointName);
-//var modelId = configuration.GetValue<string>(ModelIdName);
-//var embeddingModelId = configuration.GetValue<string>(EmbeddingModelIdName);
 
 var builder = Host.CreateApplicationBuilder(args);
 
@@ -48,18 +40,35 @@ var client = new AzureOpenAIClient(
     new ApiKeyCredential(azureOpenAiSettings.ApiKey));
 
 var connStr = configuration.GetConnectionString("AzureSqlVectorStoreDbConnection");
-//builder.Services.AddSqlServerVectorStore(_ => configuration.GetConnectionString("AzureSqlVectorStoreDbConnection"));
-builder.Services.AddSqlServerVectorStore(sp =>
+builder.Services.AddSqlServerVectorStore(_ => configuration.GetConnectionString("AzureSqlVectorStoreDbConnection"));
+//builder.Services.AddSqlServerVectorStore(sp =>
+//{
+//    var config = sp.GetRequiredService<IConfiguration>();
+//    options.ConnectionString = config.GetConnectionString("AzureSqlVectorStoreDbConnection");
+//    return config.GetConnectionString("AzureSqlVectorStoreDbConnection");
+//});
+
+builder.Services.AddResiliencePipeline("retryPipeline", pipelineBuilder =>
 {
-    var config = sp.GetRequiredService<IConfiguration>();
-    return config.GetConnectionString("AzureSqlVectorStoreDbConnection");
+    pipelineBuilder.AddRetry(new RetryStrategyOptions
+    {
+        ShouldHandle = new PredicateBuilder().Handle<Exception>(),
+        Delay = TimeSpan.FromSeconds(2),
+        MaxRetryAttempts = 5,
+        BackoffType = DelayBackoffType.Exponential,
+        UseJitter = true,
+        OnRetry = args =>
+        {
+            Console.WriteLine($"Attempt: {args.AttemptNumber}");
+            return ValueTask.CompletedTask;
+        }
+    });
 });
 
 builder.Services.AddTransient<IChatService, ChatService>();
-//builder.Services.AddTransient<IDocumentIngester, DocumentIngester>();
+builder.Services.AddTransient<IDocumentIngester, DocumentIngester>();
 //builder.Services.AddTransient<IDocumentLoaderFactory, DocumentLoaderFactory>();
-//builder.Services.AddTransient<DocxDocumentLoader>();
-
+builder.Services.AddTransient<IDocumentLoader, DocxDocumentLoader>();
 
 builder.Services.AddTransient((serviceProvider) =>
 {
@@ -67,21 +76,33 @@ builder.Services.AddTransient((serviceProvider) =>
 
 #pragma warning disable SKEXP0010 // Type is for evaluation purposes only and is subject to change or removal in future updates. Suppress this diagnostic to proceed.
     kernelBuilder
-        .AddAzureOpenAIChatCompletion(azureOpenAiSettings.DeploymentName, client)
-        .AddAzureOpenAIEmbeddingGenerator(azureOpenAiSettings.EmbeddingDeploymentName, client);
+        .AddAzureOpenAIChatCompletion(
+            azureOpenAiSettings.DeploymentName,
+            client)
+        .AddAzureOpenAIEmbeddingGenerator(
+            azureOpenAiSettings.EmbeddingDeploymentName,
+            client,
+            dimensions: 1536);
 #pragma warning restore SKEXP0010 // Type is for evaluation purposes only and is subject to change or removal in future updates. Suppress this diagnostic to proceed.
 
     return kernelBuilder.Build();
-
 });
 
 var host = builder.Build();
 
-//var documentIngester = host.Services.GetRequiredService<IDocumentIngester>();
 var chatService = host.Services.GetRequiredService<IChatService>();
+var documentIngester = host.Services.GetRequiredService<IDocumentIngester>();
 
-//await documentIngester.IngestDocumentsFromParameterList(args);
-//await documentIngester.IngestDocumentsFromParameterList(args);
+foreach (var arg in args)
+{
+    if (arg.StartsWith(FilePrefix))
+    {
+        var filePath = arg.Substring(FilePrefix.Length)
+            ?.Replace("\"", ""); // Normalize - remove quotes
+
+        await documentIngester.Ingest(filePath);
+    }
+}
 
 string userId = Guid.NewGuid().ToString(); // Unique user ID for the session
 string? userInput;
