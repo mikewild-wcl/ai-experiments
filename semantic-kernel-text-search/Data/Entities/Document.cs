@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace semantic_kernel_text_search.Data.Entities;
+﻿namespace semantic_kernel_text_search.Data.Entities;
 
 public class Document
 {

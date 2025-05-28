@@ -1,7 +1,6 @@
 using Microsoft.Extensions.AI;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.VectorData;
-using Microsoft.SemanticKernel.Embeddings;
 using semantic_kernel_text_search.Models.Enums;
 using semantic_kernel_text_search.Services.Interfaces;
 
