@@ -8,6 +8,8 @@ Tokens have been saved to environment variables:
 
 The endpoint for GitHub Models is https://models.inference.ai.azure.com
 
+Note that some projects need `DOTNET_ENVIRONMENT` defined as `Development` in their DEBUG properties.
+
 
 ## Projects
 
@@ -17,6 +19,16 @@ A console app for loading documents and splitting into chunks.
 This project will take a document path and try to split them, handling
 pdf, Word docx, and web pages.
 
+### semantic-kernel-azure-sql-vectors
+
+A console app that uses the Semantic Kernel to load documents 
+and save the embeddings to Azure SQL using the Azure SQL Connector.
+
+Uses Azure OpenAI - 
+	- create an OpenAI resource in the Azure portal
+	- to create models, you need to assign the Cognitive Services Usages Reader role to your user account or service principal.
+	  See https://learn.microsoft.com/en-us/azure/ai-services/openai/how-to/quota?tabs=rest#prerequisites
+		- under Subscriptions > Access control (IAM) > Add role assignment > search for Cognitive Services Usages Reader and assign your user
 
 ### semantic-kernel-console
 
