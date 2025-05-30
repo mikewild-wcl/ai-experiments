@@ -19,6 +19,13 @@ A console app for loading documents and splitting into chunks.
 This project will take a document path and try to split them, handling
 pdf, Word docx, and web pages.
 
+### mcp-simple-server
+
+A simple server that implements the MCP protocol, using modelcontextprotocol/csharp-sdk.
+
+Based on https://laurentkempe.com/2025/03/22/model-context-protocol-made-easy-building-an-mcp-server-in-csharp/
+
+
 ### semantic-kernel-azure-sql-vectors
 
 A console app that uses the Semantic Kernel to load documents 

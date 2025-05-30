@@ -26,6 +26,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "unit-test-playground", "uni
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "semantic-kernel-azure-sql-vectors", "semantic-kernel-azure-sql-vectors\semantic-kernel-azure-sql-vectors.csproj", "{191A0240-4693-4C22-94B3-62568C5CF7BE}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "mcp-simple-server", "mcp-simple-server\mcp-simple-server.csproj", "{36E885F7-2FE8-488C-A4EB-B9B9A6080B34}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -64,6 +66,10 @@ Global
 		{191A0240-4693-4C22-94B3-62568C5CF7BE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{191A0240-4693-4C22-94B3-62568C5CF7BE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{191A0240-4693-4C22-94B3-62568C5CF7BE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{36E885F7-2FE8-488C-A4EB-B9B9A6080B34}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{36E885F7-2FE8-488C-A4EB-B9B9A6080B34}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{36E885F7-2FE8-488C-A4EB-B9B9A6080B34}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{36E885F7-2FE8-488C-A4EB-B9B9A6080B34}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
