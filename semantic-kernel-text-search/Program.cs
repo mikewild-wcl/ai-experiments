@@ -77,7 +77,7 @@ builder.Services.AddOpenAIEmbeddingGenerator(
 
 ///https://learn.microsoft.com/en-us/semantic-kernel/concepts/vector-store-connectors/out-of-the-box-connectors/inmemory-connector?pivots=programming-language-csharp
 builder.Services.AddInMemoryVectorStore();
-//builder.Services.AddInMemoryVectorStoreRecordCollection<string, TextParagraph>("documentData");
+//builder.Services.AddInMemoryVectorStoreCollection<string, TextParagraph>("documentData");
 
 builder.Services.AddAzureSql<DocumentDbContext>(builder.Configuration.GetConnectionString("SqlConnection"), options =>
 {

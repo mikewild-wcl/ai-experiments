@@ -12,7 +12,7 @@ public class DocumentIngester(
     //IEmbeddingGenerationService<string, float> embeddingGenerator,
     IEmbeddingGenerator<string, Embedding<float>> embeddingGenerator,
 #pragma warning restore SKEXP0001
-    IVectorStore vectorStore,
+    VectorStore vectorStore,
     ILogger<DocumentIngester> logger
     ) : IDocumentIngester
 {
@@ -24,7 +24,7 @@ public class DocumentIngester(
     //private readonly IEmbeddingGenerationService<string, float> _embeddingGenerator = embeddingGenerator;
     private readonly IEmbeddingGenerator<string, Embedding<float>> _embeddingGenerator = embeddingGenerator;
 #pragma warning restore SKEXP0001
-    private readonly IVectorStore _vectorStore = vectorStore;
+    private readonly VectorStore _vectorStore = vectorStore;
     private readonly ILogger<DocumentIngester> _logger = logger;
 
     public async Task IngestDocumentsFromParameterList(string[] parameters)

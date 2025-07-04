@@ -9,7 +9,6 @@ using semantic_kernel_console_gemini;
 
 const string ApiKeyName = "GEMINI_API_KEY";
 
-var envVar = Environment.GetEnvironmentVariable(ApiKeyName);
 var configuration = new ConfigurationBuilder()
     .AddEnvironmentVariables()
     .Build();

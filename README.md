@@ -6,6 +6,12 @@ Tokens have been saved to environment variables:
 - Gemini `GEMINI_API_KEY`
 - GitHub Models `GITHUB_TOKEN`
 
+To set the environment variables, use the following commands
+```
+setx GEMINI_API_KEY <key>
+setx GITHUB_TOKEN <key>
+```
+
 The endpoint for GitHub Models is https://models.inference.ai.azure.com
 
 Note that some projects need `DOTNET_ENVIRONMENT` defined as `Development` in their DEBUG properties.
@@ -58,12 +64,6 @@ It uses the defaults of GitHub Models and an on-disk memory vector store .
 
 The token has been copied into user secrets, as described in the README.md.
 
-The project was upgraded to .NET 10.0 (preview 2). There was one breaking change
- - *error `The call is ambiguous between the following methods or properties: 'System.Linq.AsyncEnumerable.ToAsyncEnumerable<TSource>(System.Collections.Generic.IEnumerable<TSource>)' and 'System.Linq.AsyncEnumerable.ToAsyncEnumerable<TSource>(System.Collections.Generic.IEnumerable<TSource>)'
- - fix was to remove this package:
-	```
-	<PackageReference Include="System.Linq.Async" Version="6.0.1" />
-	```
 
 ### semantic-kernel-text-search
 
@@ -102,3 +102,20 @@ dotnet new install Microsoft.Extensions.AI.Templates
 - [SSE-Powered MCP Server with C#](https://laurentkempe.com/2025/04/05/sse-powered-mcp-server-with-csharp-and-dotnet-in-157mb-executable/)
 - [Layered System - MCPs with auth](https://www.layered.dev/openai-embraces-mcp-the-protocol-era-of-ai-has-arrived)
 
+
+## Breaking changes in .NET 10
+
+Breaking changes wwere seen when upgrading projects to .NET 10.
+
+ - **error** `The call is ambiguous between the following methods or properties: 'System.Linq.AsyncEnumerable.ToAsyncEnumerable<TSource>(System.Collections.Generic.IEnumerable<TSource>)' and 'System.Linq.AsyncEnumerable.ToAsyncEnumerable<TSource>(System.Collections.Generic.IEnumerable<TSource>)'
+ - fix was to remove this package:
+	```
+	<PackageReference Include="System.Linq.Async" Version="6.0.1" />
+	```
+
+## Breaking changes in Semantic Kernel
+
+A number of changes were made in Semantic Kernel and needed to be fixed See:
+ - [Vector Store changes - April 2025](https://learn.microsoft.com/en-us/semantic-kernel/support/migration/vectorstore-april-2025?pivots=programming-language-csharp)
+ - [Vector Store changes - May 2025](https://learn.microsoft.com/en-us/semantic-kernel/support/migration/vectorstore-may-2025?pivots=programming-language-csharp)
+ 

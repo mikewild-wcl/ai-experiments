@@ -4,18 +4,18 @@ namespace semantic_kernel_template_chat.Services;
 
 public class SemanticSearchRecord
 {
-    [VectorStoreRecordKey]
+    [VectorStoreKey]
     public required string Key { get; set; }
 
-    [VectorStoreRecordData]
+    [VectorStoreData]
     public required string FileName { get; set; }
 
-    [VectorStoreRecordData]
+    [VectorStoreData]
     public int PageNumber { get; set; }
 
-    [VectorStoreRecordData]
+    [VectorStoreData]
     public required string Text { get; set; }
 
-    [VectorStoreRecordVector(1536, DistanceFunction.CosineSimilarity)] // 1536 is the default vector size for the OpenAI text-embedding-3-small model
+    [VectorStoreVector(1536, DistanceFunction = DistanceFunction.CosineSimilarity)] // 1536 is the default vector size for the OpenAI text-embedding-3-small model
     public ReadOnlyMemory<float> Vector { get; set; }
 }

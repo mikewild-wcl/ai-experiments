@@ -7,7 +7,7 @@ namespace semantic_kernel_template_chat.Services.Ingestion;
 public class DataIngester(
     ILogger<DataIngester> logger,
     IEmbeddingGenerator<string, Embedding<float>> embeddingGenerator,
-    IVectorStore vectorStore,
+    VectorStore vectorStore,
     IngestionCacheDbContext ingestionCacheDb)
 {
     public static async Task IngestDataAsync(IServiceProvider services, IEnumerable<IIngestionSource> sources)
@@ -23,7 +23,7 @@ public class DataIngester(
     public async Task IngestDataAsync(IIngestionSource source)
     {
         var vectorCollection = vectorStore.GetCollection<string, SemanticSearchRecord>("data-semantic-kernel-template-chat-ingested");
-        await vectorCollection.CreateCollectionIfNotExistsAsync();
+        await vectorCollection.EnsureCollectionExistsAsync();
 
         var documentsForSource = ingestionCacheDb.Documents
             .Where(d => d.SourceId == source.SourceId)
@@ -33,7 +33,7 @@ public class DataIngester(
         foreach (var deletedFile in deletedFiles)
         {
             logger.LogInformation("Removing ingested data for {file}", deletedFile.Id);
-            await vectorCollection.DeleteBatchAsync(deletedFile.Records.Select(r => r.Id));
+            await vectorCollection.DeleteAsync(deletedFile.Records.Select(r => r.Id));
             ingestionCacheDb.Documents.Remove(deletedFile);
         }
         await ingestionCacheDb.SaveChangesAsync();
@@ -45,11 +45,11 @@ public class DataIngester(
 
             if (modifiedDoc.Records.Count > 0)
             {
-                await vectorCollection.DeleteBatchAsync(modifiedDoc.Records.Select(r => r.Id));
+                await vectorCollection.DeleteAsync(modifiedDoc.Records.Select(r => r.Id));
             }
             
             var newRecords = await source.CreateRecordsForDocumentAsync(embeddingGenerator, modifiedDoc.Id);
-            await foreach (var id in vectorCollection.UpsertBatchAsync(newRecords)) { }
+            await vectorCollection.UpsertAsync(newRecords);
 
             modifiedDoc.Records.Clear();
             modifiedDoc.Records.AddRange(newRecords.Select(r => new IngestedRecord { Id = r.Key, DocumentId = modifiedDoc.Id }));

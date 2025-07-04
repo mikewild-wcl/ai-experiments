@@ -5,11 +5,11 @@ namespace semantic_kernel_template_chat.Services;
 
 public class SemanticSearch(
     IEmbeddingGenerator<string, Embedding<float>> embeddingGenerator,
-    IVectorStore vectorStore)
+    VectorStore vectorStore)
 {
     public async Task<IReadOnlyList<SemanticSearchRecord>> SearchAsync(string text, string? filenameFilter, int maxResults)
     {
-        var queryEmbedding = await embeddingGenerator.GenerateEmbeddingVectorAsync(text);
+        var queryEmbedding = await embeddingGenerator.GenerateVectorAsync(text);
         var vectorCollection = vectorStore.GetCollection<string, SemanticSearchRecord>("data-semantic-kernel-template-chat-ingested");
 
         /*
@@ -17,14 +17,13 @@ public class SemanticSearch(
             ? new VectorSearchFilter().EqualTo(nameof(SemanticSearchRecord.FileName), filenameFilter)
             : null;
         */
-        var nearest = await vectorCollection.VectorizedSearchAsync(queryEmbedding, new VectorSearchOptions<SemanticSearchRecord>
+        var nearest = vectorCollection.SearchAsync(queryEmbedding, maxResults, new VectorSearchOptions<SemanticSearchRecord>
         {
-            Top = maxResults,
             Filter = x => string.IsNullOrEmpty(filenameFilter) || string.Equals(x.FileName, filenameFilter)
         });
 
         var results = new List<SemanticSearchRecord>();
-        await foreach (var item in nearest.Results)
+        await foreach (var item in nearest)
         {
             results.Add(item.Record);
         }

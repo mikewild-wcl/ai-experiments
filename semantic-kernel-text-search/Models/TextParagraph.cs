@@ -5,18 +5,18 @@ namespace semantic_kernel_text_search.Models;
 public class TextParagraph
 {
     /// <summary>A unique key for the text paragraph.</summary>
-    [VectorStoreRecordKey]
+    [VectorStoreKey]
     public required string Key { get; init; }
 
-    [VectorStoreRecordData]
+    [VectorStoreData]
     public required string DocumentUri { get; init; }
 
-    [VectorStoreRecordData]
+    [VectorStoreData]
     public required string ParagraphId { get; init; }
 
-    [VectorStoreRecordData]
+    [VectorStoreData]
     public required string Text { get; init; }
 
-    [VectorStoreRecordVector(1536)]
+    [VectorStoreVector(1536)]
     public ReadOnlyMemory<float> TextEmbedding { get; set; }
 }

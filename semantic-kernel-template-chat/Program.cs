@@ -6,6 +6,7 @@ using semantic_kernel_template_chat.Services;
 using semantic_kernel_template_chat.Services.Ingestion;
 using OpenAI;
 using System.ClientModel;
+using Services.VectorData;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorComponents().AddInteractiveServerComponents();
@@ -28,7 +29,7 @@ var vectorStore = new JsonVectorStore(Path.Combine(AppContext.BaseDirectory, "ve
 
 builder.Services.AddLogging(services => services.AddConsole().SetMinimumLevel(LogLevel.Trace));
 
-builder.Services.AddSingleton<IVectorStore>(vectorStore);
+builder.Services.AddSingleton<VectorStore>(vectorStore);
 builder.Services.AddScoped<DataIngester>();
 builder.Services.AddSingleton<SemanticSearch>();
 builder.Services.AddChatClient(chatClient)
