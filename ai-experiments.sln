@@ -28,6 +28,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "semantic-kernel-azure-sql-v
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "mcp-simple-server", "mcp-simple-server\mcp-simple-server.csproj", "{36E885F7-2FE8-488C-A4EB-B9B9A6080B34}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "semantic-kernel-azure-openai-managed-id-auth", "semantic-kernel-azure-openai-managed-id-auth\semantic-kernel-azure-openai-managed-id-auth.csproj", "{38A377AD-65F1-4FD5-A95F-0470489C7ECF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -70,6 +72,10 @@ Global
 		{36E885F7-2FE8-488C-A4EB-B9B9A6080B34}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{36E885F7-2FE8-488C-A4EB-B9B9A6080B34}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{36E885F7-2FE8-488C-A4EB-B9B9A6080B34}.Release|Any CPU.Build.0 = Release|Any CPU
+		{38A377AD-65F1-4FD5-A95F-0470489C7ECF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{38A377AD-65F1-4FD5-A95F-0470489C7ECF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{38A377AD-65F1-4FD5-A95F-0470489C7ECF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{38A377AD-65F1-4FD5-A95F-0470489C7ECF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

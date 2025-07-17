@@ -368,6 +368,8 @@ local.settings.json
 
 # Private data files
 PrivateData/
+private/
+.private/
 
 # Local database files, auto-created when the application runs
 ingestioncache.db*

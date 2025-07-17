@@ -47,7 +47,7 @@ Uses Azure OpenAI -
 
 A basic example of a semantic kernel app, based on https://learn.microsoft.com/en-us/semantic-kernel/get-started/quick-start-guide?pivots=programming-language-csharp#writing-your-first-console-app
 
-The sample uses GitHub Models
+The sample uses GitHub Models.
 
 
 ### semantic-kernel-console-gemini
@@ -55,6 +55,11 @@ The sample uses GitHub Models
 A basic example of a semantic kernel app, based on https://learn.microsoft.com/en-us/semantic-kernel/get-started/quick-start-guide?pivots=programming-language-csharp#writing-your-first-console-app
 
 The sample has been modified to use Gemini models.
+
+
+### semantic-kernel-azure-openai-managed-id-auth
+
+A console app that authenticates using Azure managed identity.
 
 
 ### semantic-kernel-template-chat
