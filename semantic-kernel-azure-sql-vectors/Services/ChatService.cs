@@ -38,7 +38,7 @@ public class ChatService(
             """);
         }
 
-        var cancellationSource = new CancellationTokenSource();
+        using var cancellationSource = new CancellationTokenSource();
         var queryEmbedding = await embeddingGenerator.GenerateVectorAsync(userMessage, cancellationToken: cancellationSource.Token);
 
         var resiliencePipeline = _resiliencePipelineProvider.GetPipeline("retryPipeline");

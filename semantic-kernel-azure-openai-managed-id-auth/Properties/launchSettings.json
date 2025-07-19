@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "semantic-kernel-azure-openai-managed-id-auth": {
+      "commandName": "Project",
+      "environmentVariables": {
+        "DOTNET_ENVIRONMENT": "Development"
+      }
+    }
+  }
+}
