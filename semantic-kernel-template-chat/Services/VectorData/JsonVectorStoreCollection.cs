@@ -1,11 +1,8 @@
 ﻿using Microsoft.Extensions.VectorData;
-using Microsoft.Extensions.VectorData.ProviderServices;
 using Microsoft.SemanticKernel.Connectors.InMemory;
-using System.Collections.Concurrent;
 using System.Linq.Expressions;
 using System.Numerics.Tensors;
 using System.Reflection;
-using System.Runtime.CompilerServices;
 using System.Text.Json;
 
 namespace Services.VectorData;

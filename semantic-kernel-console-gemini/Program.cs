@@ -47,7 +47,7 @@ GeminiPromptExecutionSettings geminiPromptExecutionSettings = new()
 
 PromptExecutionSettings promptExecutionSettings = new()
 {
-    FunctionChoiceBehavior = FunctionChoiceBehavior.Auto()    
+    FunctionChoiceBehavior = FunctionChoiceBehavior.Auto()
 };
 
 var history = new ChatHistory();
@@ -56,23 +56,22 @@ var history = new ChatHistory();
 string? userInput;
 do
 {
-    // Collect user input
     Console.Write("User > ");
     userInput = Console.ReadLine();
 
-    // Add user input
+    if (userInput is null or { Length: 0 })
+    {
+        continue;
+    }
+
     history.AddUserMessage(userInput);
 
-    // Get the response from the AI
     var result = await chatCompletionService.GetChatMessageContentAsync(
         history,
         executionSettings: geminiPromptExecutionSettings, //openAIPromptExecutionSettings,
         kernel: kernel);
 
-    // Print the results
     Console.WriteLine("Assistant > " + result);
 
-    // Add the message from the agent to the chat history
     history.AddMessage(result.Role, result.Content ?? string.Empty);
-} while (userInput is not null);
-
+} while (userInput is { Length: > 0 });

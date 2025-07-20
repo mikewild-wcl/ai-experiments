@@ -6,6 +6,7 @@ using Microsoft.SemanticKernel.ChatCompletion;
 using Microsoft.SemanticKernel.Connectors.AzureOpenAI;
 using Polly.Registry;
 using semantic_kernel_azure_sql_vectors.Models;
+using System.Runtime.CompilerServices;
 using System.Text;
 
 namespace semantic_kernel_azure_sql_vectors.Services.Interfaces;
@@ -23,7 +24,10 @@ public class ChatService(
     private readonly ILogger<ChatService> _logger = logger;
     private ChatHistory _chatHistory = [];
 
-    public async IAsyncEnumerable<string> GetResponseAsync(string userMessage, string userId, CancellationToken cancellationToken = default)
+    public async IAsyncEnumerable<string> GetResponseAsync(
+        string userMessage, 
+        string userId, 
+        [EnumeratorCancellation] CancellationToken cancellationToken = default)
     {
         var chatCompletionService = _kernel.GetRequiredService<IChatCompletionService>();
         var embeddingGenerator = _kernel.GetRequiredService<IEmbeddingGenerator<string, Embedding<float>>>();

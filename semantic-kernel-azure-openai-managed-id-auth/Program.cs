@@ -1,10 +1,4 @@
 ﻿using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Logging;
-using Microsoft.SemanticKernel;
-using Microsoft.SemanticKernel.ChatCompletion;
-using Microsoft.SemanticKernel.Connectors.AzureOpenAI;
-using System.Numerics;
-using static System.Net.WebRequestMethods;
 
 const string DeploymentConfigKey = "DeploymentName";
 const string EndpointConfigKey = "Endpoint";
@@ -18,10 +12,28 @@ var configuration = new ConfigurationBuilder()
     .AddEnvironmentVariables()
     .Build();
 
-var deploment = configuration.GetValue<string>(DeploymentConfigKey);
+var deployment = configuration.GetValue<string>(DeploymentConfigKey);
 var endpoint = configuration.GetValue<string>(EndpointConfigKey);
 var modelId = configuration.GetValue<string>(ModelIdConfigKey);
 
+/*
+// Retrieve the OpenAI endpoint from environment variables
+    var endpoint = GetEnvironmentVariable("AZURE_OPENAI_ENDPOINT") ?? "https://xxxx.openai.azure.com/";
+    if (string.IsNullOrEmpty(endpoint))
+    {
+        Console.WriteLine("Please set the AZURE_OPENAI_ENDPOINT environment variable.");
+        return;
+    }
+
+    // Use DefaultAzureCredential for Entra ID authentication
+    var credential = new DefaultAzureCredential();
+
+    // Initialize the AzureOpenAIClient
+    var azureClient = new AzureOpenAIClient(new Uri(endpoint), credential);
+
+    // Initialize the ChatClient with the specified deployment name
+    ChatClient chatClient = azureClient.GetChatClient("o4-mini");    
+ */
 /*
 // https://learn.microsoft.com/en-us/dotnet/ai/azure-ai-services-authentication
 // https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication/local-development-dev-accounts?toc=%2Fdotnet%2Fai%2Ftoc.json&bc=%2Fdotnet%2Fai%2Ftoc.json&tabs=azure-portal%2Csign-in-visual-studio%2Ccommand-line#implement-the-code
@@ -62,7 +74,7 @@ do
     Console.Write("User > ");
     userInput = Console.ReadLine();
 
-    if (string.IsNullOrWhiteSpace(userInput))
+    if (userInput is null or { Length: 0 })
     {
         continue;
     }
@@ -81,5 +93,6 @@ do
 
     // Add the message from the agent to the chat history
     history.AddMessage(result.Role, result.Content ?? string.Empty);
-} while (userInput is not null);
+    }
+} while (userInput is { Length: >0 });
 */

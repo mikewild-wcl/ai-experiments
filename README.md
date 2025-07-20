@@ -4,12 +4,12 @@
 
 Tokens have been saved to environment variables:
 - Gemini `GEMINI_API_KEY`
-- GitHub Models `GITHUB_TOKEN`
+- GitHub Models `GITHUB_MODELS_TOKEN`
 
 To set the environment variables, use the following commands
 ```
 setx GEMINI_API_KEY <key>
-setx GITHUB_TOKEN <key>
+setx GITHUB_MODELS_TOKEN <key>
 ```
 
 The endpoint for GitHub Models is https://models.github.ai (https://models.github.ai/inference).  
@@ -46,14 +46,15 @@ Uses Azure OpenAI -
 
 ### semantic-kernel-console
 
-A basic example of a semantic kernel app, based on https://learn.microsoft.com/en-us/semantic-kernel/get-started/quick-start-guide?pivots=programming-language-csharp#writing-your-first-console-app
+A basic example of a semantic kernel app, based on https://learn.microsoft.com/en-us/semantic-kernel/get-started/quick-start-guide?pivots=programming-language-csharp#writing-your-first-console-app.
 
-The sample uses GitHub Models.
+The sample uses GitHub Models OpenAI GPT 4.1 
+with code adapted from https://github.com/marketplace/models/azure-openai/gpt-4-1/playground/code.
 
 
 ### semantic-kernel-console-gemini
 
-A basic example of a semantic kernel app, based on https://learn.microsoft.com/en-us/semantic-kernel/get-started/quick-start-guide?pivots=programming-language-csharp#writing-your-first-console-app
+A basic example of a semantic kernel app, based on https://learn.microsoft.com/en-us/semantic-kernel/get-started/quick-start-guide?pivots=programming-language-csharp#writing-your-first-console-app.
 
 The sample has been modified to use Gemini models.
 
@@ -67,11 +68,13 @@ A console app that authenticates using Azure managed identity to access Azure Op
 
 A console app using Redis caching with vector support.
 
+Uses GitHub Models Azure OpenAI o4-mini with code adapted from https://github.com/marketplace/models/azure-openai/o4-mini/playground/code.
+
 
 ### semantic-kernel-template-chat
 
 A sample generated from the Microsoft.Extensions.AI.Templates. 
-It uses the defaults of GitHub Models and an on-disk memory vector store .
+It uses the defaults of GitHub Models and an on-disk memory vector store.
 
 The token has been copied into user secrets, as described in the README.md.
 

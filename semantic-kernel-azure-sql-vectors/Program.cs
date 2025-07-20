@@ -113,7 +113,7 @@ do
     userInput = Console.ReadLine();
 
     //userInput = await documentIngester.IngestDocumentsFromPrompt(userInput);
-    if (string.IsNullOrWhiteSpace(userInput))
+    if (userInput is null or { Length: 0 })
     {
         continue;
     }

@@ -1,25 +1,25 @@
-﻿using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.SemanticKernel;
 using Microsoft.SemanticKernel.ChatCompletion;
 using Microsoft.SemanticKernel.Connectors.OpenAI;
+using OpenAI;
 using semantic_kernel_console;
+using System.ClientModel;
 
-const string ApiKeyName = "GITHUB_TOKEN";
+const string ApiKeyName = "GITHUB_MODELS_TOKEN";
 
-var envVar = Environment.GetEnvironmentVariable(ApiKeyName);
-var configuration = new ConfigurationBuilder()
-    .AddEnvironmentVariables()
-    .Build();
+var apiKey = Environment.GetEnvironmentVariable(ApiKeyName);
+var model = "openai/gpt-4.1";
+var openAIOptions = new OpenAIClientOptions
+{
+    Endpoint = new Uri("https://models.github.ai/inference")
+};
 
-// Populate values from your OpenAI deployment
-var modelId = "gpt-4.1";
-var endpoint = "https://models.inference.ai.azure.com";
-var apiKey = configuration.GetValue<string>(ApiKeyName);
+var client = new OpenAIClient(new ApiKeyCredential(apiKey), openAIOptions);
 
 // Create a kernel with Azure OpenAI chat completion
-var builder = Kernel.CreateBuilder().AddAzureOpenAIChatCompletion(modelId, endpoint, apiKey);
+var builder = Kernel.CreateBuilder().AddOpenAIChatCompletion(model, client);
 
 // Add enterprise components
 builder.Services.AddLogging(services => services.AddConsole().SetMinimumLevel(LogLevel.Trace));
@@ -37,29 +37,27 @@ OpenAIPromptExecutionSettings openAIPromptExecutionSettings = new()
     FunctionChoiceBehavior = FunctionChoiceBehavior.Auto()
 };
 
-// Create a history store the conversation
 var history = new ChatHistory();
 
-// Initiate a back-and-forth chat
 string? userInput;
 do
 {
-    // Collect user input
     Console.Write("User > ");
     userInput = Console.ReadLine();
 
-    // Add user input
+    if (userInput is null or { Length: 0 })
+    {
+        continue;
+    }
+
     history.AddUserMessage(userInput);
 
-    // Get the response from the AI
     var result = await chatCompletionService.GetChatMessageContentAsync(
         history,
         executionSettings: openAIPromptExecutionSettings,
         kernel: kernel);
 
-    // Print the results
     Console.WriteLine("Assistant > " + result);
 
-    // Add the message from the agent to the chat history
     history.AddMessage(result.Role, result.Content ?? string.Empty);
-} while (userInput is not null);
+} while (userInput is { Length: > 0 });
