@@ -12,7 +12,8 @@ setx GEMINI_API_KEY <key>
 setx GITHUB_TOKEN <key>
 ```
 
-The endpoint for GitHub Models is https://models.inference.ai.azure.com
+The endpoint for GitHub Models is https://models.github.ai (https://models.github.ai/inference).  
+The previous endpoint https://models.inference.ai.azure.com has been deprecated.
 
 Note that some projects need `DOTNET_ENVIRONMENT` defined as `Development` in their DEBUG properties.
 
