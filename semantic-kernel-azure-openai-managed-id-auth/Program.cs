@@ -1,8 +1,14 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using Azure.AI.OpenAI;
+using Azure.Identity;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
+using Microsoft.SemanticKernel;
+using Microsoft.SemanticKernel.ChatCompletion;
+using Microsoft.SemanticKernel.Connectors.AzureOpenAI;
 
-const string DeploymentConfigKey = "DeploymentName";
-const string EndpointConfigKey = "Endpoint";
-const string ModelIdConfigKey = "ModelId";
+const string DeploymentConfigKey = "AzureOpenAiSettings:DeploymentName";
+const string EndpointConfigKey = "AzureOpenAiSettings:Endpoint";
 
 var environmentName = Environment.GetEnvironmentVariable("DOTNET_ENVIRONMENT");
 
@@ -14,42 +20,22 @@ var configuration = new ConfigurationBuilder()
 
 var deployment = configuration.GetValue<string>(DeploymentConfigKey);
 var endpoint = configuration.GetValue<string>(EndpointConfigKey);
-var modelId = configuration.GetValue<string>(ModelIdConfigKey);
 
-/*
-// Retrieve the OpenAI endpoint from environment variables
-    var endpoint = GetEnvironmentVariable("AZURE_OPENAI_ENDPOINT") ?? "https://xxxx.openai.azure.com/";
-    if (string.IsNullOrEmpty(endpoint))
-    {
-        Console.WriteLine("Please set the AZURE_OPENAI_ENDPOINT environment variable.");
-        return;
-    }
+// Getting an error
+// The principal `` lacks the required data action `Microsoft.CognitiveServices/accounts/OpenAI/deployments/chat/completions/action` to perform `POST /openai/deployments/{deployment-id}/chat/completions` operation
+// Tried this - https://github.com/azure-ai-foundry/foundry-samples/issues/155
+//var credential = new AzureCliCredential();
+var credential = new DefaultAzureCredential(true);
 
-    // Use DefaultAzureCredential for Entra ID authentication
-    var credential = new DefaultAzureCredential();
-
-    // Initialize the AzureOpenAIClient
-    var azureClient = new AzureOpenAIClient(new Uri(endpoint), credential);
-
-    // Initialize the ChatClient with the specified deployment name
-    ChatClient chatClient = azureClient.GetChatClient("o4-mini");    
- */
-/*
-// https://learn.microsoft.com/en-us/dotnet/ai/azure-ai-services-authentication
-// https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication/local-development-dev-accounts?toc=%2Fdotnet%2Fai%2Ftoc.json&bc=%2Fdotnet%2Fai%2Ftoc.json&tabs=azure-portal%2Csign-in-visual-studio%2Ccommand-line#implement-the-code
-var credential = new DefaultAzureCredential
 var client = new AzureOpenAIClient(
-    new Uri(endpoint),
-    new AzureKeyCredential(configuration.GetValue<string>("AzureOpenAI:ApiKey")));
+    new Uri(endpoint), credential);
 
 var builder = Kernel
     .CreateBuilder()
-    .AddAzureOpenAIChatCompletion(modelId, client);
-
+    .AddAzureOpenAIChatCompletion(deployment, client);
 
 builder.Services
     .AddLogging(services => services.AddConsole().SetMinimumLevel(LogLevel.Trace));
-
 
 var kernel = builder.Build();
 
@@ -61,16 +47,16 @@ AzureOpenAIPromptExecutionSettings promptExecutionSettings = new()
 var chatCompletionService = kernel.GetRequiredService<IChatCompletionService>();
 
 var history = new ChatHistory();
-
 history.AddSystemMessage(
     """
-    You are a wild and crazy dude who loves to tell jokes and make people laugh.
+    You are a wild and crazy dude living in San Francisco and working in tech.
+    You love telling jokes and making people laugh.
+    Respond to the user in a humorous way and in the voice of a tech bro.
     """);
 
 string? userInput;
 do
 {
-    // Collect user input
     Console.Write("User > ");
     userInput = Console.ReadLine();
 
@@ -79,20 +65,14 @@ do
         continue;
     }
 
-    // Add user input
     history.AddUserMessage(userInput);
 
-    // Get the response from the AI
     var result = await chatCompletionService.GetChatMessageContentAsync(
         history,
         executionSettings: promptExecutionSettings,
         kernel: kernel);
 
-    // Print the results
     Console.WriteLine("Assistant > " + result);
 
-    // Add the message from the agent to the chat history
     history.AddMessage(result.Role, result.Content ?? string.Empty);
-    }
 } while (userInput is { Length: >0 });
-*/
