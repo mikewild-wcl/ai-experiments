@@ -33,6 +33,14 @@ A simple server that implements the MCP protocol, using modelcontextprotocol/csh
 Based on https://laurentkempe.com/2025/03/22/model-context-protocol-made-easy-building-an-mcp-server-in-csharp/
 
 
+### ml-net-logistic-regression-bank-churn
+
+An ML.NET Wep API app for predicting churn with logistic regression.
+Based on https://www.c-sharpcorner.com/article/predicting-user-behavior-in-net-9-with-ml-net-and-sdca-logistic-regression/
+
+The API uses Scalar to expose the model. If running as https, the API can be accessed from https://localhost:7139/scalar/v1.
+
+
 ### semantic-kernel-azure-sql-vectors
 
 A console app that uses the Semantic Kernel to load documents 
@@ -43,6 +51,7 @@ Uses Azure OpenAI -
 	- to create models, you need to assign the Cognitive Services Usages Reader role to your user account or service principal.
 	  See https://learn.microsoft.com/en-us/azure/ai-services/openai/how-to/quota?tabs=rest#prerequisites
 		- under Subscriptions > Access control (IAM) > Add role assignment > search for Cognitive Services Usages Reader and assign your user
+
 
 ### semantic-kernel-console
 

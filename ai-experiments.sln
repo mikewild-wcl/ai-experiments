@@ -36,6 +36,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "deployment", "deployment", 
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "bicep", "bicep", "{AE2632EC-C075-4D35-B874-790746A9B30E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ml-net-logistic-regression-bank-churn", "ml-net-logistic-regression-bank-churn\ml-net-logistic-regression-bank-churn.csproj", "{FFA653D3-B5BB-43DC-B3C1-E0FDA0EF2D6A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -86,6 +88,10 @@ Global
 		{CFE67856-0D51-4C2E-BAD5-26DBBE296C52}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CFE67856-0D51-4C2E-BAD5-26DBBE296C52}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CFE67856-0D51-4C2E-BAD5-26DBBE296C52}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FFA653D3-B5BB-43DC-B3C1-E0FDA0EF2D6A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FFA653D3-B5BB-43DC-B3C1-E0FDA0EF2D6A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FFA653D3-B5BB-43DC-B3C1-E0FDA0EF2D6A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FFA653D3-B5BB-43DC-B3C1-E0FDA0EF2D6A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

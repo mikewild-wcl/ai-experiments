@@ -1,0 +1,6 @@
+@ml_net_logistic_regression_bank_churn_HostAddress = http://localhost:5183
+
+GET {{ml_net_logistic_regression_bank_churn_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
