@@ -1,0 +1,13 @@
+{
+  "servers": {
+    "SimpleMcpServer": {
+      "type": "stdio",
+      "command": "dotnet",
+      "args": [
+        "run",
+        "--project",
+        "C:\\dev_mike\\ai-experiments\\mcp-simple-server\\mcp-simple-server"
+      ]
+    }
+  }
+}

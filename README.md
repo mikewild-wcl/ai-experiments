@@ -32,6 +32,14 @@ A simple server that implements the MCP protocol, using modelcontextprotocol/csh
 
 Based on https://laurentkempe.com/2025/03/22/model-context-protocol-made-easy-building-an-mcp-server-in-csharp/
 
+To test, use MCP Inspector - switch to the project folder and run
+```
+cd mcp-simple-server
+npx @modelcontextprotocol/inspector dotnet run
+```
+
+Or use ``mcp.json`` - this must be added in the project path.
+
 
 ### ml-net-logistic-regression-bank-churn
 
