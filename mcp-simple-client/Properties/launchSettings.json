@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "mcp-simple-client": {
+      "commandName": "Project",
+      "environmentVariables": {
+        "DOTNET_ENVIRONMENT": "Development"
+      }
+    }
+  }
+}

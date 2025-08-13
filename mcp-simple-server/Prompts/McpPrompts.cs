@@ -8,6 +8,6 @@ internal class McpPrompts
 {
     [McpServerPrompt(Name ="HistoryPrompt", Title = "History prompt")] 
     [Description("Get a prompt about the project history")]
-    public static string GetHistory() =>
+    public string GetHistory() =>
         $"Tell me all there is to know about the history of the project.";
 }

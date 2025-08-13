@@ -38,7 +38,20 @@ cd mcp-simple-server
 npx @modelcontextprotocol/inspector dotnet run
 ```
 
-Or use ``mcp.json`` - this must be added in the project path.
+Or use ``.mcp.json`` which has been added to the solution folder.
+
+
+### mcp-simple-client
+
+An MCP client that calls `mcp-simple-server`.`
+
+Based on https://laurentkempe.com/2025/03/22/model-context-protocol-made-easy-building-an-mcp-server-in-csharp/
+
+The client code in that article is out of date, so see this for more details on setting up a client - 
+https://learn.microsoft.com/en-us/dotnet/ai/quickstarts/build-mcp-client.
+
+The code has been extended to use Semantic Kernel using details found in 
+https://devblogs.microsoft.com/semantic-kernel/integrating-model-context-protocol-tools-with-semantic-kernel-a-step-by-step-guide/
 
 
 ### ml-net-logistic-regression-bank-churn
