@@ -24,9 +24,6 @@ var apiKey = configuration.GetValue<string>(ApiKeyConfigKey);
 var deployment = configuration.GetValue<string>(DeploymentConfigKey);
 var endpoint = configuration.GetValue<string>(EndpointConfigKey);
 
-//using var loggerFactory =
-//    LoggerFactory.Create(builder => builder.AddConsole().SetMinimumLevel(LogLevel.Trace));
-
 var client = new AzureOpenAIClient(
     new Uri(endpoint!),
     new ApiKeyCredential(apiKey!));

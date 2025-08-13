@@ -1,12 +1,8 @@
 ﻿using document_loader.Services;
 using document_loader.Services.Interfaces;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.SemanticKernel;
-
-var configuration = new ConfigurationBuilder()
-    .Build();
 
 var builder = Kernel.CreateBuilder();
 

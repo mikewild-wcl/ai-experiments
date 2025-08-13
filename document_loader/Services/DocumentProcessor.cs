@@ -12,30 +12,30 @@ public class DocumentProcessor(
     private readonly IDocumentChunkerFactory _documentChunkerFactory = documentChunkerFactory;
     private readonly ILogger<DocumentProcessor> _logger = logger;
 
-    public async IAsyncEnumerable<string> ProcessDocument(string? filePath)
+    public async IAsyncEnumerable<string> ProcessDocument(string? path)
     {
-        if (string.IsNullOrEmpty(filePath))
+        if (string.IsNullOrEmpty(path))
         {
             yield break;
         }
 
-        var documentType = filePath.GetDocumentType();
+        var documentType = path.GetDocumentType();
 
         if (documentType == DocumentType.Unknown)
         {
-            _logger.LogWarning("Unknown document type for path: {Path}", filePath);
+            _logger.LogWarning("Unknown document type for path: {Path}", path);
             yield break;
         }
 
-        if (documentType != DocumentType.WebPage && !File.Exists(filePath))
+        if (documentType != DocumentType.WebPage && !File.Exists(path))
         {
-            _logger.LogWarning("File was not found: {Path}", filePath);
+            _logger.LogWarning("File was not found: {Path}", path);
             yield break;
         }
 
         var documentChunker = _documentChunkerFactory.Create(documentType);
 
-        await foreach (var item in documentChunker.StreamChunks(filePath))
+        await foreach (var item in documentChunker.StreamChunks(path))
         {
             yield return item;
         }

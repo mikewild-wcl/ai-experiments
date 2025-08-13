@@ -4,15 +4,12 @@ using ml_net_logistic_regression_bank_churn.Services.Interfaces;
 
 namespace ml_net_logistic_regression_bank_churn.Services;
 
-public class UserBehaviorPredict : IUserBehaviorPredict //(MLContext mlContext)
+public class UserBehaviorPredict : IUserBehaviorPredict
 {
-    private readonly MLContext _mlContext; // = mlContext;
-
     private readonly PredictionEngine<UserBehaviorData, UserBehaviorPrediction> _predictionEngine;
 
     public UserBehaviorPredict(MLContext mlContext)
     {
-        _mlContext = mlContext;        
         var model = mlContext.Model.Load("MLModel/UserBehaviorModel.zip", out _);
         _predictionEngine = mlContext.Model.CreatePredictionEngine<UserBehaviorData, UserBehaviorPrediction>(model);
     }

@@ -35,5 +35,5 @@ app.MapPost("/predict", (UserBehaviorData userBehaviorData, IUserBehaviorPredict
 )
     .WithName("Predict");
 
-app.Run();
+await app.RunAsync();
 
