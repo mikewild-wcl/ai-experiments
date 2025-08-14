@@ -1,4 +1,5 @@
 ﻿using Azure.AI.OpenAI;
+using Microsoft.Extensions.AI;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -6,6 +7,7 @@ using Microsoft.SemanticKernel;
 using Microsoft.SemanticKernel.ChatCompletion;
 using Microsoft.SemanticKernel.Connectors.OpenAI;
 using ModelContextProtocol.Client;
+using ModelContextProtocol.Protocol;
 using System.ClientModel;
 
 const string ApiKeyConfigKey = "AzureOpenAiSettings:ApiKey";
@@ -65,9 +67,18 @@ foreach (var resource in resources)
     var resourceValue = await resource.ReadAsync();
     if (resourceValue?.Contents is not null)
     {
-        // TODO: What are the contents?
-        var contentsAsString = resourceValue.Contents.ToString();
-        Console.WriteLine($"> {contentsAsString}");
+        foreach (var contentItem in resourceValue.Contents)
+        {
+            var textContents = contentItem as TextResourceContents;
+            if(textContents is not null)
+            {
+                Console.WriteLine($"> {textContents.Uri} - {textContents.Text}");
+            }
+            else
+            {
+                Console.WriteLine($"> {contentItem.Uri} - type is {contentItem.GetType().Name}");
+            }
+        }
     }
 }
 Console.WriteLine();
@@ -76,11 +87,22 @@ Console.WriteLine("Available prompts:");
 var prompts = await mcpClient.ListPromptsAsync();
 foreach (var prompt in prompts)
 {
-    Console.WriteLine($"{prompt.Name}: {prompt.ProtocolPrompt}");
+    Console.WriteLine($"{prompt.Name}: {prompt.Description}");
     var promptValue = await prompt.GetAsync();
     if(promptValue is not null)
     {
-        Console.WriteLine($"> {promptValue}");
+        foreach (var promptMessage in promptValue.Messages)
+        {
+            var contentBlock = promptMessage.Content as TextContentBlock;
+            if (contentBlock is not null)
+            {
+                Console.WriteLine($"> {contentBlock.Text}");
+            }
+            else
+            {
+                Console.WriteLine($"> content block type is {promptMessage.Content?.GetType().Name}");
+            }
+        }
     }
 }
 Console.WriteLine();
