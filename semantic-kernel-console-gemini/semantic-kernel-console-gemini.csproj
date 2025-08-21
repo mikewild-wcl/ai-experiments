@@ -12,8 +12,8 @@
     <PackageReference Include="Microsoft.Extensions.Configuration.EnvironmentVariables" Version="9.0.8" />
     <PackageReference Include="Microsoft.Extensions.Logging" Version="9.0.8" />
     <PackageReference Include="Microsoft.Extensions.Logging.Console" Version="9.0.8" />
-    <PackageReference Include="Microsoft.SemanticKernel" Version="1.62.0" />
-    <PackageReference Include="Microsoft.SemanticKernel.Connectors.Google" Version="1.45.0-alpha" />
+    <PackageReference Include="Microsoft.SemanticKernel" Version="1.63.0" />
+    <PackageReference Include="Microsoft.SemanticKernel.Connectors.Google" Version="1.63.0-alpha" />
   </ItemGroup>
 
 </Project>
