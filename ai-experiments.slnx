@@ -1,0 +1,24 @@
+<Solution>
+  <Folder Name="/Solution Items/">
+    <File Path=".editorconfig" />
+    <File Path=".github/copilot-instructions.md" />
+    <File Path=".gitignore" />
+    <File Path=".mcp.json" />
+    <File Path="README.md" />
+  </Folder>
+  <Folder Name="/Solution Items/deployment/" />
+  <Folder Name="/Solution Items/deployment/bicep/" />
+  <Project Path="document_loader/document_loader.csproj" />
+  <Project Path="mcp-simple-client/mcp-simple-client.csproj" />
+  <Project Path="mcp-simple-server/mcp-simple-server.csproj" />
+  <Project Path="ml-net-logistic-regression-bank-churn/ml-net-logistic-regression-bank-churn.csproj" />
+  <Project Path="semantic-kernel-azure-openai-managed-id-auth/semantic-kernel-azure-openai-managed-id-auth.csproj" />
+  <Project Path="semantic-kernel-azure-sql-vectors/semantic-kernel-azure-sql-vectors.csproj" />
+  <Project Path="semantic-kernel-console-gemini/semantic-kernel-console-gemini.csproj" />
+  <Project Path="semantic-kernel-console/semantic-kernel-console.csproj" />
+  <Project Path="semantic-kernel-redis-cache/semantic-kernel-redis-cache.csproj" />
+  <Project Path="semantic-kernel-template-chat/semantic-kernel-template-chat.csproj" />
+  <Project Path="semantic-kernel-text-search/semantic-kernel-text-search.csproj" />
+  <Project Path="test-data/test-data.csproj" />
+  <Project Path="unit-test-playground/unit-test-playground.csproj" />
+</Solution>
