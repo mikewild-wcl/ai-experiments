@@ -9,8 +9,8 @@ using semantic_kernel_redis_cache.Services.Interfaces;
 using System.ClientModel;
 
 const string ApiKeyName = "GITHUB_MODELS_TOKEN";
-const string DeploymentName = "AzureOpenAiSettings:DeploymentName";
-const string EndpointName = "AzureOpenAiSettings:Endpoint";
+const string ModelName = "OpenAiSettings:Model";
+const string EndpointName = "OpenAiSettings:Endpoint";
 
 var environmentName = Environment.GetEnvironmentVariable("DOTNET_ENVIRONMENT");
 
@@ -22,7 +22,7 @@ var configuration = new ConfigurationBuilder()
 
 var apiKey = configuration.GetValue<string>(ApiKeyName);
 var endpoint = configuration.GetValue<string>(EndpointName);
-var model = configuration.GetValue<string>(DeploymentName);
+var model = configuration.GetValue<string>(ModelName);
 
 var builder = Host.CreateApplicationBuilder(args);
 
