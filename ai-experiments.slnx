@@ -9,6 +9,7 @@
   <Folder Name="/Solution Items/deployment/" />
   <Folder Name="/Solution Items/deployment/bicep/" />
   <Project Path="document_loader/document_loader.csproj" />
+  <Project Path="github-midels-azure-ai/github-midels-azure-ai.csproj" Id="98b49bad-fc1c-46f2-a73a-ce717e675a1e" />
   <Project Path="mcp-simple-client/mcp-simple-client.csproj" />
   <Project Path="mcp-simple-server/mcp-simple-server.csproj" />
   <Project Path="ml-net-logistic-regression-bank-churn/ml-net-logistic-regression-bank-churn.csproj" />

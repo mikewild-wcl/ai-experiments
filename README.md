@@ -20,6 +20,12 @@ Note that some projects need `DOTNET_ENVIRONMENT` defined as `Development` in th
 
 ## Projects
 
+### github-midels-azure-ai
+
+A simple example using the `Aspire.Azure.AI.Inference` package to call GitHub Models.
+Code is taken from https://github.com/marketplace/models/azure-openai/gpt-5/playground/code
+
+
 ### document_loader
 
 A console app for loading documents and splitting into chunks. 
@@ -98,7 +104,11 @@ A console app that authenticates using Azure managed identity to access Azure Op
 
 A console app using Redis caching with vector support.
 
-Uses GitHub Models Azure OpenAI o4-mini with code adapted from https://github.com/marketplace/models/azure-openai/o4-mini/playground/code.
+Uses GitHub Models Azure OpenAI gpt-4.1 with code adapted from https://github.com/marketplace/models/azure-openai/o4-mini/playground/code.
+
+Originally the code tried to load the model using Azure OPenAI but got a 401 not authorized error. 
+This appears to be a known problem - https://github.com/orgs/community/discussions/158638. 
+The code was changed to use an OpenAI client and chat completion which works.
 
 
 ### semantic-kernel-template-chat
