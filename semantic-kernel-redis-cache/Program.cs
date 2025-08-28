@@ -6,11 +6,14 @@ using Microsoft.SemanticKernel;
 using OpenAI;
 using semantic_kernel_redis_cache.Services;
 using semantic_kernel_redis_cache.Services.Interfaces;
+using StackExchange.Redis;
 using System.ClientModel;
 
 const string ApiKeyName = "GITHUB_MODELS_TOKEN";
 const string ModelName = "OpenAiSettings:Model";
+const string EmbeddingModelName = "OpenAiSettings:EmbeddingModel";
 const string EndpointName = "OpenAiSettings:Endpoint";
+const string RedisConnectionStringName = "Redis";
 
 var environmentName = Environment.GetEnvironmentVariable("DOTNET_ENVIRONMENT");
 
@@ -23,6 +26,7 @@ var configuration = new ConfigurationBuilder()
 var apiKey = configuration.GetValue<string>(ApiKeyName);
 var endpoint = configuration.GetValue<string>(EndpointName);
 var model = configuration.GetValue<string>(ModelName);
+var embeddingModel = configuration.GetValue<string>(EmbeddingModelName);
 
 var builder = Host.CreateApplicationBuilder(args);
 
@@ -37,14 +41,24 @@ builder.Services
     .AddTransient((serviceProvider) =>
     {
         var kernelBuilder = Kernel.CreateBuilder();
-        kernelBuilder
-            .AddOpenAIChatCompletion(model!, client);
 
-        kernelBuilder.Services
-            .AddLogging(services => services.AddConsole().SetMinimumLevel(LogLevel.Trace));
+#pragma warning disable SKEXP0010 // Type is for evaluation purposes only and is subject to change or removal in future updates. Suppress this diagnostic to proceed.
+        kernelBuilder
+            .AddOpenAIChatCompletion(model!, client)
+            .AddOpenAIEmbeddingGenerator(embeddingModel!, client)
+            .Services
+                .AddLogging(services => services.AddConsole().SetMinimumLevel(LogLevel.Trace));
+#pragma warning restore SKEXP0010 // Type is for evaluation purposes only and is subject to change or removal in future updates. Suppress this diagnostic to proceed.
 
         return kernelBuilder.Build();
     });
+
+var redisConnectionString = configuration.GetConnectionString(RedisConnectionStringName);
+
+builder.Services
+    .AddSingleton<ISemanticCacheService, SemanticCacheService>()
+    .AddSingleton<IConnectionMultiplexer>(
+        await ConnectionMultiplexer.ConnectAsync(redisConnectionString!));
 
 var host = builder.Build();
 
@@ -66,8 +80,16 @@ do
     // https://devblogs.microsoft.com/dotnet/redis-makes-intelligent-apps-smarter-and-consistent/
     //  -> https://github.com/CawaMS/chatappredis/tree/main
     // https://github.com/Azure-Samples/azure-redis-dalle-semantic-caching/tree/main/OutputCacheDallESample
+    // https://github.com/CawaMS/chatappredis/blob/main/ChatApp/chatapp.csproj
     // https://www.nuget.org/packages/Redis.OM/
     // https://www.nuget.org/packages/NRedisStack/
+    // https://learn.microsoft.com/en-us/azure/redis/tutorial-semantic-cache
+    // https://medium.com/@yashpaddalwar/implementing-semantic-caching-in-rag-using-redis-for-faster-responses-b901bcc8324b
+    // https://redis.io/docs/latest/develop/clients/dotnet/
+    // 
+    // 
+    // 
+    // 
     // docker run -p 6379:6379 -p 8001:8001 redis/redis-stack
     // docker run -p 6379:6379 --name redis-stack redis/redis-stack:latest
 

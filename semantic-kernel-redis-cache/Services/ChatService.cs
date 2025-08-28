@@ -10,10 +10,12 @@ namespace semantic_kernel_redis_cache.Services;
 
 public class ChatService(
     Kernel kernel,
+    ISemanticCacheService semanticCacheService,
     ILogger<ChatService> logger)
     : IChatService
 {
     private readonly Kernel _kernel = kernel;
+    private readonly ISemanticCacheService _semanticCacheService = semanticCacheService;
     private readonly ILogger<ChatService> _logger = logger;
     private readonly ChatHistory _chatHistory = [];
 
@@ -37,6 +39,13 @@ public class ChatService(
 
         _chatHistory.AddUserMessage(userMessage);
 
+        var (found, cachedResponse) = await _semanticCacheService.Query(userMessage);
+        if (found)
+        {
+            yield return cachedResponse;
+            yield break;
+        }
+
         var promptExecutionSettings = new AzureOpenAIPromptExecutionSettings
         {
             MaxTokens = 1000,
@@ -51,6 +60,8 @@ public class ChatService(
             responses.Append(content);
             yield return content;
         }
+
+        await _semanticCacheService.Save(userMessage, responses.ToString());
 
         _chatHistory.AddAssistantMessage(responses.ToString());
     }
