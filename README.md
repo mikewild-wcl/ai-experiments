@@ -99,6 +99,18 @@ The sample has been modified to use Gemini models.
 
 A console app that authenticates using Azure managed identity to access Azure OpenAI models.
 
+Using DefaultAzureCredential initially failed with error
+     The principal `` lacks the required data action `Microsoft.CognitiveServices/accounts/OpenAI/deployments/chat/completions/action` to perform `POST /openai/deployments/{deployment-id}/chat/completions` operation
+
+ The fix was to add role assignments to the user from the Access control (IAM) blade of AI Foundry | Azure OpenAI. Either add
+    Azure AI Developer
+ or (some or all)
+    Azure AI User
+    Cognitive Services User
+    Cognitive Services OpenAI User
+
+This has instructions on adding custom permissions: https://github.com/azure-ai-foundry/foundry-samples/issues/155
+
 
 ### semantic-kernel-redis-cache
 

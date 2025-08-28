@@ -21,10 +21,20 @@ var configuration = new ConfigurationBuilder()
 var deployment = configuration.GetValue<string>(DeploymentConfigKey);
 var endpoint = configuration.GetValue<string>(EndpointConfigKey);
 
-// Getting an error
-// The principal `` lacks the required data action `Microsoft.CognitiveServices/accounts/OpenAI/deployments/chat/completions/action` to perform `POST /openai/deployments/{deployment-id}/chat/completions` operation
-// Tried this - https://github.com/azure-ai-foundry/foundry-samples/issues/155
-//var credential = new AzureCliCredential();
+/* 
+  Using DefaultAzureCredential initially failed with error
+     The principal `` lacks the required data action `Microsoft.CognitiveServices/accounts/OpenAI/deployments/chat/completions/action` to perform `POST /openai/deployments/{deployment-id}/chat/completions` operation
+
+ The fix was to add role assignments to the user from the Access control (IAM) blade of AI Foundry | Azure OpenAI. Either add
+    Azure AI Developer
+ or (some or all)
+    Azure AI User
+    Cognitive Services User
+    Cognitive Services OpenAI User
+
+  This has instructions on adding custom permissions: https://github.com/azure-ai-foundry/foundry-samples/issues/155
+*/
+
 var credential = new DefaultAzureCredential(true);
 
 var client = new AzureOpenAIClient(
@@ -41,7 +51,7 @@ var kernel = builder.Build();
 
 AzureOpenAIPromptExecutionSettings promptExecutionSettings = new()
 {
-    Temperature = 0.8f,
+    Temperature = deployment.StartsWith('o') ? 1.0f : 0.8f,
 };
 
 var chatCompletionService = kernel.GetRequiredService<IChatCompletionService>();
