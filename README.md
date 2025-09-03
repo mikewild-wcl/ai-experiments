@@ -20,7 +20,7 @@ Note that some projects need `DOTNET_ENVIRONMENT` defined as `Development` in th
 
 ## Projects
 
-### github-midels-azure-ai
+### github-models-azure-ai
 
 A simple example using the `Aspire.Azure.AI.Inference` package to call GitHub Models.
 Code is taken from https://github.com/marketplace/models/azure-openai/gpt-5/playground/code
