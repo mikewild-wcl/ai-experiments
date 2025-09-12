@@ -1,0 +1,58 @@
+#!meta
+
+{"kernelInfo":{"defaultKernelName":"csharp","items":[{"name":"csharp","languageName":"csharp"},{"name":"fsharp","languageName":"F#","aliases":["f#","fs"]},{"name":"html","languageName":"HTML"},{"name":"http","languageName":"HTTP"},{"name":"javascript","languageName":"JavaScript","aliases":["js"]},{"name":"mermaid","languageName":"Mermaid"},{"name":"pwsh","languageName":"PowerShell","aliases":["powershell"]},{"name":"value"}]}}
+
+#!markdown
+
+# Semantic Kernel basic prompt
+
+A simple test to show we can connect to Azure OpenAI and query with a simple prompt.
+
+Based on chapter 3 of **Building effective LLM-based applications with Semantic Kernel**. The original code is in https://github.com/wmeints/effective-llm-applications/tree/main/samples/chapter-03.
+
+#!csharp
+
+#r "nuget:Microsoft.SemanticKernel"
+#r "nuget:Azure.Identity"
+
+#!csharp
+
+using Azure.AI.OpenAI;
+using Azure.Identity;
+using Microsoft.SemanticKernel;
+using static Microsoft.DotNet.Interactive.Formatting.PocketViewTags;
+
+const string modelsEndpoint = "https://mw-models-2.openai.azure.com/";
+const string deploymentName = "gpt-4.1-mini";
+
+#!csharp
+
+public class ProductNameGenerator(Kernel kernel)
+{
+    public async Task<string> GenerateProductNames()
+    {
+        var prompt = "Generate a list of product names for 22nd century spaceships";
+        var response = await kernel.InvokePromptAsync(prompt);
+        return response.GetValue<string>();
+    }
+}
+
+#!csharp
+
+var kernelBuilder = Kernel.CreateBuilder();
+
+var apiClient = new AzureOpenAIClient(
+    new Uri(modelsEndpoint),
+     new DefaultAzureCredential());
+
+kernelBuilder.AddAzureOpenAIChatCompletion(
+    deploymentName: deploymentName,
+    azureOpenAIClient: apiClient
+);
+
+var kernel = kernelBuilder.Build();
+
+var productNameGenerator = new ProductNameGenerator(kernel);
+var productNames = await productNameGenerator.GenerateProductNames();
+
+pre[style: "color:green"](productNames)

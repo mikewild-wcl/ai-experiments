@@ -1,0 +1,143 @@
+#!meta
+
+{"kernelInfo":{"defaultKernelName":"csharp","items":[{"name":"csharp","languageName":"csharp"},{"name":"fsharp","languageName":"F#","aliases":["f#","fs"]},{"name":"html","languageName":"HTML"},{"name":"http","languageName":"HTTP"},{"name":"javascript","languageName":"JavaScript","aliases":["js"]},{"name":"mermaid","languageName":"Mermaid"},{"name":"pwsh","languageName":"PowerShell","aliases":["powershell"]},{"name":"value"}]}}
+
+#!markdown
+
+# Semantic Kernel prompt templates
+
+Based on chapter 4 of **Building effective LLM-based applications with Semantic Kernel**. The original code is in https://github.com/wmeints/effective-llm-applications/tree/main/samples/chapter-04.
+
+#!csharp
+
+#r "nuget:Azure.Identity"
+#r "nuget:Microsoft.SemanticKernel"
+#r "nuget:Microsoft.SemanticKernel.PromptTemplates.Handlebars"
+#r "nuget:Microsoft.SemanticKernel.Yaml"
+
+#!csharp
+
+using Azure.AI.OpenAI;
+using Azure.Identity;
+using Microsoft.SemanticKernel;
+using Microsoft.SemanticKernel.Connectors.AzureOpenAI;
+using Microsoft.SemanticKernel.PromptTemplates.Handlebars;
+
+const string modelsEndpoint = "https://mw-models-2.openai.azure.com/";
+const string deploymentName = "gpt-4.1-mini";
+const string embeddingDeploymentName = "text-embedding-3-small";
+
+#!csharp
+
+var kernelBuilder = Kernel.CreateBuilder();
+
+var apiClient = new AzureOpenAIClient(
+    new Uri(modelsEndpoint),
+     new DefaultAzureCredential());
+
+kernelBuilder.AddAzureOpenAIChatCompletion(
+    deploymentName: deploymentName,
+    azureOpenAIClient: apiClient
+);
+
+var kernel = kernelBuilder.Build();
+
+#!csharp
+
+// Basic prompt template
+var promptTemplate = "Help me cook something nice, give me a recipe for {{ $dish }}";
+
+var executionSettings = new AzureOpenAIPromptExecutionSettings
+{
+    MaxTokens = 500,
+    Temperature = 0.5,
+    TopP = 1.0,
+    FrequencyPenalty = 0.0,
+    PresencePenalty = 0.0
+};
+
+var result = await kernel.InvokePromptAsync(promptTemplate, new KernelArguments
+{
+    ["dish"] = "pizza"
+});
+
+result.ToString()
+
+#!csharp
+
+// Kernel function invoking template
+var promptTemplate = """
+    Help me cook something nice, give me a recipe for {{ dish }}. Use the ingredients I have in the fridge: 
+
+    {{#each ingredients}}
+        {{ . }}
+    {{/each}}
+    """;
+
+var executionSettings = new AzureOpenAIPromptExecutionSettings
+{
+    MaxTokens = 2000,
+    Temperature = 0.5,
+    TopP = 1.0,
+    FrequencyPenalty = 0.0,
+    PresencePenalty = 0.0    
+};
+
+// var templateOptions = new HandlebarsPromptTemplateOptions 
+// { 
+//     AllowDangerouslySetContent  = true 
+// };
+
+var prompt = kernel.CreateFunctionFromPrompt(
+    promptTemplate, templateFormat: "handlebars",
+    promptTemplateFactory: new HandlebarsPromptTemplateFactory(),
+    executionSettings: executionSettings);
+
+/*
+Argument 'ingredients' has a value that doesn't support automatic encoding. Set AllowDangerouslySetContent to 'true' for this argument and implement custom encoding, or provide the value as a string.
+
+See this: https://github.com/microsoft/semantic-kernel/pull/12983
+*/
+var result = await kernel.InvokeAsync(prompt, new KernelArguments
+{
+    ["dish"] = "pizza",
+    // ["ingredients"] = new List<string>
+    // {
+    //     "pepperoni",
+    //     "mozzarella",
+    //     "spinach"
+    // }
+     ["ingredients"] = "\"pepperoni\", \"mozzarella\", \"spinach\""
+});
+
+result
+
+#!csharp
+
+var promptTemplate = """
+Help me cook something nice, give me a recipe for {{ dish }}. Use the ingredients I have in the fridge: 
+
+{{#each ingredients}}
+    {{ . }}
+{{/each}}
+""";
+
+var executionSettings = new AzureOpenAIPromptExecutionSettings
+{
+    MaxTokens = 500,
+    Temperature = 0.5,
+    TopP = 1.0,
+    FrequencyPenalty = 0.0,
+    PresencePenalty = 0.0
+};
+
+var result = await kernel.InvokePromptAsync(promptTemplate,
+    arguments: new KernelArguments(executionSettings)
+    {
+        ["dish"] = "pizza",
+        ["ingredients"] = new List<string> { "pepperoni", "mozarella", "spinach" }
+    },
+    templateFormat: "handlebars",
+    promptTemplateFactory: new HandlebarsPromptTemplateFactory());
+
+result.Text    
