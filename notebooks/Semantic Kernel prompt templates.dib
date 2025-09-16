@@ -19,9 +19,12 @@ Based on chapter 4 of **Building effective LLM-based applications with Semantic 
 
 using Azure.AI.OpenAI;
 using Azure.Identity;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.SemanticKernel;
+using Microsoft.SemanticKernel.ChatCompletion;
 using Microsoft.SemanticKernel.Connectors.AzureOpenAI;
 using Microsoft.SemanticKernel.PromptTemplates.Handlebars;
+using System.Web;
 
 const string modelsEndpoint = "https://mw-models-2.openai.azure.com/";
 const string deploymentName = "gpt-4.1-mini";
@@ -41,6 +44,10 @@ kernelBuilder.AddAzureOpenAIChatCompletion(
 );
 
 var kernel = kernelBuilder.Build();
+
+#!markdown
+
+## Basic prompt template
 
 #!csharp
 
@@ -65,6 +72,10 @@ result.ToString()
 
 #!csharp
 
+## Kernel function invoking template
+
+#!csharp
+
 // Kernel function invoking template
 var promptTemplate = """
     Help me cook something nice, give me a recipe for {{ dish }}. Use the ingredients I have in the fridge: 
@@ -83,37 +94,40 @@ var executionSettings = new AzureOpenAIPromptExecutionSettings
     PresencePenalty = 0.0    
 };
 
-// var templateOptions = new HandlebarsPromptTemplateOptions 
-// { 
-//     AllowDangerouslySetContent  = true 
-// };
-
 var prompt = kernel.CreateFunctionFromPrompt(
     promptTemplate, templateFormat: "handlebars",
-    promptTemplateFactory: new HandlebarsPromptTemplateFactory(),
+    promptTemplateFactory: new HandlebarsPromptTemplateFactory
+    {
+        AllowDangerouslySetContent = true
+    },
     executionSettings: executionSettings);
 
 /*
 Argument 'ingredients' has a value that doesn't support automatic encoding. Set AllowDangerouslySetContent to 'true' for this argument and implement custom encoding, or provide the value as a string.
 
 See this: https://github.com/microsoft/semantic-kernel/pull/12983
+          https://devblogs.microsoft.com/semantic-kernel/encoding-changes-for-template-arguments-in-semantic-kernel/
 */
 var result = await kernel.InvokeAsync(prompt, new KernelArguments
 {
     ["dish"] = "pizza",
-    // ["ingredients"] = new List<string>
-    // {
-    //     "pepperoni",
-    //     "mozzarella",
-    //     "spinach"
-    // }
-     ["ingredients"] = "\"pepperoni\", \"mozzarella\", \"spinach\""
+     ["ingredients"] = new List<string>
+     {
+        HttpUtility.HtmlEncode("pepperoni"),
+        HttpUtility.HtmlEncode("mozzarella"),
+        HttpUtility.HtmlEncode("spinach"),
+    }
 });
 
-result
+result.ToString()
+
+#!markdown
+
+## Handlebars prompt template
 
 #!csharp
 
+// Handlebars prompt
 var promptTemplate = """
 Help me cook something nice, give me a recipe for {{ dish }}. Use the ingredients I have in the fridge: 
 
@@ -135,9 +149,109 @@ var result = await kernel.InvokePromptAsync(promptTemplate,
     arguments: new KernelArguments(executionSettings)
     {
         ["dish"] = "pizza",
-        ["ingredients"] = new List<string> { "pepperoni", "mozarella", "spinach" }
+        ["ingredients"] = new List<string>
+        {
+             HttpUtility.HtmlEncode("pepperoni"), 
+             HttpUtility.HtmlEncode("mozarella"), 
+             HttpUtility.HtmlEncode("spinach")
+        }
     },
     templateFormat: "handlebars",
-    promptTemplateFactory: new HandlebarsPromptTemplateFactory());
+    promptTemplateFactory: new HandlebarsPromptTemplateFactory
+    {
+        AllowDangerouslySetContent = true
+    });
 
-result.Text    
+result.ToString()    
+
+#!markdown
+
+## YAML prompt template
+
+#!csharp
+
+//YAML template
+var promptTemplate = """
+name: GenerateRecipe
+description: Generates a recipe based on ingredients in your fridge
+template: |
+  Help me cook something nice, give me a recipe for {{ dish }}. Use the ingredients I have in the fridge: 
+
+  {{#each ingredients}}
+      {{ . }}
+  {{/each}}
+template_format: handlebars
+input_variables:
+  - name: dish
+    description: The name of the dish you want to make
+    is_required: true
+  - name: ingredients
+    description: A list of ingredient names you have in the fridge
+    is_required: true
+execution_settings:
+  default:
+    top_p: 0.98
+    temperature: 0.7
+    presence_penalty: 0.0
+    frequency_penalty: 0.0
+    max_tokens: 1200
+""";
+
+// var promptTemplate = File.ReadAllText(Path.Join(Directory.GetCurrentDirectory(), "prompt.yaml"));
+var prompt = kernel.CreateFunctionFromPromptYaml(
+    promptTemplate,
+    new HandlebarsPromptTemplateFactory
+    {
+            AllowDangerouslySetContent = true
+    });
+
+var result = await kernel.InvokeAsync(prompt,
+    arguments: new KernelArguments
+    {
+        ["dish"] = "pizza",
+        ["ingredients"] = new List<string>
+        {
+            HttpUtility.HtmlEncode("pepperoni"), 
+            HttpUtility.HtmlEncode("mozarella"), 
+            HttpUtility.HtmlEncode("spinach")
+        }
+    });
+
+result.ToString()
+
+#!markdown
+
+## Streaming chat completion
+
+#!csharp
+
+// Streaming chat completion
+var executionSettings = new AzureOpenAIPromptExecutionSettings()
+{
+    Temperature = 0.7,
+    PresencePenalty = 0.2,
+    FrequencyPenalty = 0.4,
+    TopP = 0.98,
+};
+
+var chatHistory = new ChatHistory();
+
+chatHistory.AddSystemMessage("You're a digital chef help me cook. Your name is Flora.");
+chatHistory.AddUserMessage("Hi, I'd like a nice recipe for a french style apple pie");
+
+var chatCompletionService = kernel.Services.GetService<IChatCompletionService>();
+var responseIterator = chatCompletionService!.GetStreamingChatMessageContentsAsync(chatHistory);
+
+await foreach (var token in responseIterator)
+{
+    Console.Write(token.Content);
+}
+
+#!markdown
+
+## POML
+
+Look into POML files:
+
+https://techcommunity.microsoft.com/blog/educatordeveloperblog/unlock-the-full-potential-of-llms-with-poml-the-markup-language-for-prompts/4447849
+https://github.com/microsoft/poml
