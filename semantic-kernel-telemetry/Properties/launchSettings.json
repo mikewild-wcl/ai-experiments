@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "semantic-kernel-telemetry": {
+      "commandName": "Project",
+      "environmentVariables": {
+        "DOTNET_ENVIRONMENT": "Development"
+      }
+    }
+  }
+}

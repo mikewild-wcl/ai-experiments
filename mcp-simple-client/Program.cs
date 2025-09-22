@@ -1,5 +1,4 @@
 ﻿using Azure.AI.OpenAI;
-using Microsoft.Extensions.AI;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -38,7 +37,6 @@ builder.Services
     .AddLogging(services => services.AddConsole().SetMinimumLevel(LogLevel.Trace));
 
 var kernel = builder.Build();
-
 
 var chatCompletionService = kernel.GetRequiredService<IChatCompletionService>();
 

@@ -18,6 +18,7 @@
   <Project Path="semantic-kernel-console-gemini/semantic-kernel-console-gemini.csproj" />
   <Project Path="semantic-kernel-console/semantic-kernel-console.csproj" />
   <Project Path="semantic-kernel-redis-cache/semantic-kernel-redis-cache.csproj" />
+  <Project Path="semantic-kernel-telemetry/semantic-kernel-telemetry.csproj" Id="491baac1-7bf8-42f3-a0b9-5fdcf2402600" />
   <Project Path="semantic-kernel-template-chat/semantic-kernel-template-chat.csproj" />
   <Project Path="semantic-kernel-text-search/semantic-kernel-text-search.csproj" />
   <Project Path="test-data/test-data.csproj" />

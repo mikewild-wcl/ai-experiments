@@ -119,6 +119,12 @@ Originally the code tried to load the model using Azure OPenAI but got a 401 not
 This appears to be a known problem - https://github.com/orgs/community/discussions/158638. 
 The code was changed to use an OpenAI client and chat completion which works.
 
+### semantic-kernel-telemetry
+
+A console app that uses Open Telemetry and Application Insights to log requests and responses.
+
+Refer to the book code here - https://github.com/wmeints/effective-llm-applications/tree/main/samples/chapter-05/csharp 
+
 ### semantic-kernel-template-chat
 
 A sample generated from the Microsoft.Extensions.AI.Templates. 
