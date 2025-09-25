@@ -1,8 +1,16 @@
 ﻿using Azure.AI.OpenAI;
+using Azure.Monitor.OpenTelemetry.Exporter;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using Microsoft.SemanticKernel;
 using Microsoft.SemanticKernel.ChatCompletion;
 using Microsoft.SemanticKernel.PromptTemplates.Handlebars;
+using OpenTelemetry;
+using OpenTelemetry.Logs;
+using OpenTelemetry.Metrics;
+using OpenTelemetry.Resources;
+using OpenTelemetry.Trace;
 using semantic_kernel_telemetry.Extensions;
 using System.ClientModel;
 using System.Web;
@@ -14,6 +22,45 @@ var configuration = new ConfigurationBuilder()
     .AddJsonFile($"appsettings.{environmentName}.json", optional: true)
     .Build();
 
+/*
+ * https://github.com/open-telemetry/opentelemetry-dotnet/blob/main/docs/metrics/getting-started-console/README.md
+ * https://opentelemetry.io/docs/languages/dotnet/traces/getting-started-console/
+ */
+var telemetryResourceBuilder = ResourceBuilder.CreateDefault()
+    .AddService("AI_Experiments.SemanticKernel.Telemetry");
+
+using var tracerProvider = Sdk.CreateTracerProviderBuilder()
+    .SetResourceBuilder(telemetryResourceBuilder)
+    .AddSource("Microsoft.SemanticKernel*")
+    .AddSource("semantic-kernel-telemetry")
+    .AddConsoleExporter()
+    .Build();
+
+using var meterProvider = Sdk.CreateMeterProviderBuilder()
+    .SetResourceBuilder(telemetryResourceBuilder)
+    .AddMeter("Microsoft.SemanticKernel*")
+    .AddConsoleExporter()
+    .Build();
+
+// https://bartwullems.blogspot.com/2024/06/semantic-kernelopentelemetry.html
+// https://github.com/microsoft/semantic-kernel/blob/main/dotnet/docs/TELEMETRY.md
+using var loggerFactory = LoggerFactory.Create(builder =>
+{
+    builder.AddOpenTelemetry(options =>
+    {
+        options
+            .AddConsoleExporter()
+            // .AddAzureMonitorLogExporter(options => options.ConnectionString = "yourConnectionString")
+            ;
+        options.IncludeFormattedMessage = true;
+        options.IncludeFormattedMessage = true;
+        options.IncludeScopes = true;
+    })
+    .SetMinimumLevel(LogLevel.Trace)
+    .AddFilter("Microsoft", LogLevel.Warning)
+    .AddFilter("Microsoft.SemanticKernel", LogLevel.Information);
+});
+
 var deployment = configuration.GetValue<string>("AzureOpenAiSettings:DeploymentName");
 var endpoint = configuration.GetValue<string>("AzureOpenAiSettings:Endpoint");
 var apiKey = configuration.GetValue<string>("AzureOpenAiSettings:ApiKey");
@@ -24,6 +71,8 @@ var client = new AzureOpenAIClient(new Uri(endpoint!), new ApiKeyCredential(apiK
 var builder = Kernel
     .CreateBuilder()
     .AddAzureOpenAIChatCompletion(deployment!, client, serviceId: service);
+
+builder.Services.AddSingleton(loggerFactory);
 
 var kernel = builder.Build();
 
@@ -54,6 +103,10 @@ do
         {
             AllowDangerouslySetContent = true
         });
+
+    //TODO: You can use a chat history with "Kernel.InvokePrompt" if you use the ChatPrompt meta language as shown in this sample
+    // https://github.com/microsoft/semantic-kernel/blob/main/dotnet/samples/Concepts/PromptTemplates/HandlebarsPrompts.cs
+    // https://learn.microsoft.com/en-us/semantic-kernel/concepts/ai-services/chat-completion/chat-history?pivots=programming-language-csharp
 
     var result = await prompt.InvokeAsync(kernel, new KernelArguments
     {

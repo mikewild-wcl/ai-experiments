@@ -21,6 +21,7 @@
   <Project Path="semantic-kernel-telemetry/semantic-kernel-telemetry.csproj" Id="491baac1-7bf8-42f3-a0b9-5fdcf2402600" />
   <Project Path="semantic-kernel-template-chat/semantic-kernel-template-chat.csproj" />
   <Project Path="semantic-kernel-text-search/semantic-kernel-text-search.csproj" />
+  <Project Path="temp-telemetry/temp-telemetry.csproj" Id="ef92e5e0-c09f-40c1-b2ef-21b85b06df8d" />
   <Project Path="test-data/test-data.csproj" />
   <Project Path="unit-test-playground/unit-test-playground.csproj" />
 </Solution>
