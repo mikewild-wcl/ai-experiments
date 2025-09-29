@@ -15,6 +15,7 @@ using semantic_kernel_telemetry.Extensions;
 using System.ClientModel;
 using System.Web;
 
+const int MaxHistoryMessages = 5;
 var environmentName = Environment.GetEnvironmentVariable("DOTNET_ENVIRONMENT");
 
 var configuration = new ConfigurationBuilder()
@@ -48,15 +49,23 @@ using var loggerFactory = LoggerFactory.Create(builder =>
 {
     builder.AddOpenTelemetry(options =>
     {
-        options
-            .AddConsoleExporter()
-            // .AddAzureMonitorLogExporter(options => options.ConnectionString = "yourConnectionString")
-            ;
+        var addConsole = configuration.GetValue<bool?>("AddConsoleMonitoring") ?? false;
+        if (addConsole)
+        {
+            options.AddConsoleExporter();
+        }
+
+        var azureMonitorConnectionString = configuration.GetConnectionString("AzureMonitoringConnectionString");
+        if (!string.IsNullOrWhiteSpace(azureMonitorConnectionString))
+        {
+            options.AddAzureMonitorLogExporter(opt => opt.ConnectionString = azureMonitorConnectionString);
+        }
+
         options.IncludeFormattedMessage = true;
         options.IncludeFormattedMessage = true;
         options.IncludeScopes = true;
     })
-    .SetMinimumLevel(LogLevel.Trace)
+    .SetMinimumLevel(LogLevel.Debug)
     .AddFilter("Microsoft", LogLevel.Warning)
     .AddFilter("Microsoft.SemanticKernel", LogLevel.Information);
 });
@@ -78,6 +87,12 @@ var kernel = builder.Build();
 
 var history = new ChatHistory();
 
+//var serviceProvider = builder.Services.BuildServiceProvider();
+// {Method = {Microsoft.SemanticKernel.Connectors.AzureOpenAI.AzureOpenAIChatCompletionService <AddAzureOpenAIChatCompletion>b__0(System.IServiceProvider, System.Object)}}
+var chatCompletionService = kernel.Services.GetKeyedService<IChatCompletionService>(service);
+
+var reducer = new ChatHistorySummarizationReducer(chatCompletionService, MaxHistoryMessages);
+
 string? userInput;
 do
 {
@@ -89,7 +104,13 @@ do
         continue;
     }
 
-    //history.AddUserMessage(userInput);
+    if (history.Count > MaxHistoryMessages)
+    {
+        Console.WriteLine("Summarizing chat history...");
+    }
+
+    history = await history.ReduceAsync(reducer, default);
+    history.AddUserMessage(userInput);
 
     //var result = await chatCompletionService.GetChatMessageContentAsync(
     //    history,
@@ -111,9 +132,29 @@ do
     var result = await prompt.InvokeAsync(kernel, new KernelArguments
     {
         ["input"] = HttpUtility.HtmlEncode(userInput),
+        //["history"] { Name = "history", AllowDangerouslySetContent = true },
+        ["history"] = history.Select(h => new
+        {
+            role = h.Role,
+            content = HttpUtility.HtmlEncode(h.Content)
+        }),
+        //["history"] = new []
+        //{
+        //    new { role = "user", content = HttpUtility.HtmlEncode("pepperoni"),
+        //    HttpUtility.HtmlEncode("mozzarella"),
+        //    HttpUtility.HtmlEncode("spinach"),
+        //},
+        //{
+        //    "history",
+        //    new[]
+        //        {
+        //            new { role = "user", content = "What is my current membership level?" },
+        //        }
+        //},
     });
 
     Console.WriteLine($"Assistant > {result}");
 
-    //history.AddMessage(result.Role, result.Content ?? string.Empty);
+    history.AddMessage(AuthorRole.Assistant, result?.ToString() ?? string.Empty);
+
 } while (userInput is { Length: > 0 });
