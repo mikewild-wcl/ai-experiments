@@ -60,7 +60,6 @@ internal static class TelemetryExtensions
         if (!string.IsNullOrWhiteSpace(azureMonitorConnectionString))
         {
             loggerOptions.AddAzureMonitorLogExporter(opt => opt.ConnectionString = azureMonitorConnectionString);
-
         }
 
         return loggerOptions;
