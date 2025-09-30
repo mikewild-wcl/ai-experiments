@@ -140,6 +140,10 @@ It uses the defaults of GitHub Models and an on-disk memory vector store.
 
 The token has been copied into user secrets, as described in the README.md.
 
+(Project removed from solution 30/09/2025 because updating nuget packages caused problems. 
+ The AI project template has changed significantly since the project was created.)
+
+
 ### semantic-kernel-text-search
 
 A console that loads documents and performs searches using SK text search.
