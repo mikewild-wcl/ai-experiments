@@ -25,6 +25,15 @@ A number of Polyglot notebooks have been added in the `notebooks` folder for sim
 
 ## Projects
 
+### agent-framework-console
+
+A simple app that manages lights, migrated from [semantic-kernel-console](#semantic-kernel-console)
+to Microsoft Agent Framework.
+
+Migration guide - https://learn.microsoft.com/en-us/agent-framework/migration-guide/from-semantic-kernel/?pivots=programming-language-csharp
+Nuget packages here - https://www.nuget.org/profiles/MicrosoftAgentFramework
+
+
 ### github-models-azure-ai
 
 A simple example using the `Aspire.Azure.AI.Inference` package to call GitHub Models.
@@ -142,7 +151,6 @@ The token has been copied into user secrets, as described in the README.md.
 
 (Project removed from solution 30/09/2025 because updating nuget packages caused problems. 
  The AI project template has changed significantly since the project was created.)
-
 
 ### semantic-kernel-text-search
 

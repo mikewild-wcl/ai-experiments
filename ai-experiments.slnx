@@ -8,6 +8,7 @@
   </Folder>
   <Folder Name="/Solution Items/deployment/" />
   <Folder Name="/Solution Items/deployment/bicep/" />
+  <Project Path="agent-framework-console/agent-framework-console.csproj" Id="04b23749-78b7-461a-a5f4-f417d834e466" />
   <Project Path="document_loader/document_loader.csproj" />
   <Project Path="github-models-azure-ai/github-models-azure-ai.csproj" />
   <Project Path="mcp-simple-client/mcp-simple-client.csproj" />
