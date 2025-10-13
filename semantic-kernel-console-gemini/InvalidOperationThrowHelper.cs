@@ -1,6 +1,6 @@
 namespace semantic_kernel_console_gemini;
 
-public class InvalidOperationThrowHelper : InvalidOperationException
+public static class InvalidOperationThrowHelper
 {
     public static void ThrowIfNullOrEmpty(string? val, string message = "Value must not be null or empty.")
     {
