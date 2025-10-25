@@ -5,8 +5,11 @@ using Microsoft.Extensions.Configuration;
 //using Microsoft.SemanticKernel.PromptTemplates.Handlebars;
 using OpenAI;
 using System.ClientModel;
-
+using System.ClientModel.Primitives;
 using System.Web;
+using Utilities;
+
+Console.Clear();
 
 var environmentName = Environment.GetEnvironmentVariable("DOTNET_ENVIRONMENT");
 var configuration = new ConfigurationBuilder()
@@ -25,9 +28,15 @@ var configuration = new ConfigurationBuilder()
 //    )
 //    .Build();
 
+using var httpClient = new HttpClient(new ConsoleWriterHttpClientHandler());
+
 var agent = new AzureOpenAIClient(
     new Uri(configuration["AzureOpenAiSettings:Endpoint"]!),
-    new ApiKeyCredential(configuration["AzureOpenAiSettings:ApiKey"]!))
+    new ApiKeyCredential(configuration["AzureOpenAiSettings:ApiKey"]!),
+    new AzureOpenAIClientOptions
+    {
+        Transport = new HttpClientPipelineTransport(httpClient)
+    })
     .GetChatClient(configuration["AzureOpenAiSettings:DeploymentName"])
     .CreateAIAgent(
         instructions: "You are a helpful assistant that loves talking about cooking.",
@@ -80,4 +89,4 @@ var prompt =
 
 var result = await agent.RunAsync(prompt, thread, new AgentRunOptions());
 
- Console.WriteLine(result);
+Console.WriteLine(result);

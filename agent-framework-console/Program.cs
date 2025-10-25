@@ -1,19 +1,26 @@
 ﻿using agent_framework_console;
 using Microsoft.Agents.AI;
 using Microsoft.Extensions.AI;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using OpenAI;
 using System.ClientModel;
+using System.ClientModel.Primitives;
+using Utilities;
 
 const string ApiKeyName = "GITHUB_MODELS_TOKEN";
 const string ModelsEndpoint = "https://models.github.ai/inference";
 
 var apiKey = Environment.GetEnvironmentVariable(ApiKeyName);
 var model = "openai/gpt-4.1";
+
+using var httpClient = new HttpClient(new ConsoleWriterHttpClientHandler());
+
 var openAIOptions = new OpenAIClientOptions
 {
-    Endpoint = new Uri(ModelsEndpoint)
+    Endpoint = new Uri(ModelsEndpoint),
+    Transport = new HttpClientPipelineTransport(httpClient)
 };
 
 // Add logging
@@ -46,7 +53,7 @@ do
     {
         continue;
     }
-   
+
     var result = await agent.RunAsync(userInput, thread, new AgentRunOptions());
     /*
     await foreach (var update in agent.RunStreamingAsync("Tell me a joke about a pirate."))

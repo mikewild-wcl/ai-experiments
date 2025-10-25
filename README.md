@@ -33,10 +33,14 @@ to Microsoft Agent Framework.
 Migration guide - https://learn.microsoft.com/en-us/agent-framework/migration-guide/from-semantic-kernel/?pivots=programming-language-csharp
 Nuget packages here - https://www.nuget.org/profiles/MicrosoftAgentFramework
 
+Added code to write raw requests and responses to console, based on https://github.com/rwjdk/MicrosoftAgentFrameworkSamples/blob/main/src/SettingsOnAiAgent/Program.cs
+
 ### agent-framework-templated-prompt
 
 A recipe agent using a templated prompt, migrated from a Semantic Kernel sample.
 The yaml template for this isn't used due to missing prompt functions in Agent Framework.
+
+Added code to write raw requests and responses to console, based on https://github.com/rwjdk/MicrosoftAgentFrameworkSamples/blob/main/src/SettingsOnAiAgent/Program.cs
 
 ### github-models-azure-ai
 
@@ -145,7 +149,6 @@ Other links on Open Telemetry:
 - [Semantic Kernel–OpenTelemetry integration in C#](https://bartwullems.blogspot.com/2024/06/semantic-kernelopentelemetry.html)
 - [Semantic Kernel Telemetry](https://github.com/microsoft/semantic-kernel/blob/main/dotnet/docs/TELEMETRY.md)
 
-
 ### semantic-kernel-template-chat
 
 A sample generated from the Microsoft.Extensions.AI.Templates. 
@@ -169,6 +172,9 @@ Add files or save html pages into the wwwroot/Data folder - they will not be che
 
 A place to write simple unit tests for things like extensions, without needing to reference another project.
 
+### Utilities
+
+Includes some helper methods for use by other projects.
 
 ## Visual Studio templates
 
