@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "agent-framework-templated-prompt": {
+      "commandName": "Project",
+      "environmentVariables": {
+        "DOTNET_ENVIRONMENT": "Development"
+      }
+    }
+  }
+}

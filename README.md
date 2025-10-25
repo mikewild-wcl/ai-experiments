@@ -33,6 +33,10 @@ to Microsoft Agent Framework.
 Migration guide - https://learn.microsoft.com/en-us/agent-framework/migration-guide/from-semantic-kernel/?pivots=programming-language-csharp
 Nuget packages here - https://www.nuget.org/profiles/MicrosoftAgentFramework
 
+### agent-framework-templated-prompt
+
+A recipe agent using a templated prompt, migrated from a Semantic Kernel sample.
+The yaml template for this isn't used due to missing prompt functions in Agent Framework.
 
 ### github-models-azure-ai
 
