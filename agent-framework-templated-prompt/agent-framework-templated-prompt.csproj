@@ -26,6 +26,9 @@
       <PackageReference Include="Microsoft.Extensions.Configuration.Environmentvariables" Version="9.0.10" />
       <PackageReference Include="Microsoft.Extensions.Configuration.UserSecrets" Version="9.0.10" />
     </ItemGroup>
+    <ItemGroup>
+      <ProjectReference Include="..\Utilities\Utilities.csproj" />
+    </ItemGroup>
 	<ItemGroup>
       <None Update="prompt.yaml">
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
