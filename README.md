@@ -42,6 +42,13 @@ The yaml template for this isn't used due to missing prompt functions in Agent F
 
 Added code to write raw requests and responses to console, based on https://github.com/rwjdk/MicrosoftAgentFrameworkSamples/blob/main/src/SettingsOnAiAgent/Program.cs
 
+### agent-framework-template-chat
+
+A sample generated from the Microsoft.Extensions.AI.Templates and upgraded to MAF by following 
+[Upgrading .NET AI Chat App](https://devblogs.microsoft.com/dotnet/upgrading-to-microsoft-agent-framework-in-your-dotnet-ai-chat-app/).
+
+This is an Aspire with three projects, which have been grouped under a solution folder.
+
 ### github-models-azure-ai
 
 A simple example using the `Aspire.Azure.AI.Inference` package to call GitHub Models.

@@ -1,4 +1,9 @@
 <Solution>
+  <Folder Name="/agent-framework-template-chat/">
+    <Project Path="agent-framework-template-chat/agent-framework-template-chat.AppHost/agent-framework-template-chat.AppHost.csproj" />
+    <Project Path="agent-framework-template-chat/agent-framework-template-chat.ServiceDefaults/agent-framework-template-chat.ServiceDefaults.csproj" />
+    <Project Path="agent-framework-template-chat/agent-framework-template-chat.Web/agent-framework-template-chat.Web.csproj" />
+  </Folder>
   <Folder Name="/Solution Items/">
     <File Path=".editorconfig" />
     <File Path=".github/copilot-instructions.md" />
