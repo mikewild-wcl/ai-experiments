@@ -1,6 +1,7 @@
 ﻿@page "/"
 @using System.ComponentModel
-@inject IChatClient ChatClient
+@using Microsoft.Agents.AI
+@inject IServiceProvider ServiceProvider
 @inject NavigationManager Nav
 @inject SemanticSearch Search
 @implements IDisposable
@@ -47,9 +48,13 @@
     private ChatMessage? currentResponseMessage;
     private ChatInput? chatInput;
     private ChatSuggestions? chatSuggestions;
+    private AIAgent aiAgent = default!;
 
     protected override void OnInitialized()
     {
+        // Resolve the keyed AI agent registered as "ChatAgent" in Program.cs
+        aiAgent = ServiceProvider.GetRequiredKeyedService<AIAgent>("ChatAgent");
+
         statefulMessageCount = 0;
         messages.Add(new(ChatRole.System, SystemPrompt));
         chatOptions.Tools = [AIFunctionFactory.Create(SearchAsync)];
@@ -68,11 +73,15 @@
         var responseText = new TextContent("");
         currentResponseMessage = new ChatMessage(ChatRole.Assistant, [responseText]);
         currentResponseCancellation = new();
-        await foreach (var update in ChatClient.GetStreamingResponseAsync(messages.Skip(statefulMessageCount), chatOptions, currentResponseCancellation.Token))
+
+        await foreach (var update in aiAgent.RunStreamingAsync(
+            messages: messages.Skip(statefulMessageCount),
+            cancellationToken: currentResponseCancellation.Token))
         {
-            messages.AddMessages(update, filter: c => c is not TextContent);
+            var responseUpdate = update.AsChatResponseUpdate();
+            messages.AddMessages(responseUpdate, filter: c => c is not TextContent);
             responseText.Text += update.Text;
-            chatOptions.ConversationId = update.ConversationId;
+            chatOptions.ConversationId = responseUpdate.ConversationId;
             ChatMessageItem.NotifyChanged(currentResponseMessage);
         }
 

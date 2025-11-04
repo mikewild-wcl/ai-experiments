@@ -19,4 +19,4 @@ webApp
     .WithReference(openai)
     .WaitFor(openai);
 
-builder.Build().Run();
+await builder.Build().RunAsync().ConfigureAwait(false);
