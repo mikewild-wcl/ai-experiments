@@ -49,6 +49,15 @@ A sample generated from the Microsoft.Extensions.AI.Templates and upgraded to MA
 
 This is an Aspire with three projects, which have been grouped under a solution folder.
 
+The AppHost will deploy Azure OpenAI resources. On the first run it will ask for Azure subscription, location and the name of a resource group to create.
+The deployment might fail if UK South is selected, the fix for this is to add this to any deployments:
+```
+    .WithProperties(p =>
+    {
+        p.SkuName = "GlobalStandard";
+    })
+```
+
 ### github-models-azure-ai
 
 A simple example using the `Aspire.Azure.AI.Inference` package to call GitHub Models.

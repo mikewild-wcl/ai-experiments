@@ -7,12 +7,20 @@ var openai = builder.AddAzureOpenAI("openai");
 openai.AddDeployment(
     name: "gpt-4o-mini",
     modelName: "gpt-4o-mini",
-    modelVersion: "2024-07-18");
+    modelVersion: "2024-07-18")
+    .WithProperties(p =>
+    {
+        p.SkuName = "GlobalStandard";
+    });
 
 openai.AddDeployment(
     name: "text-embedding-3-small",
     modelName: "text-embedding-3-small",
-    modelVersion: "1");
+    modelVersion: "1")
+    .WithProperties(p =>
+    {
+        p.SkuName = "GlobalStandard";
+    });
 
 var webApp = builder.AddProject<Projects.agent_framework_template_chat_Web>("aichatweb-app");
 webApp
