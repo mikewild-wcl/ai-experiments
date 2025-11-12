@@ -24,6 +24,7 @@ builder.AddAIAgent("ChatAgent", (sp, key) =>
     logger.LogInformation("Configuring AI Agent with key '{Key}' for model '{Model}'", key, "gpt-4o-mini");
 
     var searchFunctions = sp.GetRequiredService<SearchFunctions>();
+    var weatherFunctions = sp.GetRequiredService<WeatherFunctions>();
     var chatClient = sp.GetRequiredService<IChatClient>();
 
     // Create and configure the AI agent
@@ -31,7 +32,10 @@ builder.AddAIAgent("ChatAgent", (sp, key) =>
         name: key,
         instructions: "You are a useful agent that helps users with short and funny answers.",
         description: "An AI agent that helps users with short and funny answers.",
-        tools: [AIFunctionFactory.Create(searchFunctions.SearchAsync)]
+        tools: [
+            AIFunctionFactory.Create(searchFunctions.SearchAsync),
+            AIFunctionFactory.Create(weatherFunctions.GetWeatherAsync)
+            ]
         )
     .AsBuilder()
     .UseOpenTelemetry(configure: c =>
@@ -47,6 +51,7 @@ builder.Services.AddSqliteCollection<string, IngestedChunk>("data-agent-framewor
 builder.Services.AddSqliteCollection<string, IngestedDocument>("data-agent-framework-template-chat-documents", vectorStoreConnectionString);
 builder.Services.AddScoped<DataIngestor>();
 builder.Services.AddSingleton<SemanticSearch>();
+builder.Services.AddSingleton<WeatherFunctions>();
 
 // Register SearchFunctions for DI injection into the agent
 builder.Services.AddSingleton<SearchFunctions>();
