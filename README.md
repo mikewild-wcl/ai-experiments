@@ -47,7 +47,7 @@ Added code to write raw requests and responses to console, based on https://gith
 A sample generated from the Microsoft.Extensions.AI.Templates and upgraded to MAF by following 
 [Upgrading .NET AI Chat App](https://devblogs.microsoft.com/dotnet/upgrading-to-microsoft-agent-framework-in-your-dotnet-ai-chat-app/).
 
-This is an Aspire with three projects, which have been grouped under a solution folder.
+This is an Aspire-hosted application with three projects, which have been grouped under a solution folder.
 
 The AppHost will deploy Azure OpenAI resources. On the first run it will ask for Azure subscription, location and the name of a resource group to create.
 The deployment might fail if UK South is selected, the fix for this is to add this to any deployments:
@@ -57,6 +57,9 @@ The deployment might fail if UK South is selected, the fix for this is to add th
         p.SkuName = "GlobalStandard";
     })
 ```
+
+The application uses Azure identity to authenticate to Azure OpenAI, so you
+must be signed in to Azure CLI or Visual Studio with an account that has access to the resource.
 
 ### github-models-azure-ai
 
