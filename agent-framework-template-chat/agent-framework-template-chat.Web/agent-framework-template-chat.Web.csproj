@@ -15,11 +15,11 @@
     <PackageReference Include="Microsoft.SemanticKernel.Core" Version="1.67.1" />
 
     <!-- Add Microsoft Agent Framework packages -->
-    <PackageReference Include="Microsoft.Agents.AI" Version="1.0.0-preview.251110.2" />
-    <PackageReference Include="Microsoft.Agents.AI.Abstractions" Version="1.0.0-preview.251110.2" />
-    <PackageReference Include="Microsoft.Agents.AI.Hosting" Version="1.0.0-preview.251110.2" />
-    <PackageReference Include="Microsoft.Agents.AI.Hosting.OpenAI" Version="1.0.0-alpha.251110.2" />
-    <PackageReference Include="Microsoft.Agents.AI.OpenAI" Version="1.0.0-preview.251110.2" />
+    <PackageReference Include="Microsoft.Agents.AI" Version="1.0.0-preview.251114.1" />
+    <PackageReference Include="Microsoft.Agents.AI.Abstractions" Version="1.0.0-preview.251114.1" />
+    <PackageReference Include="Microsoft.Agents.AI.Hosting" Version="1.0.0-preview.251114.1" />
+    <PackageReference Include="Microsoft.Agents.AI.Hosting.OpenAI" Version="1.0.0-alpha.251114.1" />
+    <PackageReference Include="Microsoft.Agents.AI.OpenAI" Version="1.0.0-preview.251114.1" />
 
     <!-- Keep other existing packages -->
     <PackageReference Include="PdfPig" Version="0.1.12" />
