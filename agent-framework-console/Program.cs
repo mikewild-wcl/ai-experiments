@@ -15,7 +15,8 @@ const string ModelsEndpoint = "https://models.github.ai/inference";
 var apiKey = Environment.GetEnvironmentVariable(ApiKeyName);
 var model = "openai/gpt-4.1";
 
-using var httpClient = new HttpClient(new ConsoleWriterHttpClientHandler());
+//using var httpClient = new HttpClient(new ConsoleWriterHttpClientHandler());
+using var httpClient = new HttpClient();
 
 var openAIOptions = new OpenAIClientOptions
 {
@@ -54,14 +55,15 @@ do
         continue;
     }
 
-    var result = await agent.RunAsync(userInput, thread, new AgentRunOptions());
-    /*
+    //var result = await agent.RunAsync(userInput, thread, new AgentRunOptions());
+    //Console.WriteLine("Assistant > " + result);
+
+    Console.Write("Assistant > ");
     await foreach (var update in agent.RunStreamingAsync("Tell me a joke about a pirate."))
     {
-        Console.WriteLine(update);
+        Console.Write(update);
     }
-    */
-    Console.WriteLine("Assistant > " + result);
+    Console.WriteLine();
 
     //history.AddMessage(result.Role, result.Content ?? string.Empty);
 } while (userInput is { Length: > 0 });

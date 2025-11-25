@@ -76,7 +76,10 @@
 
         await foreach (var update in aiAgent.RunStreamingAsync(
             messages: messages.Skip(statefulMessageCount),
-            cancellationToken: currentResponseCancellation.Token))
+            options: new AgentRunOptions(),
+            //cancellationToken: currentResponseCancellation.Token
+            cancellationToken: new CancellationToken()
+            ))
         {
             var responseUpdate = update.AsChatResponseUpdate();
             messages.AddMessages(responseUpdate, filter: c => c is not TextContent);
