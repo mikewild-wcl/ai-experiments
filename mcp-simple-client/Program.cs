@@ -40,7 +40,7 @@ var kernel = builder.Build();
 
 var chatCompletionService = kernel.GetRequiredService<IChatCompletionService>();
 
-IMcpClient mcpClient = await McpClientFactory.CreateAsync(
+var mcpClient = await McpClient.CreateAsync(
     new StdioClientTransport(new()
     {
         //Command = @"..\..\..\..\mcp-simple-server\bin\Debug\net9.0\mcp-simple-server.exe",

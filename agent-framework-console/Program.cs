@@ -1,13 +1,9 @@
 ﻿using agent_framework_console;
-using Microsoft.Agents.AI;
 using Microsoft.Extensions.AI;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
 using OpenAI;
 using System.ClientModel;
 using System.ClientModel.Primitives;
-using Utilities;
 
 const string ApiKeyName = "GITHUB_MODELS_TOKEN";
 const string ModelsEndpoint = "https://models.github.ai/inference";
@@ -55,15 +51,10 @@ do
         continue;
     }
 
-    //var result = await agent.RunAsync(userInput, thread, new AgentRunOptions());
-    //Console.WriteLine("Assistant > " + result);
-
     Console.Write("Assistant > ");
-    await foreach (var update in agent.RunStreamingAsync("Tell me a joke about a pirate."))
+    await foreach (var update in agent.RunStreamingAsync(userInput, thread))
     {
         Console.Write(update);
     }
     Console.WriteLine();
-
-    //history.AddMessage(result.Role, result.Content ?? string.Empty);
 } while (userInput is { Length: > 0 });
