@@ -14,9 +14,9 @@ Console.Clear();
 var environmentName = Environment.GetEnvironmentVariable("DOTNET_ENVIRONMENT");
 var configuration = new ConfigurationBuilder()
     .SetBasePath(Directory.GetCurrentDirectory())
-    .AddUserSecrets<Program>()
     .AddJsonFile("appsettings.json", optional: true)
     .AddJsonFile($"appsettings.{environmentName}.json", optional: true)
+    .AddUserSecrets<Program>()
     .AddEnvironmentVariables()
     .Build();
 
