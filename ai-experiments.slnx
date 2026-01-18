@@ -13,6 +13,7 @@
   </Folder>
   <Folder Name="/Solution Items/deployment/" />
   <Folder Name="/Solution Items/deployment/bicep/" />
+  <Project Path="agent-framework-bedrock-console/agent-framework-bedrock-console.csproj" Id="1b62243e-5714-44da-b296-cac4e7b334cb" />
   <Project Path="agent-framework-console/agent-framework-console.csproj" Id="04b23749-78b7-461a-a5f4-f417d834e466" />
   <Project Path="agent-framework-templated-prompt/agent-framework-templated-prompt.csproj" />
   <Project Path="document_loader/document_loader.csproj" />

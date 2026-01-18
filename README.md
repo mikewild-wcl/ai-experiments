@@ -35,6 +35,12 @@ Nuget packages here - https://www.nuget.org/profiles/MicrosoftAgentFramework
 
 Added code to write raw requests and responses to console, based on https://github.com/rwjdk/MicrosoftAgentFrameworkSamples/blob/main/src/SettingsOnAiAgent/Program.cs
 
+### agent-framework-bedrock-console
+
+A simple chat app using AWS Bedrock with Microsoft Agent Framework. Similar to [agent-framework-console](#agent-framework-console).
+
+Bedrock can use an OpenAI -compatible API, so the code uses the OpenAI client. See [Creating a Bedrock Agent with Microsoft Agent Framework](https://www.robertdeveen.com/aws/2025/11/12/Microsoft-Agent-Framework-with-Amazon-Bedrock.html#creating-a-bedrock-agent-with-microsoft-agent-framework).
+
 ### agent-framework-templated-prompt
 
 A recipe agent using a templated prompt, migrated from a Semantic Kernel sample.

@@ -20,7 +20,7 @@ var openAIOptions = new OpenAIClientOptions
     Transport = new HttpClientPipelineTransport(httpClient)
 };
 
-// Add logging
+// Add logging or telemetry
 //builder.Services.AddLogging(services => services.AddConsole().SetMinimumLevel(LogLevel.Trace));
 
 // Create a service collection to hold the agent plugin and its dependencies.
