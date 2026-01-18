@@ -38,6 +38,7 @@ var agent = new AzureOpenAIClient(
         Transport = new HttpClientPipelineTransport(httpClient)
     })
     .GetChatClient(configuration["AzureOpenAiSettings:DeploymentName"])
+    .AsIChatClient()
     .CreateAIAgent(
         instructions: "You are a helpful assistant that loves talking about cooking.",
         name: "Assistant"

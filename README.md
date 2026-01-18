@@ -229,7 +229,7 @@ In the master database, run the following SQL command to create a user login
 CREATE LOGIN efcore WITH PASSWORD = '<password>'
 ```
 
-Copy the user name and password to the appsettings.Development.json or secrets.json files.
+Copy the user name and password to the user secrets.json files.
 
 Then connect to the database(s) you want to use and run the 
 following SQL commands to create a user and assign it to the 

@@ -32,6 +32,7 @@ var serviceProvider = services.BuildServiceProvider();
 var client = new OpenAIClient(new ApiKeyCredential(apiKey), openAIOptions);
 var agent = client
     .GetChatClient(model)
+    .AsIChatClient()
     .CreateAIAgent(
         instructions: "You are a helpful assistant that manages lights.",
         name: "Assistant",
