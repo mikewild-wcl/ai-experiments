@@ -79,7 +79,7 @@ do
     }
 
     Console.Write("Assistant > ");
-    await foreach (var update in agent.RunStreamingAsync(userInput, thread))
+    await foreach (var update in agent.RunStreamingAsync(userInput, thread, options: new AgentRunOptions())
     {
         Console.Write(update);
     }
