@@ -39,21 +39,30 @@ Added code to write raw requests and responses to console, based on https://gith
 
 A simple chat app using AWS Bedrock with Microsoft Agent Framework. Similar to [agent-framework-console](#agent-framework-console).
 
-Bedrock can use an OpenAI-compatible API, so the code uses the OpenAI client. See [Creating a Bedrock Agent with Microsoft Agent Framework](https://www.robertdeveen.com/aws/2025/11/12/Microsoft-Agent-Framework-with-Amazon-Bedrock.html#creating-a-bedrock-agent-with-microsoft-agent-framework).
-For a list of regions and endpoints see [Generate responses using OpenAI APIs](https://docs.aws.amazon.com/bedrock/latest/userguide/bedrock-mantle.html)
+[Integrating Amazon Bedrock in your .NET applications](https://aws.amazon.com/blogs/dotnet/getting-started-with-amazon-bedrock-in-net-applications/) is a good place to start.
+    
+Bedrock can use an OpenAI-compatible API. See [Creating a Bedrock Agent with Microsoft Agent Framework](https://www.robertdeveen.com/aws/2025/11/12/Microsoft-Agent-Framework-with-Amazon-Bedrock.html#creating-a-bedrock-agent-with-microsoft-agent-framework).
+However, this doesn't work with all Bedrock models and may be limited only to OpenAI open weight models like *openai.gpt-oss-20b-1:0* and
+attempts to use an Amazon proprietary Bedrock model can fail with errors around malformed messages.
 
-Set the details in secrets including the api key, openai endpoint with the correct region, and the model id:
+For other Bedrock models use the Bedrock Client library. This project supports both types of client and can be switched in configuration.
+Set the details in secrets; for OpenAI the endpoint is required, and for Bedrock the Region should be supplied (the code defaults to us-east-q.
+Both provider types need the ApiKey and Model. 
 ```
 {
+  "AI_API_Provider": "OpenAI",
   "Bedrock": {
     "ApiKey": "",
+    "Model": "us.amazon.nova-2-lite-v1:0",
+    "Region": "us-east-1"
+  },
+  "OpenAI": {
+    "ApiKey": ",
     "Endpoint": "https://bedrock-runtime.us-east-1.amazonaws.com/openai/v1",
     "Model": "openai.gpt-oss-20b-1:0"
-    //Doesn't work - "Model": "us.amazon.nova-2-lite-v1:0"
   }
 }
 ```
-This exxample uses an OpenAI open model. Initial attempts to use a proprietary Bedrock model failed with errors around malformed messages.
 
 ### agent-framework-templated-prompt
 
