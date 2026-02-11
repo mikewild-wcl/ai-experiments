@@ -35,37 +35,37 @@ stages:
     - job: Provision
       displayName: 'Provision resources'
       strategy:
-      runOnce:
-        deploy:
-          steps:
+        runOnce:
+          deploy:
+            steps:
 
-          - task: AzureCLI@2
-            inputs:
-              displayName: 'az version check'
-              azureSubscription: '${{ parameters.azureServiceConnection }}'
-              scriptType: bash
-              scriptLocation: inlineScript
-              useGlobalConfig: false
-              inlineScript: |
-                az --version
+            - task: AzureCLI@2
+              inputs:
+                displayName: 'az version check'
+                azureSubscription: '${{ parameters.azureServiceConnection }}'
+                scriptType: bash
+                scriptLocation: inlineScript
+                useGlobalConfig: false
+                inlineScript: |
+                  az --version
 
-          - task: AzureCLI@2
-            displayName: 'Create resource group $(resourceGroupName)'
-            condition: false
-            inputs:
-              azureSubscription: '${{ parameters.azureServiceConnection }}'
-              scriptType: 'bash'
-              scriptLocation: 'inlineScript'
-              inlineScript: |
-                az group create --name $(resourceGroupName) --location $(location)
+            - task: AzureCLI@2
+              displayName: 'Create resource group $(resourceGroupName)'
+              condition: false
+              inputs:
+                azureSubscription: '${{ parameters.azureServiceConnection }}'
+                scriptType: 'bash'
+                scriptLocation: 'inlineScript'
+                inlineScript: |
+                  az group create --name $(resourceGroupName) --location $(location)
 
-          - task: AzureCLI@2
-            displayName: 'Deploy bicep template'
-            inputs:
-              azureSubscription: '${{ parameters.azureServiceConnection }}'
-              scriptType: bash
-              scriptLocation: inlineScript
-              useGlobalConfig: false
-              inlineScript: |
-                az deployment group create --resource-group  $(resourceGroupName) --template-file $(bicepFile) 
+            - task: AzureCLI@2
+              displayName: 'Deploy bicep template'
+              inputs:
+                azureSubscription: '${{ parameters.azureServiceConnection }}'
+                scriptType: bash
+                scriptLocation: inlineScript
+                useGlobalConfig: false
+                inlineScript: |
+                  az deployment group create --resource-group  $(resourceGroupName) --template-file $(bicepFile) 
 
