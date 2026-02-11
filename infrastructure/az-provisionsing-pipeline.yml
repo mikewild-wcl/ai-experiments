@@ -29,15 +29,16 @@ pool:
 
 stages:
   - stage: Provision
-    displayName: 'Provision infrastructure'
+    displayName: 'Provision dev infrastructure'
     jobs:
     - deployment: Provision
       displayName: 'Provision resources'
+      environment: 'dev'
       strategy:
         runOnce:
           deploy:
             steps:
-            
+
             - task: AzureCLI@2
               inputs:
                 displayName: 'az version check'
