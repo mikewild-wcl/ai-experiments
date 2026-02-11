@@ -1,22 +1,71 @@
-# Starter pipeline
-# Start with a minimal pipeline that you can customize to build and deploy your code.
-# Add steps that build, run tests, deploy, and more:
-# https://aka.ms/yaml
-
 #trigger: none  # Manual trigger only
 trigger:
-- main
+  branches:
+    include:
+      - main
+  paths:
+    include:
+      - infrastructure/**
 
 pr: none
 
+name: AI Resource Provisioning Pipeline
+
+parameters:
+- name: azureServiceConnection
+  type: string
+  default: 'az2026connection'
+
+variables:
+  vmImageName: 'ubuntu-latest'
+  resourceGroupName: 'rg-ai-experiments-resources'
+  location: 'uk-south'
+  bicepFile: './bicep/main.bicep'
+  #bicepParamFile: './bicep/main.bicepparam'
+  #csmParametersFile: './bicep/main.bicepparam'
+
 pool:
-  vmImage: ubuntu-latest
+  vmImage: $(vmImageName)
 
-steps:
-- script: echo Hello, world!
-  displayName: 'Run a one-line script'
 
-- script: |
-    echo Add other tasks to build, test, and deploy your project.
-    echo See https://aka.ms/yaml
-  displayName: 'Run a multi-line script'
+stages:
+  - stage: Provision
+    displayName: 'Provision infrastructure'
+    jobs:
+    -job ProvisionResources:
+      displayName: 'Provision resources'
+      strategy:
+      runOnce:
+        deploy:
+          steps:
+
+          - task: AzureCLI@2
+            inputs:
+              displayName: 'az version check'
+              azureSubscription: '${{ parameters.azureServiceConnection }}'
+              scriptType: bash
+              scriptLocation: inlineScript
+              useGlobalConfig: false
+              inlineScript: |
+                az --version
+
+          - task: AzureCLI@2
+            displayName: 'Create resource group $(resourceGroupName)'
+            condition: false
+            inputs:
+              azureSubscription: '${{ parameters.azureServiceConnection }}'
+              scriptType: 'bash'
+              scriptLocation: 'inlineScript'
+              inlineScript: |
+                az group create --name $(resourceGroupName) --location $(location)
+
+          - task: AzureCLI@2
+            displayName: 'Deploy bicep template'
+            inputs:
+              azureSubscription: '${{ parameters.azureServiceConnection }}'
+              scriptType: bash
+              scriptLocation: inlineScript
+              useGlobalConfig: false
+              inlineScript: |
+                az deployment group create --resource-group  $(resourceGroupName) --template-file $(bicepFile) 
+
