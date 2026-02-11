@@ -27,18 +27,17 @@ variables:
 pool:
   vmImage: $(vmImageName)
 
-
 stages:
   - stage: Provision
     displayName: 'Provision infrastructure'
     jobs:
-    - job: Provision
+    - deployment: Provision
       displayName: 'Provision resources'
       strategy:
         runOnce:
           deploy:
             steps:
-
+            
             - task: AzureCLI@2
               inputs:
                 displayName: 'az version check'
