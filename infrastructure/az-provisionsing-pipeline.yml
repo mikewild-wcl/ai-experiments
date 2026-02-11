@@ -32,7 +32,7 @@ stages:
   - stage: Provision
     displayName: 'Provision infrastructure'
     jobs:
-    -job ProvisionResources:
+    - job: Provision
       displayName: 'Provision resources'
       strategy:
       runOnce:
