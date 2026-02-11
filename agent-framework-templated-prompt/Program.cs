@@ -39,12 +39,12 @@ var agent = new AzureOpenAIClient(
     })
     .GetChatClient(configuration["AzureOpenAiSettings:DeploymentName"])
     .AsIChatClient()
-    .CreateAIAgent(
+    .AsAIAgent(
         instructions: "You are a helpful assistant that loves talking about cooking.",
         name: "Assistant"
         );
 
-var thread = agent.GetNewThread();
+var thread = await agent.CreateSessionAsync();
 
 // TODO: Lookup at debugging with handlers - https://youtu.be/Gr3S1Q9eZrc?si=5BEsQf_2uv5Zht8r
 

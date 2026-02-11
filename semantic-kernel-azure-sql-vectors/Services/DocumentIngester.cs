@@ -17,9 +17,9 @@ public class DocumentIngester(
 {
     public readonly IDocumentLoader _documentLoader = documentLoader;
     private readonly Kernel _kernel = kernel;
-    public readonly VectorStore _vectorStore = vectorStore;
-    public readonly ResiliencePipelineProvider<string> _resiliencePipelineProvider = resiliencePipelineProvider;
-    public readonly ILogger<DocumentIngester> _logger = logger;
+    private readonly VectorStore _vectorStore = vectorStore;
+    private readonly ResiliencePipelineProvider<string> _resiliencePipelineProvider = resiliencePipelineProvider;
+    private readonly ILogger<DocumentIngester> _logger = logger;
 
     public async Task Ingest(string? path)
     {

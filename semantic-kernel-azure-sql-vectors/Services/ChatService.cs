@@ -19,8 +19,8 @@ public class ChatService(
     : IChatService
 {
     private readonly Kernel _kernel = kernel;
-    public readonly VectorStore _vectorStore = vectorStore;
-    public readonly ResiliencePipelineProvider<string> _resiliencePipelineProvider = resiliencePipelineProvider;
+    private readonly VectorStore _vectorStore = vectorStore;
+    private readonly ResiliencePipelineProvider<string> _resiliencePipelineProvider = resiliencePipelineProvider;
     private readonly ILogger<ChatService> _logger = logger;
     private ChatHistory _chatHistory = [];
 

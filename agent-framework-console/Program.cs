@@ -33,13 +33,13 @@ var client = new OpenAIClient(new ApiKeyCredential(apiKey), openAIOptions);
 var agent = client
     .GetChatClient(model)
     .AsIChatClient()
-    .CreateAIAgent(
+    .AsAIAgent(
         instructions: "You are a helpful assistant that manages lights.",
         name: "Assistant",
         tools: [.. serviceProvider.GetRequiredService<AgentPlugin>().AsAITools()],
         services: serviceProvider);
 
-var thread = agent.GetNewThread();
+var thread = await agent.CreateSessionAsync();
 
 string? userInput;
 do

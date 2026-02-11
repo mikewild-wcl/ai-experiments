@@ -100,7 +100,7 @@ var serviceProvider = builder.Services.BuildServiceProvider();
 
 /* Create agent */
 var agent = serviceProvider.GetRequiredKeyedService<AIAgent>("assistant");
-var thread = agent.GetNewThread();
+var thread = await agent.CreateSessionAsync();
 
 /* Chat loop */
 string? userInput;
