@@ -26,7 +26,7 @@ param modelVersion string = '2025-08-07'
 @description('Model deployment SKU name')
 param skuName string = 'GlobalStandard'
 //@description('Content filter policy name')
-//param contentFilterPolicyName string = 'aiFoundry_Microsoft_DefaultV2'
+param contentFilterPolicyName string = 'aiFoundry_Microsoft_DefaultV2'
 @description('Model deployment capacity')
 param capacity int = 1
 
@@ -190,89 +190,89 @@ resource aiFoundry_Microsoft_Default 'Microsoft.CognitiveServices/accounts/raiPo
 }
 */
 
-resource aiFoundry_Microsoft_DefaultV2 'Microsoft.CognitiveServices/accounts/raiPolicies@2025-06-01' = {
-  parent: aiFoundry_resource
-  name: 'Microsoft.DefaultV2'
-  properties: {
-    mode: 'Blocking'
-    contentFilters: [
-      {
-        name: 'Hate'
-        severityThreshold: 'Medium'
-        blocking: true
-        enabled: true
-        source: 'Prompt'
-      }
-      {
-        name: 'Hate'
-        severityThreshold: 'Medium'
-        blocking: true
-        enabled: true
-        source: 'Completion'
-      }
-      {
-        name: 'Sexual'
-        severityThreshold: 'Medium'
-        blocking: true
-        enabled: true
-        source: 'Prompt'
-      }
-      {
-        name: 'Sexual'
-        severityThreshold: 'Medium'
-        blocking: true
-        enabled: true
-        source: 'Completion'
-      }
-      {
-        name: 'Violence'
-        severityThreshold: 'Medium'
-        blocking: true
-        enabled: true
-        source: 'Prompt'
-      }
-      {
-        name: 'Violence'
-        severityThreshold: 'Medium'
-        blocking: true
-        enabled: true
-        source: 'Completion'
-      }
-      {
-        name: 'Selfharm'
-        severityThreshold: 'Medium'
-        blocking: true
-        enabled: true
-        source: 'Prompt'
-      }
-      {
-        name: 'Selfharm'
-        severityThreshold: 'Medium'
-        blocking: true
-        enabled: true
-        source: 'Completion'
-      }
-      {
-        name: 'Jailbreak'
-        blocking: true
-        enabled: true
-        source: 'Prompt'
-      }
-      {
-        name: 'Protected Material Text'
-        blocking: true
-        enabled: true
-        source: 'Completion'
-      }
-      {
-        name: 'Protected Material Code'
-        blocking: false
-        enabled: true
-        source: 'Completion'
-      }
-    ]
-  }
-}
+// resource aiFoundry_Microsoft_DefaultV2 'Microsoft.CognitiveServices/accounts/raiPolicies@2025-06-01' = {
+//   parent: aiFoundry_resource
+//   name: 'Microsoft.DefaultV2'
+//   properties: {
+//     mode: 'Blocking'
+//     contentFilters: [
+//       {
+//         name: 'Hate'
+//         severityThreshold: 'Medium'
+//         blocking: true
+//         enabled: true
+//         source: 'Prompt'
+//       }
+//       {
+//         name: 'Hate'
+//         severityThreshold: 'Medium'
+//         blocking: true
+//         enabled: true
+//         source: 'Completion'
+//       }
+//       {
+//         name: 'Sexual'
+//         severityThreshold: 'Medium'
+//         blocking: true
+//         enabled: true
+//         source: 'Prompt'
+//       }
+//       {
+//         name: 'Sexual'
+//         severityThreshold: 'Medium'
+//         blocking: true
+//         enabled: true
+//         source: 'Completion'
+//       }
+//       {
+//         name: 'Violence'
+//         severityThreshold: 'Medium'
+//         blocking: true
+//         enabled: true
+//         source: 'Prompt'
+//       }
+//       {
+//         name: 'Violence'
+//         severityThreshold: 'Medium'
+//         blocking: true
+//         enabled: true
+//         source: 'Completion'
+//       }
+//       {
+//         name: 'Selfharm'
+//         severityThreshold: 'Medium'
+//         blocking: true
+//         enabled: true
+//         source: 'Prompt'
+//       }
+//       {
+//         name: 'Selfharm'
+//         severityThreshold: 'Medium'
+//         blocking: true
+//         enabled: true
+//         source: 'Completion'
+//       }
+//       {
+//         name: 'Jailbreak'
+//         blocking: true
+//         enabled: true
+//         source: 'Prompt'
+//       }
+//       {
+//         name: 'Protected Material Text'
+//         blocking: true
+//         enabled: true
+//         source: 'Completion'
+//       }
+//       {
+//         name: 'Protected Material Code'
+//         blocking: false
+//         enabled: true
+//         source: 'Completion'
+//       }
+//     ]
+//   }
+// }
 
 resource modelDeployment 'Microsoft.CognitiveServices/accounts/deployments@2024-04-01-preview' = {
   parent: aiFoundry_resource
@@ -287,7 +287,7 @@ resource modelDeployment 'Microsoft.CognitiveServices/accounts/deployments@2024-
       name: modelName
       version: modelVersion
     }
-    //raiPolicyName: contentFilterPolicyName == null ? 'Microsoft.Nill' : contentFilterPolicyName
+    raiPolicyName: contentFilterPolicyName == null ? 'Microsoft.Nill' : contentFilterPolicyName
   }
 }
 
@@ -303,6 +303,6 @@ resource embeddingModelDeployment 'Microsoft.CognitiveServices/accounts/deployme
       format: modelPublisherFormat
       name: embeddingModelName
     }
-    //raiPolicyName: contentFilterPolicyName == null ? 'Microsoft.Nill' : contentFilterPolicyName
+    raiPolicyName: contentFilterPolicyName == null ? 'Microsoft.Nill' : contentFilterPolicyName
   }
 }
