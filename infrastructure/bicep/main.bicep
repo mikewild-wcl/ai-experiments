@@ -122,6 +122,7 @@ resource aiFoundry_ai_experiments 'Microsoft.CognitiveServices/accounts/projects
   }
 }
 
+/*
 resource aiFoundry_Microsoft_Default 'Microsoft.CognitiveServices/accounts/raiPolicies@2025-06-01' = {
   parent: aiFoundry_resource
   name: 'Microsoft.Default'
@@ -187,6 +188,7 @@ resource aiFoundry_Microsoft_Default 'Microsoft.CognitiveServices/accounts/raiPo
     ]
   }
 }
+*/
 
 resource aiFoundry_Microsoft_DefaultV2 'Microsoft.CognitiveServices/accounts/raiPolicies@2025-06-01' = {
   parent: aiFoundry_resource
