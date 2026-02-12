@@ -50,13 +50,13 @@ stages:
                 inlineScript: |
                   az --version
 
-            - task: PowerShell@2
-              displayName: List all Folders in $(System.DefaultWorkingDirectory)
-              inputs:
-                targetType: 'inline'
-                pwsh: true
-                script: |
-                  Get-ChildItem -path $(System.DefaultWorkingDirectory) -recurse | ForEach-Object { Write-Host $_.FullName }
+            # - task: PowerShell@2
+            #   displayName: List all Folders in $(System.DefaultWorkingDirectory)
+            #   inputs:
+            #     targetType: 'inline'
+            #     pwsh: true
+            #     script: |
+            #       Get-ChildItem -path $(System.DefaultWorkingDirectory) -recurse | ForEach-Object { Write-Host $_.FullName }
 
             - task: AzureCLI@2
               displayName: 'Create resource group $(resourceGroupName)'
