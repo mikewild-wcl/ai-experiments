@@ -20,9 +20,8 @@ variables:
   vmImageName: 'ubuntu-latest'
   resourceGroupName: 'rg-ai-experiments-resources'
   location: 'uk-south'
-  bicepFile: './bicep/main.bicep'
-  #bicepParamFile: './bicep/main.bicepparam'
-  #csmParametersFile: './bicep/main.bicepparam'
+  bicepFile: 'infrastructure/bicep/main.bicep'
+  #bicepParamFile: 'infrastructure//bicep/main.bicepparam'
 
 pool:
   vmImage: $(vmImageName)
@@ -40,8 +39,8 @@ stages:
             steps:
 
             - task: AzureCLI@2
+              displayName: 'az version check'
               inputs:
-                displayName: 'az version check'
                 azureSubscription: '${{ parameters.azureServiceConnection }}'
                 scriptType: bash
                 scriptLocation: inlineScript
@@ -49,9 +48,16 @@ stages:
                 inlineScript: |
                   az --version
 
+            - task: PowerShell@2
+              displayName: List all Folders in $(System.DefaultWorkingDirectory)
+              inputs:
+                targetType: 'inline'
+                pwsh: true
+                script: |
+                  Get-ChildItem -path $(System.DefaultWorkingDirectory) -recurse
+
             - task: AzureCLI@2
               displayName: 'Create resource group $(resourceGroupName)'
-              condition: false
               inputs:
                 azureSubscription: '${{ parameters.azureServiceConnection }}'
                 scriptType: 'bash'
