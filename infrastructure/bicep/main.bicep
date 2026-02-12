@@ -1,5 +1,5 @@
 @description('Cosmos DB account name')
-param accountName string = 'cosmos-db-mw-ai' //'cosmos-${uniqueString(resourceGroup().id)}'
+param accountName string = 'cosmos-db-mw-ai-26' //'cosmos-${uniqueString(resourceGroup().id)}'
 
 @description('Location for the Cosmos DB account.')
 param location string = resourceGroup().location
