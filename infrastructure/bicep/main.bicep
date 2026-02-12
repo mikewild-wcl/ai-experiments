@@ -20,8 +20,8 @@ param modelPublisherFormat string = 'GlobalStandard'
 param modelName string = 'gpt-4o-mini'
 param embeddingModelName string = 'text-embedding-3-small'
 
-@description('Version of the model to deploy')
-param modelVersion string = '2025-08-07'
+// @description('Version of the model to deploy')
+// param modelVersion string = '2025-08-07'
 
 @description('Model deployment SKU name')
 param skuName string = 'GlobalStandard'
@@ -285,7 +285,7 @@ resource modelDeployment 'Microsoft.CognitiveServices/accounts/deployments@2024-
     model: {
       format: modelPublisherFormat
       name: modelName
-      version: modelVersion
+      //version: modelVersion
     }
     raiPolicyName: contentFilterPolicyName == null ? 'Microsoft.Nill' : contentFilterPolicyName
   }
