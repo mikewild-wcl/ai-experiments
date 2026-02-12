@@ -38,6 +38,8 @@ stages:
           deploy:
             steps:
 
+            - checkout: self # Explicit checkout because deployment job won't clone the repo by default
+
             - task: AzureCLI@2
               displayName: 'az version check'
               inputs:
