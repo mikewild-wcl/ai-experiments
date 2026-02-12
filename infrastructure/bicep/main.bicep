@@ -291,18 +291,18 @@ resource aiFoundry_Microsoft_Default 'Microsoft.CognitiveServices/accounts/raiPo
 //   }
 // }
 
-resource embeddingModelDeployment 'Microsoft.CognitiveServices/accounts/deployments@2024-04-01-preview' = {
-  parent: aiFoundry_resource
-  name: embeddingModelName
-  sku: {
-    name: skuName
-    capacity: capacity
-  }
-  properties: {
-    model: {
-      format: modelPublisherFormat
-      name: embeddingModelName
-    }
-    raiPolicyName: contentFilterPolicyName == null ? 'Microsoft.Nill' : contentFilterPolicyName
-  }
-}
+// resource embeddingModelDeployment 'Microsoft.CognitiveServices/accounts/deployments@2024-04-01-preview' = {
+//   parent: aiFoundry_resource
+//   name: embeddingModelName
+//   sku: {
+//     name: skuName
+//     capacity: capacity
+//   }
+//   properties: {
+//     model: {
+//       format: modelPublisherFormat
+//       name: embeddingModelName
+//     }
+//     raiPolicyName: contentFilterPolicyName == null ? 'Microsoft.Nill' : contentFilterPolicyName
+//   }
+// }
