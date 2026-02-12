@@ -54,7 +54,7 @@ stages:
                 targetType: 'inline'
                 pwsh: true
                 script: |
-                  Get-ChildItem -path $(System.DefaultWorkingDirectory) -recurse | ForEach-Object { Write-Host $_.FullName }) 
+                  Get-ChildItem -path $(System.DefaultWorkingDirectory) -recurse | ForEach-Object { Write-Host $_.FullName }
 
             - task: AzureCLI@2
               displayName: 'Create resource group $(resourceGroupName)'
