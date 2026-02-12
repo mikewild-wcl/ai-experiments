@@ -17,7 +17,7 @@ param aiFoundryProjectName string = 'ai-experiments'
 @description('Model provider')
 param modelPublisherFormat string = 'GlobalStandard'
 
-param modelName string = 'gpt-5-mini'
+param modelName string = 'gpt-4o-mini'
 param embeddingModelName string = 'text-embedding-3-small'
 
 @description('Version of the model to deploy')
