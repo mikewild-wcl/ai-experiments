@@ -1,3 +1,5 @@
+# YAML syntax: https://learnxinyminutes.com/yaml/
+
 #trigger: none  # Manual trigger only
 trigger:
   branches:
@@ -91,12 +93,12 @@ stages:
                 scriptType: bash
                 scriptLocation: inlineScript
                 useGlobalConfig: false
-                inlineScript: |
-                  az deployment group create `
-                    --resource-group  $(resourceGroupName) `
-                    --template-file $(bicepFile) `
-                    --parameters deploySqlServer=$(deploySqlServer) `
-                                 sqlAdministratorPassword=$(sqlAdministratorPassword) `
+                inlineScript: >-
+                  az deployment group create 
+                    --resource-group  $(resourceGroupName) 
+                    --template-file $(bicepFile) 
+                    --parameters deploySqlServer=$(deploySqlServer) 
+                                 sqlAdministratorPassword=$(sqlAdministratorPassword) 
                                  sqlAdministratorLogin=$(sqlAdministratorLogin)
 
             - task: AzureCLI@2
