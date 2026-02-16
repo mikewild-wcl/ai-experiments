@@ -2,7 +2,7 @@
 param location string = resourceGroup().location
 
 @description('The name for the AI Foundry resource')
-param aiFoundryName string = 'ai-mw-foundry-2026' //'aifoundry${uniqueString(resourceGroup().id)}'
+param aiFoundryName string = 'ai-mw-useast-foundry-2026' //'aifoundry${uniqueString(resourceGroup().id)}'
 
 // AI Foundry parameters
 @description('The name if the default AI Foundry project')
