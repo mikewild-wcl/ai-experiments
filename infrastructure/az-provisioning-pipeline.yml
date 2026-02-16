@@ -33,7 +33,7 @@ stages:
         value: 'rg-ai-experiments-openai-resources'
       - name: location
         value:  'uksouth'
-      - name: aiResourcesLocationS
+      - name: aiResourcesLocation
         value:  'eastus2'
       - name: bicepFile
         value:  'infrastructure/bicep/main.bicep'
