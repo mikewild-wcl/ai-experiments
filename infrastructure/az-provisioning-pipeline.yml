@@ -18,13 +18,6 @@ parameters:
 
 variables:
   vmImageName: 'ubuntu-latest'
-  resourceGroupName: 'rg-ai-experiments-resources'
-  airesourceGroupName: 'rg-ai-experiments-openai-resources'
-  location: 'uksouth'
-  ailocation: 'useast2'
-  bicepFile: 'infrastructure/bicep/main.bicep'
-  aibicepFile: 'infrastructure/bicep/az_openai.bicep'
-  #bicepParamFile: 'infrastructure//bicep/main.bicepparam'
 
 pool:
   vmImage: $(vmImageName)
@@ -32,6 +25,27 @@ pool:
 stages:
   - stage: Provision
     displayName: 'Provision dev infrastructure'
+
+    variables:
+      - name: resourceGroupName 
+        value: 'rg-ai-experiments-resources'
+      - name: airesourceGroupName 
+        value: 'rg-ai-experiments-openai-resources'
+      - name: location
+        value:  'uksouth'
+      - name: aiResourcesLocationS
+        value:  'eastus2'
+      - name: bicepFile
+        value:  'infrastructure/bicep/main.bicep'
+      # bicepParamFile: 'infrastructure//bicep/main.bicepparam'
+      - name: aibicepFile
+        value:  'infrastructure/bicep/az_openai.bicep'
+      - group: ai-experiments-provisioning # Variable group containing secrets
+          # Note: The variable group 'ai-experiments-provisioning' should contain the following variables:
+            # deploySqlServer: true/false flag - whther to deploy SQL Server
+            # sqlAdministratorLogin - username for SQL Server administrator
+            # sqlAdministratorLoginPassword - password for SQL Server administrator
+
     jobs:
     - deployment: Provision
       displayName: 'Provision resources'
@@ -78,7 +92,12 @@ stages:
                 scriptLocation: inlineScript
                 useGlobalConfig: false
                 inlineScript: |
-                  az deployment group create --resource-group  $(resourceGroupName) --template-file $(bicepFile) 
+                  az deployment group create `
+                    --resource-group  $(resourceGroupName) `
+                    --template-file $(bicepFile) `
+                    --parameters deploySqlServer=$(deploySqlServer) `
+                                 sqlAdministratorPassword=$(sqlAdministratorPassword) `
+                                 sqlAdministratorLogin=$(sqlAdministratorLogin)
 
             - task: AzureCLI@2
               displayName: 'Create AI resource group $(airesourceGroupName)'
@@ -87,7 +106,7 @@ stages:
                 scriptType: 'bash'
                 scriptLocation: 'inlineScript'
                 inlineScript: |
-                  az group create --name $(airesourceGroupName) --location $(ailocation)
+                  az group create --name $(airesourceGroupName) --location $(aiResourcesLocation)
 
             - task: AzureCLI@2
               displayName: 'Deploy Azure OpenAI bicep template'
