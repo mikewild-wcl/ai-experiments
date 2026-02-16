@@ -46,7 +46,7 @@ stages:
           # Note: The variable group 'ai-experiments-provisioning' should contain the following variables:
             # deploySqlServer: true/false flag - whther to deploy SQL Server
             # sqlAdministratorLogin - username for SQL Server administrator
-            # sqlAdministratorLoginPassword - password for SQL Server administrator
+            # sqlAdministratorPassword - password for SQL Server administrator
 
     jobs:
     - deployment: Provision

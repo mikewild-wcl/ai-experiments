@@ -21,7 +21,7 @@ param sqlAdministratorLogin string
 
 @description('The administrator password of the SQL logical server.')
 @secure()
-param sqlAdministratorLoginPassword string
+param sqlAdministratorPassword string
 
 /* Deploy Cosmos DB */
 resource account 'Microsoft.DocumentDB/databaseAccounts@2024-12-01-preview' = {
@@ -70,7 +70,7 @@ resource sqlServer 'Microsoft.Sql/servers@2024-05-01-preview' = {
   kind: 'v12.0'
   properties: {
      administratorLogin: sqlAdministratorLogin
-     administratorLoginPassword: sqlAdministratorLoginPassword
+     administratorLoginPassword: sqlAdministratorPassword
      minimalTlsVersion: '1.2'
      publicNetworkAccess: 'Enabled'
      restrictOutboundNetworkAccess: 'Disabled'
