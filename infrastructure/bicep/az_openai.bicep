@@ -9,7 +9,7 @@ param aiFoundryName string = 'ai-mw-useast-foundry-2026' //'aifoundry${uniqueStr
 param aiFoundryProjectName string = 'ai-experiments'
 
 @description('Model provider')
-param modelPublisherFormat string = 'GlobalStandard'
+param modelPublisherFormat string = 'OpenAI'
 
 param modelName string = 'gpt-4o-mini'
 param embeddingModelName string = 'text-embedding-3-small'
