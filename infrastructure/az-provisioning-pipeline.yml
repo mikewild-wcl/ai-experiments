@@ -69,6 +69,16 @@ stages:
                 inlineScript: |
                   az --version
 
+            - task: AzureCLI@2
+              displayName: 'Show variables'
+              inputs:
+                scriptType: bash
+                scriptLocation: inlineScript
+                useGlobalConfig: false
+                inlineScript: |
+                  echo 'deploySqlServer: $(deploySqlServer)'
+                  echo 'sqlAdministratorLogin: $(sqlAdministratorLogin)'
+
             # - task: PowerShell@2
             #   displayName: List all Folders in $(System.DefaultWorkingDirectory)
             #   inputs:
@@ -97,9 +107,9 @@ stages:
                   az deployment group create \
                     --resource-group  $(resourceGroupName) \
                     --template-file $(bicepFile) \
-                    --parameters deploySqlServer=$(deploySqlServer) \
-                                 sqlAdministratorPassword=$(sqlAdministratorPassword) \
-                                 sqlAdministratorLogin=$(sqlAdministratorLogin)
+                    --parameters sqlAdministratorLogin=$(sqlAdministratorLogin) \
+                    --parameters sqlAdministratorPassword=$(sqlAdministratorPassword) \
+                    --parameters deploySqlServer=$(deploySqlServer)
 
             - task: AzureCLI@2
               displayName: 'Create AI resource group $(airesourceGroupName)'
