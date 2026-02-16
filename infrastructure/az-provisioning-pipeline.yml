@@ -19,8 +19,11 @@ parameters:
 variables:
   vmImageName: 'ubuntu-latest'
   resourceGroupName: 'rg-ai-experiments-resources'
+  airesourceGroupName: 'rg-ai-experiments-openai-resources'
   location: 'uksouth'
+  ailocation: 'useast2'
   bicepFile: 'infrastructure/bicep/main.bicep'
+  aibicepFile: 'infrastructure/bicep/az_openai.bicep'
   #bicepParamFile: 'infrastructure//bicep/main.bicepparam'
 
 pool:
@@ -68,7 +71,7 @@ stages:
                   az group create --name $(resourceGroupName) --location $(location)
 
             - task: AzureCLI@2
-              displayName: 'Deploy bicep template'
+              displayName: 'Deploy main bicep template'
               inputs:
                 azureSubscription: '${{ parameters.azureServiceConnection }}'
                 scriptType: bash
@@ -77,3 +80,21 @@ stages:
                 inlineScript: |
                   az deployment group create --resource-group  $(resourceGroupName) --template-file $(bicepFile) 
 
+            - task: AzureCLI@2
+              displayName: 'Create AI resource group $(airesourceGroupName)'
+              inputs:
+                azureSubscription: '${{ parameters.azureServiceConnection }}'
+                scriptType: 'bash'
+                scriptLocation: 'inlineScript'
+                inlineScript: |
+                  az group create --name $(airesourceGroupName) --location $(ailocation)
+
+            - task: AzureCLI@2
+              displayName: 'Deploy Azure OpenAI bicep template'
+              inputs:
+                azureSubscription: '${{ parameters.azureServiceConnection }}'
+                scriptType: bash
+                scriptLocation: inlineScript
+                useGlobalConfig: false
+                inlineScript: |
+                  az deployment group create --resource-group  $(airesourceGroupName) --template-file $(aibicepFile) 
