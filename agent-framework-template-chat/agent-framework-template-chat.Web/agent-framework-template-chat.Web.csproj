@@ -15,14 +15,14 @@
     <PackageReference Include="Microsoft.SemanticKernel.Core" Version="1.70.0" />
 
     <!-- Add Microsoft Agent Framework packages -->
-    <PackageReference Include="Microsoft.Agents.AI" Version="1.0.0-preview.260209.1" />
-    <PackageReference Include="Microsoft.Agents.AI.Abstractions" Version="1.0.0-preview.260209.1" />
-    <PackageReference Include="Microsoft.Agents.AI.Hosting" Version="1.0.0-preview.260209.1" />
-    <PackageReference Include="Microsoft.Agents.AI.Hosting.OpenAI" Version="1.0.0-alpha.260209.1" />
-    <PackageReference Include="Microsoft.Agents.AI.OpenAI" Version="1.0.0-preview.260209.1" />
+    <PackageReference Include="Microsoft.Agents.AI" Version="1.0.0-preview.260212.1" />
+    <PackageReference Include="Microsoft.Agents.AI.Abstractions" Version="1.0.0-preview.260212.1" />
+    <PackageReference Include="Microsoft.Agents.AI.Hosting" Version="1.0.0-preview.260212.1" />
+    <PackageReference Include="Microsoft.Agents.AI.Hosting.OpenAI" Version="1.0.0-alpha.260212.1" />
+    <PackageReference Include="Microsoft.Agents.AI.OpenAI" Version="1.0.0-preview.260212.1" />
 
     <!-- Keep other existing packages -->
-    <PackageReference Include="PdfPig" Version="0.1.14-alpha-20260211-d6e86" />
+    <PackageReference Include="PdfPig" Version="0.1.14-alpha-20260216-7e370" />
     <PackageReference Include="Microsoft.SemanticKernel.Connectors.SqliteVec" Version="1.70.0-preview" />
   </ItemGroup>
 
