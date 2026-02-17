@@ -36,7 +36,7 @@ stages:
       - name: location
         value:  'uksouth'
       - name: aiResourcesLocation
-        value:  'eastus2'
+        value:  'eastus2'      
       - name: bicepFile
         value:  'infrastructure/bicep/main.bicep'
       # bicepParamFile: 'infrastructure//bicep/main.bicepparam'
@@ -110,7 +110,9 @@ stages:
                     --template-file $(bicepFile) \
                     --parameters sqlAdministratorLogin=$(sqlAdministratorLogin) \
                     --parameters sqlAdministratorPassword="$(sqlAdministratorPassword)" \
-                    --parameters deploySqlServer=$(deploySqlServer)
+                    --parameters deploySqlServer=$(deploySqlServer) \                    
+                    --parameters sqlServerName=$(sqlServerName) \
+                    --parameters sqlDatabaseName=$(sqlDatabaseName)
 
             - task: AzureCLI@2
               displayName: 'Create AI resource group $(airesourceGroupName)'

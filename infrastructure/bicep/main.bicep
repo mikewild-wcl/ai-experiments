@@ -82,8 +82,10 @@ resource sqlDB 'Microsoft.Sql/servers/databases@2024-05-01-preview' = if (deploy
   name: sqlDatabaseName
   location: location
   sku: {
-    name: 'Basic'
-    tier: 'Basic'
+    name: 'GP_S_Gen5'
+    tier: 'GeneralPurpose'
+    family: 'Gen5'
+    capacity: 2
   }
   kind: 'v12.0,user,vcore,serverless,freelimit'
   properties: {
@@ -94,5 +96,9 @@ resource sqlDB 'Microsoft.Sql/servers/databases@2024-05-01-preview' = if (deploy
     zoneRedundant: false
     freeLimitExhaustionBehavior: 'AutoPause'
   }
+
+  //#The resource write operation failed to complete successfully, because it reached terminal provisioning state 'Failed'.",
+  //#"details":[{"code":"SubscriptionVcoreQuotaExceeded","message":"
+  //#Could not perform the operation because subscription would exceed the allowed vCore quota of 10
 }
 
