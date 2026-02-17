@@ -78,7 +78,9 @@ stages:
                 useGlobalConfig: false
                 inlineScript: |
                   echo 'deploySqlServer: $(deploySqlServer)'
-                  echo 'sqlAdministratorLogin: $(sqlAdministratorLogin)'
+                  echo 'sqlDatabaseName: $(sqlDatabaseName)'
+                  echo 'sqlServerName: $(sqlServerName)'
+                  echo 'sqlAdministratorLogin: $(sqlAdministratorLogin)'                 
 
             # - task: PowerShell@2
             #   displayName: List all Folders in $(System.DefaultWorkingDirectory)
@@ -110,7 +112,7 @@ stages:
                     --template-file $(bicepFile) \
                     --parameters sqlAdministratorLogin=$(sqlAdministratorLogin) \
                     --parameters sqlAdministratorPassword="$(sqlAdministratorPassword)" \
-                    --parameters deploySqlServer=$(deploySqlServer) \                    
+                    --parameters deploySqlServer=$(deploySqlServer) \
                     --parameters sqlServerName=$(sqlServerName) \
                     --parameters sqlDatabaseName=$(sqlDatabaseName)
 
