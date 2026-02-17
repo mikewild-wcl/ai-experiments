@@ -23,6 +23,9 @@ param sqlAdministratorLogin string
 @secure()
 param sqlAdministratorPassword string
 
+@description('The administrator IP address to set.')
+param sqlServerAdminIPAddress string
+
 /* Deploy Cosmos DB */
 resource account 'Microsoft.DocumentDB/databaseAccounts@2024-12-01-preview' = {
   name: toLower(cosmosAccountName)
@@ -102,3 +105,11 @@ resource sqlDB 'Microsoft.Sql/servers/databases@2024-05-01-preview' = if (deploy
   //#Could not perform the operation because subscription would exceed the allowed vCore quota of 10
 }
 
+resource sqlServer_2026_ClientIPAddress_DefaultAdminIP 'Microsoft.Sql/servers/firewallRules@2024-05-01-preview' = if (deploySqlServer && sqlServerAdminIPAddress != '') {
+  parent: sqlServer
+  name: 'ClientIPAddress_DefaultAdminIP'
+  properties: {
+    startIpAddress: sqlServerAdminIPAddress
+    endIpAddress: sqlServerAdminIPAddress
+  }
+}

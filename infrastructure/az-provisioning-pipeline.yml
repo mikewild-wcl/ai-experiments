@@ -114,7 +114,8 @@ stages:
                     --parameters sqlAdministratorPassword="$(sqlAdministratorPassword)" \
                     --parameters deploySqlServer=$(deploySqlServer) \
                     --parameters sqlServerName=$(sqlServerName) \
-                    --parameters sqlDatabaseName=$(sqlDatabaseName)
+                    --parameters sqlDatabaseName=$(sqlDatabaseName) \
+                    --parameters sqlServerAdminIPAddress=$(sqlServerAdminIPAddress)
 
             - task: AzureCLI@2
               displayName: 'Create AI resource group $(airesourceGroupName)'

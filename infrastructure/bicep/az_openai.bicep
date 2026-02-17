@@ -21,7 +21,7 @@ param embeddingModelName string = 'text-embedding-3-small'
 param skuName string = 'GlobalStandard'
 
 @description('Content filter policy name')
-param contentFilterPolicyName string = 'aiFoundry_Microsoft_DefaultV2'
+param contentFilterPolicyName string = 'Microsoft_DefaultV2'
 
 @description('Model deployment capacity')
 param capacity int = 1
@@ -144,6 +144,7 @@ resource aiFoundry_Microsoft_Default 'Microsoft.CognitiveServices/accounts/raiPo
 }
 */
 
+/*
 resource aiFoundry_Microsoft_DefaultV2 'Microsoft.CognitiveServices/accounts/raiPolicies@2025-06-01' = {
   parent: aiFoundry_resource
   name: 'Microsoft.DefaultV2'
@@ -227,6 +228,7 @@ resource aiFoundry_Microsoft_DefaultV2 'Microsoft.CognitiveServices/accounts/rai
     ]
   }
 }
+*/
 
 resource modelDeployment 'Microsoft.CognitiveServices/accounts/deployments@2024-04-01-preview' = {
   parent: aiFoundry_resource  
