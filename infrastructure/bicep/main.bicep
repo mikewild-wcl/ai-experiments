@@ -93,16 +93,18 @@ resource sqlDB 'Microsoft.Sql/servers/databases@2024-05-01-preview' = if (deploy
   kind: 'v12.0,user,vcore,serverless,freelimit'
   properties: {
     collation: 'SQL_Latin1_General_CP1_CI_AS'
+    catalogCollation: 'SQL_Latin1_General_CP1_CI_AS'
     readScale: 'Disabled'
     autoPauseDelay: 60
     availabilityZone: 'NoPreference'
     zoneRedundant: false
+    maxSizeBytes: 34359738368
+    requestedBackupStorageRedundancy: 'Local'
+    minCapacity: json('0.5')
+    isLedgerOn: false
+    useFreeLimit: true
     freeLimitExhaustionBehavior: 'AutoPause'
   }
-
-  //#The resource write operation failed to complete successfully, because it reached terminal provisioning state 'Failed'.",
-  //#"details":[{"code":"SubscriptionVcoreQuotaExceeded","message":"
-  //#Could not perform the operation because subscription would exceed the allowed vCore quota of 10
 }
 
 resource sqlServer_2026_ClientIPAddress_DefaultAdminIP 'Microsoft.Sql/servers/firewallRules@2024-05-01-preview' = if (deploySqlServer && sqlServerAdminIPAddress != '') {
