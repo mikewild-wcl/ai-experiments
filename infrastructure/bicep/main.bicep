@@ -70,7 +70,7 @@ resource database 'Microsoft.DocumentDB/databaseAccounts/sqlDatabases@2024-12-01
 resource sqlServer 'Microsoft.Sql/servers@2024-05-01-preview' = if (deploySqlServer) {
   name: sqlServerName
   location: location
-  kind: 'v12.0'
+  //kind: 'v12.0'
   properties: {
      administratorLogin: sqlAdministratorLogin
      administratorLoginPassword: sqlAdministratorPassword
@@ -90,7 +90,7 @@ resource sqlDB 'Microsoft.Sql/servers/databases@2024-05-01-preview' = if (deploy
     family: 'Gen5'
     capacity: 2
   }
-  kind: 'v12.0,user,vcore,serverless,freelimit'
+  //kind: 'v12.0,user,vcore,serverless,freelimit'
   properties: {
     collation: 'SQL_Latin1_General_CP1_CI_AS'
     catalogCollation: 'SQL_Latin1_General_CP1_CI_AS'

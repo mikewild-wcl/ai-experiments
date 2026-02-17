@@ -80,7 +80,8 @@ stages:
                   echo 'deploySqlServer: $(deploySqlServer)'
                   echo 'sqlDatabaseName: $(sqlDatabaseName)'
                   echo 'sqlServerName: $(sqlServerName)'
-                  echo 'sqlAdministratorLogin: $(sqlAdministratorLogin)'                 
+                  echo 'sqlAdministratorLogin: $(sqlAdministratorLogin)'
+                  echo 'sqlAdministratorPassword: $(sqlAdministratorPassword)'
 
             # - task: PowerShell@2
             #   displayName: List all Folders in $(System.DefaultWorkingDirectory)
