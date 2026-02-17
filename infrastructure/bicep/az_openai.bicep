@@ -20,8 +20,8 @@ param embeddingModelName string = 'text-embedding-3-small'
 @description('Model deployment SKU name')
 param skuName string = 'GlobalStandard'
 
-@description('Content filter policy name')
-param contentFilterPolicyName string = 'Microsoft_DefaultV2'
+// @description('Content filter policy name')
+// param contentFilterPolicyName string = 'Microsoft_DefaultV2'
 
 @description('Model deployment capacity')
 param capacity int = 1
@@ -243,7 +243,7 @@ resource modelDeployment 'Microsoft.CognitiveServices/accounts/deployments@2024-
       name: modelName
       //version: modelVersion
     }
-    raiPolicyName: contentFilterPolicyName == null ? 'Microsoft.Nill' : contentFilterPolicyName
+    //raiPolicyName: contentFilterPolicyName == null ? 'Microsoft.Nill' : contentFilterPolicyName
   }
 }
 
@@ -259,6 +259,6 @@ resource embeddingModelDeployment 'Microsoft.CognitiveServices/accounts/deployme
       format: modelPublisherFormat
       name: embeddingModelName
     }
-    raiPolicyName: contentFilterPolicyName == null ? 'Microsoft.Nill' : contentFilterPolicyName
+    //raiPolicyName: contentFilterPolicyName == null ? 'Microsoft.Nill' : contentFilterPolicyName
   }
 }
