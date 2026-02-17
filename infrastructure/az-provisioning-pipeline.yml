@@ -109,7 +109,7 @@ stages:
                     --resource-group  $(resourceGroupName) \
                     --template-file $(bicepFile) \
                     --parameters sqlAdministratorLogin=$(sqlAdministratorLogin) \
-                    --parameters sqlAdministratorPassword=$(sqlAdministratorPassword) \
+                    --parameters sqlAdministratorPassword="$(sqlAdministratorPassword)" \
                     --parameters deploySqlServer=$(deploySqlServer)
 
             - task: AzureCLI@2
