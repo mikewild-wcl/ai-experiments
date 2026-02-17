@@ -66,7 +66,7 @@ resource aiFoundry_ai_experiments 'Microsoft.CognitiveServices/accounts/projects
   parent: aiFoundry_resource
   name: aiFoundryProjectName
   location: location
-  kind: 'AIServices'
+  //kind: 'AIServices'
   identity: {
     type: 'SystemAssigned'
   }
