@@ -64,7 +64,7 @@ resource database 'Microsoft.DocumentDB/databaseAccounts/sqlDatabases@2024-12-01
 }
 
 /* Deploy SQL Server and Database if deploySqlServer is true */
-resource sqlServer 'Microsoft.Sql/servers@2024-05-01-preview' = {
+resource sqlServer 'Microsoft.Sql/servers@2024-05-01-preview' = if (deploySqlServer) {
   name: sqlServerName
   location: location
   kind: 'v12.0'
@@ -77,7 +77,7 @@ resource sqlServer 'Microsoft.Sql/servers@2024-05-01-preview' = {
      version: '12.0'
    }
 }
-resource sqlDB 'Microsoft.Sql/servers/databases@2024-05-01-preview' = {
+resource sqlDB 'Microsoft.Sql/servers/databases@2024-05-01-preview' = if (deploySqlServer) {
   parent: sqlServer
   name: sqlDatabaseName
   location: location

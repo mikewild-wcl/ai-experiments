@@ -72,6 +72,7 @@ stages:
             - task: AzureCLI@2
               displayName: 'Show variables'
               inputs:
+                azureSubscription: '${{ parameters.azureServiceConnection }}'
                 scriptType: bash
                 scriptLocation: inlineScript
                 useGlobalConfig: false
