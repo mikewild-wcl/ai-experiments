@@ -112,10 +112,12 @@ stages:
                     --template-file $(bicepFile) \
                     --parameters deploySqlServer=$(deploySqlServer) \
                     --parameters sqlAdministratorLogin=$(sqlAdministratorLogin) \
-                    --parameters sqlAdministratorPassword='$(sqlAdministratorPassword)' \
+                    --parameters sqlAdministratorPassword="$SQL_ADMIN_PW" \
                     --parameters sqlServerName=$(sqlServerName) \
                     --parameters sqlDatabaseName=$(sqlDatabaseName) \
-                    --parameters sqlServerAdminIPAddress=$(sqlServerAdminIPAddress)
+                    --parameters sqlServerAdminIPAddress=$(sqlServerAdminIPAddress)                    
+              env:
+                SQL_ADMIN_PW: $(sqlAdministratorPassword) # Use environment variable to pass password, to avoid issues with special characters
 
             - task: AzureCLI@2
               displayName: 'Create AI resource group $(airesourceGroupName)'
