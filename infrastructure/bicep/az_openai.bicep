@@ -73,27 +73,27 @@ resource aiFoundry_resource 'Microsoft.CognitiveServices/accounts@2025-06-01' = 
     ]
     publicNetworkAccess: 'Enabled'
   }
-}
 
-resource aiFoundry_Default 'Microsoft.CognitiveServices/accounts/defenderForAISettings@2025-06-01' = {
-  parent: aiFoundry_resource
-  name: 'Default'
-  properties: {
-    state: 'Disabled'
+  resource aiFoundry_Default 'defenderForAISettings@2025-06-01' = {
+    //parent: aiFoundry_resource
+    name: 'Default'
+    properties: {
+      state: 'Disabled'
+    }
   }
-}
 
-resource aiFoundry_ai_experiments 'Microsoft.CognitiveServices/accounts/projects@2025-06-01' = {
-  parent: aiFoundry_resource
-  name: aiFoundryProjectName
-  location: location
-  //kind: 'AIServices'
-  identity: {
-    type: 'SystemAssigned'
-  }
-  properties: {
-    description: 'Default project created with the resource'
-    displayName: aiFoundryProjectName
+  resource aiFoundry_ai_experiments 'projects@2025-06-01' = {
+    //parent: aiFoundry_resource
+    name: aiFoundryProjectName
+    location: location
+    //kind: 'AIServices'
+    identity: {
+      type: 'SystemAssigned'
+    }
+    properties: {
+      description: 'Default project created with the resource'
+      displayName: aiFoundryProjectName
+    }
   }
 }
 
@@ -285,7 +285,7 @@ resource aiFoundry_Microsoft_DefaultV2 'Microsoft.CognitiveServices/accounts/rai
 // }
 
 @batchSize(1)
-resource modelDeployments 'Microsoft.CognitiveServices/accounts/deployments@2024-04-01-preview' = [for model in items(models): {
+resource modelDeployments 'Microsoft.CognitiveServices/accounts/deployments@2025-10-01-preview' = [for model in items(models): {
   parent: aiFoundry_resource
   //name: '${model.value.name}${uniqueString(resourceGroup().id)}'
   name: model.value.name
