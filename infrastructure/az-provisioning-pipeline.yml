@@ -110,9 +110,9 @@ stages:
                   az deployment group create \
                     --resource-group  $(resourceGroupName) \
                     --template-file $(bicepFile) \
+                    --parameters deploySqlServer=$(deploySqlServer) \
                     --parameters sqlAdministratorLogin=$(sqlAdministratorLogin) \
                     --parameters sqlAdministratorPassword='$(sqlAdministratorPassword)' \
-                    --parameters deploySqlServer=$(deploySqlServer) \
                     --parameters sqlServerName=$(sqlServerName) \
                     --parameters sqlDatabaseName=$(sqlDatabaseName) \
                     --parameters sqlServerAdminIPAddress=$(sqlServerAdminIPAddress)

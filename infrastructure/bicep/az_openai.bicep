@@ -8,23 +8,44 @@ param aiFoundryName string = 'ai-mw-useast-foundry-2026' //'aifoundry${uniqueStr
 @description('The name if the default AI Foundry project')
 param aiFoundryProjectName string = 'ai-experiments'
 
-@description('Model provider')
-param modelPublisherFormat string = 'OpenAI'
+// @description('Model provider')
+// param modelPublisherFormat string = 'OpenAI'
 
-param modelName string = 'gpt-4o-mini'
-param embeddingModelName string = 'text-embedding-3-small'
+// param modelName string = 'gpt-4o-mini'
+// param embeddingModelName string = 'text-embedding-3-small'
+
+// param modelNames array = [
+//   'gpt-4o-mini'
+//   'text-embedding-3-small'
+// ]
+
+// @description('Models')
+param models object = {
+  gpt4omini: {
+    name: 'gpt-4o-mini'
+    publisherFormat: 'OpenAI'
+    skuName: 'GlobalStandard'
+    capacity: 1
+  }
+  embedding: {
+    name: 'text-embedding-3-small'
+    publisherFormat: 'OpenAI'
+    skuName: 'GlobalStandard'
+    capacity: 1
+  }
+}
 
 // @description('Version of the model to deploy')
 //param modelVersion string = '2025-08-07'
 
-@description('Model deployment SKU name')
-param skuName string = 'GlobalStandard'
+// @description('Model deployment SKU name')
+// param skuName string = 'GlobalStandard'
 
 // @description('Content filter policy name')
 // param contentFilterPolicyName string = 'Microsoft_DefaultV2'
 
-@description('Model deployment capacity')
-param capacity int = 1
+// @description('Model deployment capacity')
+// param capacity int = 1
 
 /* Deploy AI Foundry and models */
 resource aiFoundry_resource 'Microsoft.CognitiveServices/accounts@2025-06-01' = {
@@ -230,35 +251,53 @@ resource aiFoundry_Microsoft_DefaultV2 'Microsoft.CognitiveServices/accounts/rai
 }
 */
 
-resource modelDeployment 'Microsoft.CognitiveServices/accounts/deployments@2024-04-01-preview' = {
-  parent: aiFoundry_resource  
-  name: modelName
+// resource modelDeployment 'Microsoft.CognitiveServices/accounts/deployments@2024-04-01-preview' = {
+//   parent: aiFoundry_resource  
+//   name: modelName
+//   sku: {
+//     name: skuName
+//     capacity: capacity
+//   }
+//   properties: {
+//     model: {
+//       format: modelPublisherFormat
+//       name: modelName
+//       //version: modelVersion
+//     }
+//     //raiPolicyName: contentFilterPolicyName == null ? 'Microsoft.Nill' : contentFilterPolicyName
+//   }
+// }
+
+// resource embeddingModelDeployment 'Microsoft.CognitiveServices/accounts/deployments@2024-04-01-preview' = {
+//   parent: aiFoundry_resource
+//   name: embeddingModelName
+//   sku: {
+//     name: skuName
+//     capacity: capacity
+//   }
+//   properties: {
+//     model: {
+//       format: modelPublisherFormat
+//       name: embeddingModelName
+//     }
+//     //raiPolicyName: contentFilterPolicyName == null ? 'Microsoft.Nill' : contentFilterPolicyName
+//   }
+// }
+
+@batchSize(1)
+resource modelDeployments 'Microsoft.CognitiveServices/accounts/deployments@2024-04-01-preview' = [for model in items(models): {
+  parent: aiFoundry_resource
+  //name: '${model.value.name}${uniqueString(resourceGroup().id)}'
+  name: model.value.name
   sku: {
-    name: skuName
-    capacity: capacity
+    name: model.value.skuName
+    capacity: model.value.capacity
   }
   properties: {
     model: {
-      format: modelPublisherFormat
-      name: modelName
+      format: model.value.PublisherFormat
+      name: model.value.name
       //version: modelVersion
     }
-    //raiPolicyName: contentFilterPolicyName == null ? 'Microsoft.Nill' : contentFilterPolicyName
   }
-}
-
-resource embeddingModelDeployment 'Microsoft.CognitiveServices/accounts/deployments@2024-04-01-preview' = {
-  parent: aiFoundry_resource
-  name: embeddingModelName
-  sku: {
-    name: skuName
-    capacity: capacity
-  }
-  properties: {
-    model: {
-      format: modelPublisherFormat
-      name: embeddingModelName
-    }
-    //raiPolicyName: contentFilterPolicyName == null ? 'Microsoft.Nill' : contentFilterPolicyName
-  }
-}
+}]
