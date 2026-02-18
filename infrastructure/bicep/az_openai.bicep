@@ -2,7 +2,7 @@
 param location string = resourceGroup().location
 
 @description('The name for the AI Foundry resource')
-param aiFoundryName string = 'ai-mw-useast-foundry-2026' //'aifoundry${uniqueString(resourceGroup().id)}'
+param aiFoundryName string = 'ai-mw-useast-foundry-2026-2' //'aifoundry${uniqueString(resourceGroup().id)}'
 
 // AI Foundry parameters
 @description('The name if the default AI Foundry project')
@@ -73,27 +73,27 @@ resource aiFoundry_resource 'Microsoft.CognitiveServices/accounts@2025-06-01' = 
     ]
     publicNetworkAccess: 'Enabled'
   }
+}
 
-  resource aiFoundry_Default 'defenderForAISettings@2025-06-01' = {
-    //parent: aiFoundry_resource
-    name: 'Default'
-    properties: {
-      state: 'Disabled'
-    }
+resource aiFoundry_Default 'Microsoft.CognitiveServices/accounts/defenderForAISettings@2025-06-01' = {
+  parent: aiFoundry_resource
+  name: 'Default'
+  properties: {
+    state: 'Disabled'
   }
+}
 
-  resource aiFoundry_ai_experiments 'projects@2025-06-01' = {
-    //parent: aiFoundry_resource
-    name: aiFoundryProjectName
-    location: location
-    //kind: 'AIServices'
-    identity: {
-      type: 'SystemAssigned'
-    }
-    properties: {
-      description: 'Default project created with the resource'
-      displayName: aiFoundryProjectName
-    }
+resource aiFoundry_ai_experiments 'Microsoft.CognitiveServices/accounts/projects@2025-06-01' = {
+  parent: aiFoundry_resource
+  name: aiFoundryProjectName
+  location: location
+  //kind: 'AIServices'
+  identity: {
+    type: 'SystemAssigned'
+  }
+  properties: {
+    description: 'Default project created with the resource'
+    displayName: aiFoundryProjectName
   }
 }
 
@@ -287,6 +287,10 @@ resource aiFoundry_Microsoft_DefaultV2 'Microsoft.CognitiveServices/accounts/rai
 @batchSize(1)
 resource modelDeployments 'Microsoft.CognitiveServices/accounts/deployments@2025-10-01-preview' = [for model in items(models): {
   parent: aiFoundry_resource
+  dependsOn: [
+    aiFoundry_Default
+    aiFoundry_ai_experiments
+  ]
   //name: '${model.value.name}${uniqueString(resourceGroup().id)}'
   name: model.value.name
   sku: {
