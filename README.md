@@ -144,6 +144,13 @@ Uses Azure OpenAI -
 	- to create models, you need to assign the Cognitive Services Usages Reader role to your user account or service principal.
 	  See https://learn.microsoft.com/en-us/azure/ai-services/openai/how-to/quota?tabs=rest#prerequisites
 		- under Subscriptions > Access control (IAM) > Add role assignment > search for Cognitive Services Usages Reader and assign your user
+   - Semantic Kernel SQL Connector -         https://learn.microsoft.com/en-us/semantic-kernel/concepts/vector-store-connectors/out-of-the-box-connectors/sql-connector?pivots=programming-language-csharp
+
+To load one or more files at startup, set the command line argumants in `launchSettings.json` to a file path, as shown below.
+Note the use of `.private` - this floder is in .gitignore so it is safe to place files there.
+```
+"commandLineArgs": "file:\"..\\..\\..\\..\\.private\\my_cv.docx\"",
+```
 
 ### semantic-kernel-console
 

@@ -2,7 +2,7 @@
   "profiles": {
     "semantic-kernel-azure-sql-vectors": {
       "commandName": "Project",
-      "commandLineArgs": "file:\"C:\\dev_mike\\ai-experiments\\test-data\\wwwroot\\Data\\my cv.docx\"",
+      "commandLineArgs": "file:\"..\\..\\..\\..\\.private\\my_cv.docx\"",
       "environmentVariables": {
         "DOTNET_ENVIRONMENT": "Development"
       }

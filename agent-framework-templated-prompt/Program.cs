@@ -1,11 +1,16 @@
-﻿using Azure.AI.OpenAI;
+﻿using Azure;
+using Azure.AI.OpenAI;
 using Microsoft.Agents.AI;
 using Microsoft.Extensions.AI;
 using Microsoft.Extensions.Configuration;
 //using Microsoft.SemanticKernel.PromptTemplates.Handlebars;
 using OpenAI;
+using OpenAI.Chat;
 using System.ClientModel;
 using System.ClientModel.Primitives;
+using System.Net;
+using System.Reflection;
+using System.Security.Cryptography;
 using System.Web;
 using Utilities;
 

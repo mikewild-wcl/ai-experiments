@@ -11,6 +11,7 @@ using semantic_kernel_azure_sql_vectors.Models;
 using semantic_kernel_azure_sql_vectors.Services;
 using semantic_kernel_azure_sql_vectors.Services.Interfaces;
 using System.ClientModel;
+using System.Reflection;
 using System.Text;
 
 const string FilePrefix = "file:";
@@ -20,6 +21,7 @@ var environmentName = Environment.GetEnvironmentVariable("DOTNET_ENVIRONMENT");
 var configuration = new ConfigurationBuilder()
     .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
     .AddJsonFile($"appsettings.{environmentName}.json", optional: true)
+    .AddUserSecrets<Program>()
     .AddEnvironmentVariables()
     .Build();
 
@@ -97,6 +99,8 @@ foreach (var arg in args)
 {
     if (arg.StartsWith(FilePrefix))
     {
+        var e = System.Environment.CurrentDirectory;
+
         var filePath = arg.Substring(FilePrefix.Length)
             ?.Replace("\"", ""); // Normalize - remove quotes
 
