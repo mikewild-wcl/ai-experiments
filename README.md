@@ -101,6 +101,10 @@ A console app for loading documents and splitting into chunks.
 This project will take a document path and try to split them, handling
 pdf, Word docx, and web pages.
 
+### foundry-vector-embedding
+
+A simple console app that uses an embedding model in Azure Foundry, to prove connectivity.
+
 ### mcp-simple-server
 
 A simple server that implements the MCP protocol, using modelcontextprotocol/csharp-sdk.
