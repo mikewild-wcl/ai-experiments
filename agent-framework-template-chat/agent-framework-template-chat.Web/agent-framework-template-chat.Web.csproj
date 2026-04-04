@@ -9,8 +9,8 @@
 
   <ItemGroup>
     <!-- Keep existing packages -->
-    <PackageReference Include="Aspire.Azure.AI.OpenAI" Version="13.1.3-preview.1.26166.8" />
-    <PackageReference Include="Microsoft.Extensions.AI.OpenAI" Version="10.4.1" />
+    <PackageReference Include="Aspire.Azure.AI.OpenAI" Version="13.2.0-preview.1.26170.3" />
+    <PackageReference Include="Microsoft.Extensions.AI.OpenAI" Version="10.3.0" />
     <PackageReference Include="Microsoft.Extensions.AI" Version="10.4.1" />
     <PackageReference Include="Microsoft.SemanticKernel.Core" Version="1.74.0" />
 
@@ -22,7 +22,7 @@
     <PackageReference Include="Microsoft.Agents.AI.OpenAI" Version="1.0.0-rc4" />
 
     <!-- Keep other existing packages -->
-    <PackageReference Include="PdfPig" Version="0.1.14-alpha-20260315-fb715" />
+    <PackageReference Include="PdfPig" Version="0.1.15-alpha-20260325-ba490" />
     <PackageReference Include="Microsoft.SemanticKernel.Connectors.SqliteVec" Version="1.74.0-preview" />
   </ItemGroup>
 
