@@ -16,7 +16,7 @@
     <PackageReference Include="Microsoft.Extensions.Logging" Version="10.0.5" />
     <PackageReference Include="Microsoft.Extensions.Logging.Console" Version="10.0.5" />
     <PackageReference Include="Microsoft.SemanticKernel.Core" Version="1.74.0" />
-    <PackageReference Include="PdfPig" Version="0.1.15-alpha-20260325-ba490" />
+    <PackageReference Include="PdfPig" Version="0.1.15-alpha-20260328-e5c04" />
   </ItemGroup>
 
 </Project>

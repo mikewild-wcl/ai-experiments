@@ -80,12 +80,15 @@ public class ChatService(
 
         _chatHistory.AddUserMessage(queryPromptBuilder.ToString());
 
+#pragma warning disable SKEXP0010 // Type is for evaluation purposes only and is subject to change or removal in future updates. Suppress this diagnostic to proceed.
         var promptExecutionSettings = new AzureOpenAIPromptExecutionSettings
         {
             MaxTokens = 1000,
+            SetNewMaxCompletionTokensEnabled = true,
             Temperature = 0.9f,
             TopP = 0.9f
         };
+#pragma warning restore SKEXP0010 // Type is for evaluation purposes only and is subject to change or removal in future updates. Suppress this diagnostic to proceed.
 
         var responses = new StringBuilder();
         await foreach (var item in chatCompletionService.GetStreamingChatMessageContentsAsync(_chatHistory, promptExecutionSettings, cancellationToken: cancellationSource.Token))
