@@ -64,6 +64,12 @@ Both provider types need the ApiKey and Model.
 }
 ```
 
+### agent-framework-skills
+
+A simple console that uses skills to build a recipe.
+
+**NOTE** This is based on the `agent-framework-templated-prompt` templated prompt sample below, converted to skills.
+
 ### agent-framework-templated-prompt
 
 A recipe agent using a templated prompt, migrated from a Semantic Kernel sample.

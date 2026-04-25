@@ -15,6 +15,7 @@
   <Folder Name="/Solution Items/deployment/bicep/" />
   <Project Path="agent-framework-bedrock-console/agent-framework-bedrock-console.csproj" Id="1b62243e-5714-44da-b296-cac4e7b334cb" />
   <Project Path="agent-framework-console/agent-framework-console.csproj" Id="04b23749-78b7-461a-a5f4-f417d834e466" />
+  <Project Path="agent-framework-skills/agent-framework-skills.csproj" Id="d03df78e-7571-400b-9ff2-8d846b607dac" />
   <Project Path="agent-framework-templated-prompt/agent-framework-templated-prompt.csproj" />
   <Project Path="document_loader/document_loader.csproj" />
   <Project Path="foundry-vector-embedding/foundry-vector-embedding.csproj" Id="1cb8835b-8581-490b-ac1b-eedc4d104d90" />
