@@ -1,4 +1,4 @@
-# Experiments and tutorials
+﻿# Experiments and tutorials
 
 ## Environment variables
 
@@ -63,6 +63,19 @@ Both provider types need the ApiKey and Model.
   }
 }
 ```
+
+### agent-framework-google-maps
+
+A console app that calls Gemini to get Google maps information.
+
+Inspired by [How to prompt Google Maps data in Gemini [AI in C#]](https://youtu.be/EkRkCF3898g?si=wCeBMIt0NExNm8cc)
+and the associated [blog post](https://elbruno.com/2025/07/21/%F0%9F%A4%96-using-c-to-call-hugging-face-mcp-server-and-generate-ai-images/).
+
+### agent-framework-huggingface-mcp
+
+A console app that uses the HuggingFace MCP.
+
+Inspired by [Build AI Agents in C# — Connect to Hugging Face with Microsoft Agent Framework 🤖](https://youtu.be/7pYvsDKyjGk?si=CSPOrL8KJUcyR41t).
 
 ### agent-framework-skills
 
@@ -211,7 +224,7 @@ An Application Insights resource is needed in Azure; the connection string shoul
 to appsettings/secrets 'ConnectionStrings` as `AzureMonitoringConnectionString`.
 
 Other links on Open Telemetry:
-- [Semantic Kernel�OpenTelemetry integration in C#](https://bartwullems.blogspot.com/2024/06/semantic-kernelopentelemetry.html)
+- [Semantic Kernel–OpenTelemetry integration in C#](https://bartwullems.blogspot.com/2024/06/semantic-kernelopentelemetry.html)
 - [Semantic Kernel Telemetry](https://github.com/microsoft/semantic-kernel/blob/main/dotnet/docs/TELEMETRY.md)
 
 ### semantic-kernel-template-chat

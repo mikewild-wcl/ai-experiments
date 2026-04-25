@@ -15,6 +15,8 @@
   <Folder Name="/Solution Items/deployment/bicep/" />
   <Project Path="agent-framework-bedrock-console/agent-framework-bedrock-console.csproj" Id="1b62243e-5714-44da-b296-cac4e7b334cb" />
   <Project Path="agent-framework-console/agent-framework-console.csproj" Id="04b23749-78b7-461a-a5f4-f417d834e466" />
+  <Project Path="agent-framework-google-maps/agent-framework-google-maps.csproj" Id="7cff0725-4929-4773-944d-c4f250c97ea2" />
+  <Project Path="agent-framework-huggingface-mcp/agent-framework-huggingface-mcp.csproj" Id="3207e79b-6f7e-4e1c-8693-9def4777e4fc" />
   <Project Path="agent-framework-skills/agent-framework-skills.csproj" Id="d03df78e-7571-400b-9ff2-8d846b607dac" />
   <Project Path="agent-framework-templated-prompt/agent-framework-templated-prompt.csproj" />
   <Project Path="document_loader/document_loader.csproj" />
