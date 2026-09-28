@@ -1,5 +1,6 @@
+---
 name: recipe-writer
-description: Create a recipe using the ingredients the user already has, with an optional requested dish or cuisine. Example: "Help me cook something nice with {{ ingredients }}" or "Give me a recipe for {{ dish }} using {{ ingredients }}."
+description: Create a recipe using the ingredients the user already has, with an optional requested dish or cuisine. Example: "Help me cook something nice with <ingredients>" or "Give me a recipe for <dish> using <ingredients>."
 license: Apache-2.0
 compatibility: Requires python3
 metadata:
@@ -13,15 +14,14 @@ Generate a practical recipe based on the user's available ingredients.
 
 ## Inputs
 
-- Available ingredients: `{{ ingredients }}`
-- Optional requested dish: `{{ dish }}`
+The user will give you a list of ingredients they have on hand, and optionally, a specific dish they would like to make. Your task is to create a recipe that utilizes those ingredients effectively.
 
 ## Instructions
 
 When this skill is invoked:
 
-1. Use the ingredients in `{{ ingredients }}` as the primary source for the recipe.
-2. If `{{ dish }}` is provided, try to match that dish as closely as possible.
+1. Use the ingredients that the user gave you as the primary source for the recipe.
+2. If a specific dish is requested, try to match that dish as closely as possible.
 3. Prefer simple, realistic recipes that can be cooked at home.
 4. Avoid adding many extra ingredients the user did not mention.
 5. If a small number of common pantry items are needed, list them separately as optional extras.
@@ -56,4 +56,4 @@ Return the result in this structure:
 
 - Keep the tone helpful and concise.
 - Prioritize clear cooking steps.
-- Make the recipe easy to follow 
+- Make the recipe easy to follow

@@ -4,13 +4,15 @@
 
 Tokens have been saved to environment variables:
 
-- Gemini `GEMINI_API_KEY`
+- Gemini (Free) `GEMINI_API_KEY`
+- Gemini (Paid) `GEMINI_PAID_API_KEY`
 - GitHub Models `GITHUB_MODELS_TOKEN`
 
 To set the environment variables, use the following commands
 
 ```
 setx GEMINI_API_KEY <key>
+setx GEMINI_PAID_API_KEY <key>
 setx GITHUB_MODELS_TOKEN <key>
 ```
 
@@ -123,6 +125,14 @@ pdf, Word docx, and web pages.
 ### foundry-vector-embedding
 
 A simple console app that uses an embedding model in Azure Foundry, to prove connectivity.
+
+### mcp-based-agent-skills
+
+MCP-based agent skills.
+
+Based on sample code from the article [Discover Agent Skills from MCP servers in .NET | Microsoft Agent Framework](https://devblogs.microsoft.com/agent-framework/discover-agent-skills-from-mcp-servers-in-net/) - original source  [Agent_Step06_McpBasedSkills at main · microsoft/agent-framework](https://github.com/microsoft/agent-framework/tree/main/dotnet/samples/02-agents/AgentSkills/Agent_Step06_McpBasedSkills).
+
+This project has it's own README.md file with instructions for setting up the Azure OpenAI resource and configuring the project.
 
 ### mcp-simple-server
 
@@ -342,4 +352,60 @@ A number of changes were made in Semantic Kernel and needed to be fixed See:
  - [Vector Store changes - April 2025](https://learn.microsoft.com/en-us/semantic-kernel/support/migration/vectorstore-april-2025?pivots=programming-language-csharp)
  - [Vector Store changes - May 2025](https://learn.microsoft.com/en-us/semantic-kernel/support/migration/vectorstore-may-2025?pivots=programming-language-csharp)
  
+## Azure.AI.OpenAI to OpenAI SDK migration
+
+The Azure.AI.OpenAI SDK is being retired in favor of the OpenAI SDK. See the [migration guide](https://github.com/Azure/azure-sdk-for-net/blob/main/sdk/openai/Azure.AI.OpenAI/migration-guidance.md) for details.
+
+1. Remove the Azure.AI.OpenAI package reference and add OpenAI directly. Version as at 25/09/2026 was 2.14.0.
+```
+<ItemGroup>
+  <PackageReference Include="OpenAI" Version="<OpenAI SDK version>" />
+</ItemGroup>
+```
+
+If you use Microsoft Entra ID authentication, make sure you have:
+```
+<ItemGroup>
+  <PackageReference Include="Azure.Identity" Version="<Azure.Identity version>" />
+</ItemGroup>
+```
+
+2. Update the client creation code. For example, from:
+```
+AzureOpenAIClient azureClient = new(new Uri(endpoint), new ApiKeyCredential(apiKey));
+ChatClient chatClient = azureClient.GetChatClient(deployment);
+```
+
+to
+```
+OpenAIClientOptions options = new()
+{
+ Endpoint = new Uri(endpoint)
+};
+
+ChatClient chatClient = new(
+ model: deployment,
+ credential: new ApiKeyCredential(apiKey),
+ options: options);
+```
+
+or for Azure credentialed clients:
+```
+pragma warning disable OPENAI001
+BearerTokenPolicy tokenPolicy = new(
+ new DefaultAzureCredential(),
+ "https://ai.azure.com/.default");
+#pragma warning restore OPENAI001
+
+OpenAIClientOptions options = new()
+{
+ Endpoint = new Uri(endpoint)
+};
+
+ChatClient chatClient = new(
+ model: deployment,
+ authenticationPolicy: tokenPolicy,
+ options: options);
+```
+
 

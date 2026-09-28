@@ -22,6 +22,7 @@
   <Project Path="document_loader/document_loader.csproj" />
   <Project Path="foundry-vector-embedding/foundry-vector-embedding.csproj" Id="1cb8835b-8581-490b-ac1b-eedc4d104d90" />
   <Project Path="github-models-azure-ai/github-models-azure-ai.csproj" />
+  <Project Path="mcp-based-agent-skills/mcp-based-agent-skills.csproj" Id="222fac1e-3c19-4a37-a0e2-5cd3f07c9690" />
   <Project Path="mcp-simple-client/mcp-simple-client.csproj" />
   <Project Path="mcp-simple-server/mcp-simple-server.csproj" />
   <Project Path="ml-net-logistic-regression-bank-churn/ml-net-logistic-regression-bank-churn.csproj" />

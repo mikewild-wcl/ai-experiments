@@ -1,0 +1,25 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net10.0</TargetFramework>
+    <RootNamespace>mcp_based_agent_skills</RootNamespace>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <NoWarn>$(NoWarn);MCPEXP001</NoWarn>
+    <NoWarn>$(NoWarn);OPENAI001</NoWarn>
+    <UserSecretsId>6d8a46ea-42eb-48a9-8b15-1fa6dcde6dfb</UserSecretsId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Azure.AI.OpenAI" Version="2.1.0" />
+    <PackageReference Include="Azure.Identity" Version="1.21.0" />
+    <PackageReference Include="Microsoft.Agents.AI.Foundry" Version="1.5.0" />
+    <PackageReference Include="Microsoft.Agents.AI.Mcp" Version="1.17.0-alpha.260804.1" />
+    <PackageReference Include="Microsoft.Agents.AI.OpenAI" Version="1.17.0" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.UserSecrets" Version="10.0.12" />
+    <PackageReference Include="Microsoft.Extensions.Hosting" Version="10.0.12" />
+    <PackageReference Include="ModelContextProtocol" Version="2.2.0" />
+  </ItemGroup>
+  
+</Project>
